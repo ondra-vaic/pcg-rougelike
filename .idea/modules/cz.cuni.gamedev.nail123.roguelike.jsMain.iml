@@ -8,10 +8,10 @@
           <sourceSet>cz.cuni.gamedev.nail123.roguelike.commonMain</sourceSet>
         </sourceSets>
         <newMppModelJpsModuleKind>COMPILATION_AND_SOURCE_SET_HOLDER</newMppModelJpsModuleKind>
-        <productionOutputPath>$MODULE_DIR$/../../build/classes/kotlin/js/main/roguelike.js</productionOutputPath>
+        <productionOutputPath>$MODULE_DIR$/../../build/js/packages/roguelike/kotlin/roguelike.js</productionOutputPath>
         <compilerSettings />
         <compilerArguments>
-          <option name="outputFile" value="$MODULE_DIR$/../../build/classes/kotlin/js/main/roguelike.js" />
+          <option name="outputFile" value="$MODULE_DIR$/../../build/js/packages/roguelike/kotlin/roguelike.js" />
           <option name="noStdlib" value="true" />
           <option name="sourceMap" value="true" />
           <option name="metaInfo" value="true" />

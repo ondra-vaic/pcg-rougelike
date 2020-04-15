@@ -10,10 +10,13 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 kotlin {
-    jvm()
+    jvm {
+        withJava()
+    }
     js {
         browser()
     }
@@ -28,13 +31,15 @@ kotlin {
         jvm().compilations["main"].defaultSourceSet {
             dependencies {
                 implementation(kotlin("stdlib"))
+                implementation("org.hexworks.zircon:zircon.core-jvm:2020.0.2-PREVIEW")
+                implementation("org.hexworks.zircon:zircon.jvm.swing:2020.0.2-PREVIEW")
             }
         }
 
         js().compilations["main"].defaultSourceSet {
             dependencies {
                 implementation(kotlin("stdlib-js"))
-            }
+             }
         }
     }
 }
@@ -43,27 +48,9 @@ tasks {
     wrapper {
         distributionType = Wrapper.DistributionType.ALL
     }
-}
-
-// Final result in JVM form - runnable JAR
-tasks.register<ShadowJar>("shadowJar") {
-    group = "shadow"
-    destinationDirectory.set(file("out/jvm"))
-
-    manifest {
-        attributes["Manifest-Version"] = "1.0"
-        attributes["Main-Class"] = "MainKt"
+    getByName<Jar>("shadowJar") {
+        manifest {
+            attributes["Main-Class"] = "MainKt"
+        }
     }
-    archiveClassifier.set("all")
-    from(kotlin.jvm().compilations.getByName("main").output)
-    configurations = mutableListOf(kotlin.jvm().compilations.getByName("main").compileDependencyFiles as Configuration)
-}
-
-// Final result in JS form - working webpage
-tasks.register<Copy>("buildWeb") {
-    group = "build"
-    dependsOn("jsBrowserProductionWebpack")
-
-    from("build/distributions")
-    into("out/js")
 }

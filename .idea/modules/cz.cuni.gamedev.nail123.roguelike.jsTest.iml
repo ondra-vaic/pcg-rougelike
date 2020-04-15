@@ -10,10 +10,11 @@
           <sourceSet>cz.cuni.gamedev.nail123.roguelike.commonMain</sourceSet>
         </sourceSets>
         <newMppModelJpsModuleKind>COMPILATION_AND_SOURCE_SET_HOLDER</newMppModelJpsModuleKind>
-        <testOutputPath>$MODULE_DIR$/../../build/classes/kotlin/js/test/roguelike_test.js</testOutputPath>
+        <externalSystemTestTasks>jsBrowserTest|roguelike:jsTest|js</externalSystemTestTasks>
+        <testOutputPath>$MODULE_DIR$/../../build/js/packages/roguelike-test/kotlin/roguelike-test.js</testOutputPath>
         <compilerSettings />
         <compilerArguments>
-          <option name="outputFile" value="$MODULE_DIR$/../../build/classes/kotlin/js/test/roguelike_test.js" />
+          <option name="outputFile" value="$MODULE_DIR$/../../build/js/packages/roguelike-test/kotlin/roguelike-test.js" />
           <option name="noStdlib" value="true" />
           <option name="sourceMap" value="true" />
           <option name="metaInfo" value="true" />
