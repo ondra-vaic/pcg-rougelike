@@ -31,8 +31,8 @@ kotlin {
         jvm().compilations["main"].defaultSourceSet {
             dependencies {
                 implementation(kotlin("stdlib"))
-                implementation("org.hexworks.zircon:zircon.core-jvm:2020.0.2-PREVIEW")
-                implementation("org.hexworks.zircon:zircon.jvm.swing:2020.0.2-PREVIEW")
+                implementation("org.hexworks.zircon:zircon.core-jvm:2020.1.4-HOTFIX")
+                implementation("org.hexworks.zircon:zircon.jvm.swing:2020.1.4-HOTFIX")
             }
         }
 

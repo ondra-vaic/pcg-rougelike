@@ -19,4 +19,10 @@ object GameTileRepository {
             .withForegroundColor(GameColors.WALL_FOREGROUND)
             .withBackgroundColor(GameColors.WALL_BACKGROUND)
             .build()
+
+    val PLAYER: Tile = Tile.newBuilder()
+            .withCharacter('@')
+            .withForegroundColor(GameColors.ACCENT_COLOR)
+            .withBackgroundColor(GameColors.FLOOR_BACKGROUND)
+            .build()
 }
