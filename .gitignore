@@ -90,3 +90,7 @@ gradle-app.setting
 
 ### Gradle Patch ###
 **/build/
+
+### Custom
+# the iml files of IDEA are too much
+*.iml
