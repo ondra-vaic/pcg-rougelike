@@ -1,6 +1,6 @@
 package cz.cuni.gamedev.nail123.roguelike.world
 
-import cz.cuni.gamedev.nail123.roguelike.GameBlock
+import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
 import cz.cuni.gamedev.nail123.roguelike.extensions.allPositionsShuffled
 import org.hexworks.zircon.api.data.Position3D
@@ -31,7 +31,7 @@ interface IWorld {
         val emptyPosition = size.allPositionsShuffled()
                 .map { pos -> pos + offset }
                 .filter { pos ->
-                    this[pos]?.isFloor == true
+                    this[pos]?.isBlocking == false
                 }.firstOrNull()
 
         if (emptyPosition != null) addEntity(entity, emptyPosition)

@@ -1,6 +1,6 @@
 package cz.cuni.gamedev.nail123.roguelike.world
 
-import cz.cuni.gamedev.nail123.roguelike.GameBlock
+import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
 import cz.cuni.gamedev.nail123.roguelike.entities.Player
 import cz.cuni.gamedev.nail123.roguelike.extensions.asNullable

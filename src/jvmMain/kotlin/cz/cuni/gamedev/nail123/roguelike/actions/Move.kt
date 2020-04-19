@@ -9,7 +9,7 @@ import javax.swing.SwingUtilities
 class Move(val entity: GameEntity, val direction: Direction): GameAction() {
     override fun perform(world: World) {
         val targetLocation = entity.location + direction
-        if (world[targetLocation]?.isFloor == true) {
+        if (world[targetLocation]?.isBlocking == false) {
             world.removeEntity(entity)
             world.addEntity(entity, targetLocation)
         }

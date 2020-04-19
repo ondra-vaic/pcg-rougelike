@@ -1,8 +1,9 @@
 package cz.cuni.gamedev.nail123.roguelike.world
 
-import cz.cuni.gamedev.nail123.roguelike.GameBlock
+import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.GameConfig
-import cz.cuni.gamedev.nail123.roguelike.builders.GameBlockFactory
+import cz.cuni.gamedev.nail123.roguelike.blocks.Floor
+import cz.cuni.gamedev.nail123.roguelike.blocks.Wall
 import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
 import cz.cuni.gamedev.nail123.roguelike.entities.Player
 import cz.cuni.gamedev.nail123.roguelike.extensions.floorNeighbors
@@ -46,7 +47,7 @@ class WorldBuilder(val worldSize: Size3D): IWorld {
 
     protected fun randomizeTiles() = apply {
         allPositions.forEach { pos ->
-            blocks[pos] = if (Math.random() < 0.5) GameBlockFactory.floor() else GameBlockFactory.wall()
+            blocks[pos] = if (Math.random() < 0.5) Floor() else Wall()
         }
     }
 
@@ -56,10 +57,10 @@ class WorldBuilder(val worldSize: Size3D): IWorld {
         repeat(iterations) {
             allPositions.forEach { pos ->
                 val neighbors = pos.floorNeighbors()
-                val walls = neighbors.filter { blocks[it]?.isWall == true }.count()
+                val walls = neighbors.filter { blocks[it]?.javaClass == Wall::class.java }.count()
                 val floors = neighbors.count() - walls
 
-                newBlocks[pos] = if (floors >= walls) GameBlockFactory.floor() else GameBlockFactory.wall()
+                newBlocks[pos] = if (floors >= walls) Floor() else Wall()
             }
             blocks = newBlocks
         }

@@ -1,4 +1,4 @@
-package cz.cuni.gamedev.nail123.roguelike
+package cz.cuni.gamedev.nail123.roguelike.blocks
 
 import cz.cuni.gamedev.nail123.roguelike.builders.GameTileRepository
 import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
@@ -7,16 +7,12 @@ import org.hexworks.zircon.api.data.BlockTileType
 import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.data.base.BaseBlock
 
-open class GameBlock(var baseTile: Tile = GameTileRepository.FLOOR): BaseBlock<Tile>(
+open class GameBlock(var baseTile: Tile): BaseBlock<Tile>(
         emptyTile = GameTileRepository.FLOOR,
         // Not caring about sides, we'll use top-down projection
         tiles = persistentMapOf(BlockTileType.TOP to baseTile)) {
 
-    val isFloor: Boolean
-        get() = baseTile == GameTileRepository.FLOOR
-
-    val isWall: Boolean
-        get() = baseTile == GameTileRepository.WALL
+    open val isBlocking = false
 
     private val currentEntities = mutableListOf<GameEntity>()
 

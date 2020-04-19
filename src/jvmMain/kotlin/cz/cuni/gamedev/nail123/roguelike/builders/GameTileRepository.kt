@@ -25,4 +25,16 @@ object GameTileRepository {
             .withForegroundColor(GameColors.ACCENT_COLOR)
             .withBackgroundColor(GameColors.FLOOR_BACKGROUND)
             .build()
+
+    val CLOSED_DOOR: Tile = Tile.newBuilder()
+            .withCharacter('D')
+            .withForegroundColor(GameColors.DOOR_FOREGROUND)
+            .withBackgroundColor(GameColors.WALL_BACKGROUND)
+            .build()
+
+    val OPEN_DOOR: Tile = Tile.newBuilder()
+            .withCharacter('d')
+            .withForegroundColor(GameColors.DOOR_FOREGROUND)
+            .withBackgroundColor(GameColors.FLOOR_BACKGROUND)
+            .build()
 }
