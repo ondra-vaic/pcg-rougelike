@@ -15,7 +15,7 @@ class WorldBuilder(val worldSize: Size3D): IWorld {
     val width
         get() = worldSize.xLength
     val height
-        get() = worldSize.zLength
+        get() = worldSize.yLength
     val allPositions
         get() = worldSize.fetchPositions()
 

@@ -24,11 +24,11 @@ class World(startingBlocks: PersistentMap<Position3D, GameBlock>,
     val width
         get() = actualSize.xLength
     val height
-        get() = actualSize.zLength
+        get() = actualSize.yLength
     val visibleWidth
         get() = visibleSize.xLength
     val visibleHeight
-        get() = visibleSize.zLength
+        get() = visibleSize.yLength
 
     val visibleSize2D = Size.create(visibleWidth, visibleHeight)
     override val entities = mutableListOf<GameEntity>()
