@@ -57,7 +57,7 @@ class WorldBuilder(val worldSize: Size3D): IWorld {
         repeat(iterations) {
             allPositions.forEach { pos ->
                 val neighbors = pos.floorNeighbors()
-                val walls = neighbors.filter { blocks[it]?.javaClass == Wall::class.java }.count()
+                val walls = neighbors.filter { blocks[it] is Wall }.count()
                 val floors = neighbors.count() - walls
 
                 newBlocks[pos] = if (floors >= walls) Floor() else Wall()
