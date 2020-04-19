@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="roguelike-jvm-1.0-SNAPSHOT">
-    <output-path>C:\workspaces\school\pcg\roguelike\build\libs</output-path>
-    <root id="archive" name="roguelike-jvm-1.0-SNAPSHOT.jar">
-      <element id="module-output" name="cz.cuni.gamedev.nail123.roguelike.jvmMain" />
-    </root>
-  </artifact>
-</component>
