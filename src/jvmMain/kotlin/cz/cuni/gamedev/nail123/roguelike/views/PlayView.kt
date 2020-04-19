@@ -3,6 +3,7 @@ package cz.cuni.gamedev.nail123.roguelike.views
 import cz.cuni.gamedev.nail123.roguelike.Game
 import cz.cuni.gamedev.nail123.roguelike.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.GameConfig
+import cz.cuni.gamedev.nail123.roguelike.controls.KeyboardControls
 import org.hexworks.zircon.api.ColorThemes
 import org.hexworks.zircon.api.ComponentDecorations
 import org.hexworks.zircon.api.Components
@@ -10,6 +11,9 @@ import org.hexworks.zircon.api.GameComponents
 import org.hexworks.zircon.api.component.ComponentAlignment
 import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.grid.TileGrid
+import org.hexworks.zircon.api.uievent.KeyboardEventType
+import org.hexworks.zircon.api.uievent.Processed
+import org.hexworks.zircon.api.uievent.UIEventResponse
 import org.hexworks.zircon.api.view.base.BaseView
 
 class PlayView(val tileGrid: TileGrid, val game: Game = Game.create()): BaseView(tileGrid, ColorThemes.arc()) {
@@ -37,5 +41,10 @@ class PlayView(val tileGrid: TileGrid, val game: Game = Game.create()): BaseView
         screen.addComponent(sidebar)
         screen.addComponent(logArea)
         screen.addComponent(gameComponent)
+
+        val keyboardControls = KeyboardControls(game)
+        screen.handleKeyboardEvents(KeyboardEventType.KEY_PRESSED) { event, phase ->
+            keyboardControls.handleInput(event)
+        }
     }
 }

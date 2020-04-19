@@ -20,7 +20,7 @@ object GameConfig {
     val VISIBLE_SIZE = Size3D.create(
             WINDOW_WIDTH - SIDEBAR_WIDTH,
             WINDOW_HEIGHT - LOG_AREA_HEIGHT,
-            2
+            1
     )
 
     fun buildAppConfig() = AppConfig.newBuilder()

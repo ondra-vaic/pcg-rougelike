@@ -25,9 +25,14 @@ open class GameBlock(var baseTile: Tile = GameTileRepository.FLOOR): BaseBlock<T
         updateTileMap()
     }
 
+    fun removeEntity(entity: GameEntity) {
+        currentEntities.remove(entity)
+        updateTileMap()
+    }
+
     fun updateTileMap() {
+        // TODO: change the entity layer to CONTENT and the base layer to BOTTOM
         val topEntity = currentEntities.lastOrNull()
-        baseTile = topEntity?.tile ?: baseTile
-        top = baseTile
+        top = topEntity?.tile ?: baseTile
     }
 }
