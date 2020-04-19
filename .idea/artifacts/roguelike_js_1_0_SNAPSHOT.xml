@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="roguelike-js-1.0-SNAPSHOT">
-    <output-path>C:\workspaces\school\pcg\roguelike\build\libs</output-path>
+    <output-path>$PROJECT_DIR$/build/libs</output-path>
     <root id="archive" name="roguelike-js-1.0-SNAPSHOT.jar">
       <element id="module-output" name="cz.cuni.gamedev.nail123.roguelike.jsMain" />
     </root>

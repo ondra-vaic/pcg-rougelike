@@ -48,7 +48,7 @@ tasks {
     }
     getByName<Jar>("shadowJar") {
         manifest {
-            attributes["Main-Class"] = "MainKt"
+            attributes["Main-Class"] = "cz.cuni.gamedev.nail123.roguelike.MainKt"
         }
     }
 }
