@@ -51,3 +51,7 @@ gradle-app.setting
 
 ### Gradle Patch ###
 **/build/
+
+### CUSTOM ###
+# Tilesets are build from PNG and YML in the tilesets directory
+src/jvmMain/resources/tilesets/*/*.zip
