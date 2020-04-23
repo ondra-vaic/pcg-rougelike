@@ -28,9 +28,13 @@ fun Position3D.floorNeighbors4() = listOf(
 // of adding two positions together
 infix fun Position3D.shift(direction: Direction) = when(direction) {
     Direction.NORTH -> withRelativeY(-1)
+    Direction.NORTH_EAST -> withRelativeY(-1).withRelativeX(1)
     Direction.EAST -> withRelativeX(1)
+    Direction.SOUTH_EAST -> withRelativeX(1).withRelativeY(1)
     Direction.SOUTH -> withRelativeY(1)
+    Direction.SOUTH_WEST -> withRelativeY(1).withRelativeX(-1)
     Direction.WEST -> withRelativeX(-1)
+    Direction.NORTH_WEST -> withRelativeX(-1).withRelativeY(-1)
     Direction.UP -> withRelativeZ(-1)
     Direction.DOWN -> withRelativeZ(-1)
 }

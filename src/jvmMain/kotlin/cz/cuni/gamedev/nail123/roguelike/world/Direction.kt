@@ -3,26 +3,19 @@ package cz.cuni.gamedev.nail123.roguelike.world
 import org.hexworks.zircon.api.data.Position3D
 
 enum class Direction {
-    NORTH, EAST, SOUTH, WEST, UP, DOWN;
+    NORTH, NORTH_EAST, EAST, SOUTH_EAST, SOUTH, SOUTH_WEST, WEST, NORTH_WEST, UP, DOWN;
 
     val opposite: Direction
         get() = when (this) {
             NORTH -> SOUTH
+            NORTH_EAST -> SOUTH_WEST
             EAST -> WEST
+            SOUTH_EAST -> NORTH_WEST
             SOUTH -> NORTH
+            SOUTH_WEST -> NORTH_EAST
             WEST -> EAST
+            NORTH_WEST -> SOUTH_EAST
             UP -> DOWN
             DOWN -> UP
         }
-}
-
-operator fun Position3D.plus (direction: Direction): Position3D {
-    return when (direction) {
-        Direction.NORTH -> withRelativeY(-1)
-        Direction.EAST -> withRelativeX(1)
-        Direction.SOUTH -> withRelativeY(1)
-        Direction.WEST -> withRelativeX(-1)
-        Direction.UP -> withRelativeZ(-1)
-        Direction.DOWN -> withRelativeZ(-1)
-    }
 }

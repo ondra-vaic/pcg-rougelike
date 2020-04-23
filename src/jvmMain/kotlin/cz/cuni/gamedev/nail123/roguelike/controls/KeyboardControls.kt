@@ -12,7 +12,17 @@ class KeyboardControls(val game: Game): Controls() {
             KeyCode.KEY_W to Game.PlayerAction.MOVE_NORTH,
             KeyCode.KEY_A to Game.PlayerAction.MOVE_WEST,
             KeyCode.KEY_S to Game.PlayerAction.MOVE_SOUTH,
-            KeyCode.KEY_D to Game.PlayerAction.MOVE_EAST
+            KeyCode.KEY_D to Game.PlayerAction.MOVE_EAST,
+            KeyCode.KEY_E to Game.PlayerAction.MOVE_NORTHEAST,
+            KeyCode.KEY_C to Game.PlayerAction.MOVE_SOUTHEAST,
+            KeyCode.KEY_Z to Game.PlayerAction.MOVE_SOUTHWEST,
+            // Supporting czech keyboard layout
+            KeyCode.KEY_Y to Game.PlayerAction.MOVE_SOUTHWEST,
+            KeyCode.KEY_Q to Game.PlayerAction.MOVE_NORTHWEST,
+            KeyCode.UP to Game.PlayerAction.MOVE_NORTH,
+            KeyCode.LEFT to Game.PlayerAction.MOVE_WEST,
+            KeyCode.DOWN to Game.PlayerAction.MOVE_SOUTH,
+            KeyCode.RIGHT to Game.PlayerAction.MOVE_EAST
     )
 
     override fun handleInput(input: UIEvent): UIEventResponse {
