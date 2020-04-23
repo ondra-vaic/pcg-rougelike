@@ -1,4 +1,4 @@
-package cz.cuni.gamedev.nail123.roguelike.views
+package cz.cuni.gamedev.nail123.roguelike.gui.views
 
 import org.hexworks.zircon.api.grid.TileGrid
 

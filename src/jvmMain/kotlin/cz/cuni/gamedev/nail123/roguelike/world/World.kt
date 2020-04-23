@@ -21,17 +21,18 @@ class World(startingBlocks: PersistentMap<Position3D, GameBlock>,
                 initialContents = startingBlocks
             ), IWorld {
 
-    val width
-        get() = actualSize.xLength
-    val height
-        get() = actualSize.yLength
+    override val worldSize
+        get() = actualSize
     val visibleWidth
         get() = visibleSize.xLength
     val visibleHeight
         get() = visibleSize.yLength
 
     val visibleSize2D = Size.create(visibleWidth, visibleHeight)
-    override val entities = mutableListOf<GameEntity>()
+    private val _entities = mutableListOf<GameEntity>()
+
+    override val entities: List<GameEntity>
+        get() = _entities
 
     init {
         startingBlocks.forEach { (pos, block) ->
@@ -40,5 +41,15 @@ class World(startingBlocks: PersistentMap<Position3D, GameBlock>,
     }
 
     override fun get(position: Position3D): GameBlock? = fetchBlockAt(position).asNullable
+    override fun addEntity(entity: GameEntity, position: Position3D) {
+        blocks[position]?.addEntity(entity)
+        _entities.add(entity)
+        entity.position = position
+        entity.world = this
+    }
+    override fun removeEntity(entity: GameEntity) {
+        blocks[entity.position]?.removeEntity(entity)
+        _entities.remove(entity)
+    }
 }
 

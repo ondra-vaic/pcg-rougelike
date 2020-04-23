@@ -8,27 +8,27 @@ import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.data.base.BaseBlock
 
 open class GameBlock(var baseTile: Tile): BaseBlock<Tile>(
-        emptyTile = GameTiles.FLOOR,
+        emptyTile = Tile.empty(),
         // Not caring about sides, we'll use top-down projection
         tiles = persistentMapOf(BlockTileType.TOP to baseTile)) {
 
     open val blocksMovement = false
 
-    private val currentEntities = mutableListOf<GameEntity>()
+    private val entities = mutableListOf<GameEntity>()
 
     fun addEntity(entity: GameEntity) {
-        currentEntities.add(entity)
+        entities.add(entity)
         updateTileMap()
     }
 
     fun removeEntity(entity: GameEntity) {
-        currentEntities.remove(entity)
+        entities.remove(entity)
         updateTileMap()
     }
 
     fun updateTileMap() {
         // TODO: change the entity layer to CONTENT and the base layer to BOTTOM
-        val topEntity = currentEntities.lastOrNull()
+        val topEntity = entities.lastOrNull()
         top = topEntity?.tile ?: baseTile
     }
 }

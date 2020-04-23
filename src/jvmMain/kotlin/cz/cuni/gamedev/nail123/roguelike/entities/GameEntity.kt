@@ -9,7 +9,7 @@ import org.hexworks.zircon.api.data.Tile
 abstract class GameEntity(val tile: Tile = Tile.empty()) {
     enum class MovementResult { SUCCESS, POSITION_BLOCKED }
     lateinit var world: World
-    var location: Position3D = Position3D.unknown()
+    var position: Position3D = Position3D.unknown()
     var lastMovement: Direction? = null
 
     open fun update() {}
@@ -17,9 +17,9 @@ abstract class GameEntity(val tile: Tile = Tile.empty()) {
     fun move(direction: Direction): MovementResult {
         lastMovement = direction
 
-        val nextBlock = world[location shift direction]
+        val nextBlock = world[position shift direction]
         if (nextBlock?.blocksMovement == false) {
-            moveTo(location shift direction)
+            moveTo(position shift direction)
             return MovementResult.SUCCESS
         }
         return MovementResult.POSITION_BLOCKED

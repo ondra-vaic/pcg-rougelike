@@ -1,4 +1,4 @@
-package cz.cuni.gamedev.nail123.roguelike.views
+package cz.cuni.gamedev.nail123.roguelike.gui.views
 
 import cz.cuni.gamedev.nail123.roguelike.Game
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock

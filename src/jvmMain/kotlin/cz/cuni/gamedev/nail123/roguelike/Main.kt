@@ -1,11 +1,8 @@
 package cz.cuni.gamedev.nail123.roguelike
 
 import ch.qos.logback.classic.Level
-import cz.cuni.gamedev.nail123.roguelike.views.StartView
-import org.hexworks.zircon.api.CP437TilesetResources
+import cz.cuni.gamedev.nail123.roguelike.gui.views.StartView
 import org.hexworks.zircon.api.SwingApplications
-import org.hexworks.zircon.api.application.AppConfig
-import org.hexworks.zircon.internal.application.SwingApplication
 import org.slf4j.LoggerFactory
 
 
