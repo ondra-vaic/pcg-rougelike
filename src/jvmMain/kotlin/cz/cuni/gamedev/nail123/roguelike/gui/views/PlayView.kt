@@ -4,6 +4,11 @@ import cz.cuni.gamedev.nail123.roguelike.Game
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.GameConfig
 import cz.cuni.gamedev.nail123.roguelike.controls.KeyboardControls
+import cz.cuni.gamedev.nail123.roguelike.events.EntityMoved
+import cz.cuni.gamedev.nail123.roguelike.events.GameEvent
+import cz.cuni.gamedev.nail123.roguelike.gui.CameraMover
+import org.hexworks.cobalt.events.api.CallbackResult
+import org.hexworks.cobalt.events.api.KeepSubscription
 import org.hexworks.zircon.api.ColorThemes
 import org.hexworks.zircon.api.ComponentDecorations
 import org.hexworks.zircon.api.Components
@@ -43,6 +48,13 @@ class PlayView(val tileGrid: TileGrid, val game: Game = Game.create()): BaseView
         val keyboardControls = KeyboardControls(game)
         screen.handleKeyboardEvents(KeyboardEventType.KEY_PRESSED) { event, phase ->
             keyboardControls.handleInput(event)
+        }
+
+        val cameraMover = CameraMover(game.world)
+
+        GameEvent.subscribe("PlayerMoved") {
+            cameraMover.update()
+            KeepSubscription
         }
     }
 }

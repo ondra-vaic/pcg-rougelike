@@ -1,5 +1,6 @@
 package cz.cuni.gamedev.nail123.roguelike.entities
 
+import cz.cuni.gamedev.nail123.roguelike.events.EntityMoved
 import cz.cuni.gamedev.nail123.roguelike.extensions.shift
 import cz.cuni.gamedev.nail123.roguelike.world.Direction
 import cz.cuni.gamedev.nail123.roguelike.world.World
@@ -9,8 +10,16 @@ import org.hexworks.zircon.api.data.Tile
 abstract class GameEntity(val tile: Tile = Tile.empty()) {
     enum class MovementResult { SUCCESS, POSITION_BLOCKED }
     lateinit var world: World
-    var position: Position3D = Position3D.unknown()
+    open var position: Position3D = Position3D.unknown()
     var lastMovement: Direction? = null
+
+    val x: Int
+        get() = position.x
+    val y: Int
+        get() = position.y
+    val z: Int
+        get() = position.z
+
 
     open fun update() {}
 
@@ -28,6 +37,7 @@ abstract class GameEntity(val tile: Tile = Tile.empty()) {
     fun moveTo(targetPosition: Position3D) {
         world.removeEntity(this)
         world.addEntity(this, targetPosition)
+        EntityMoved(this).emit()
     }
 
     override fun toString(): String = this.javaClass.simpleName
