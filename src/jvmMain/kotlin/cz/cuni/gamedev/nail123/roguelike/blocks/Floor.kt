@@ -1,6 +1,5 @@
 package cz.cuni.gamedev.nail123.roguelike.blocks
 
-import cz.cuni.gamedev.nail123.roguelike.Game
-import cz.cuni.gamedev.nail123.roguelike.builders.GameTileRepository
+import cz.cuni.gamedev.nail123.roguelike.builders.GameTiles
 
-class Floor: GameBlock(GameTileRepository.FLOOR)
+class Floor: GameBlock(GameTiles.FLOOR)

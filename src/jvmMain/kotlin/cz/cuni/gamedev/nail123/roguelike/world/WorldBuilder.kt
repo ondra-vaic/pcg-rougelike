@@ -6,7 +6,7 @@ import cz.cuni.gamedev.nail123.roguelike.blocks.Floor
 import cz.cuni.gamedev.nail123.roguelike.blocks.Wall
 import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
 import cz.cuni.gamedev.nail123.roguelike.entities.Player
-import cz.cuni.gamedev.nail123.roguelike.extensions.floorNeighbors
+import cz.cuni.gamedev.nail123.roguelike.extensions.floorNeighbors8
 import kotlinx.collections.immutable.toPersistentMap
 import org.hexworks.zircon.api.data.Position3D
 import org.hexworks.zircon.api.data.Size3D
@@ -56,11 +56,11 @@ class WorldBuilder(val worldSize: Size3D): IWorld {
 
         repeat(iterations) {
             allPositions.forEach { pos ->
-                val neighbors = pos.floorNeighbors()
+                val neighbors = pos.floorNeighbors8() + pos
                 val walls = neighbors.filter { blocks[it] is Wall }.count()
                 val floors = neighbors.count() - walls
 
-                newBlocks[pos] = if (floors >= walls) Floor() else Wall()
+                newBlocks[pos] = if (floors > walls) Floor() else Wall()
             }
             blocks = newBlocks
         }

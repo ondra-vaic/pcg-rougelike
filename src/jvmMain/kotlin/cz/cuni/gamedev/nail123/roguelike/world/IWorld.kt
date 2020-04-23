@@ -31,7 +31,7 @@ interface IWorld {
         val emptyPosition = size.allPositionsShuffled()
                 .map { pos -> pos + offset }
                 .filter { pos ->
-                    this[pos]?.isBlocking == false
+                    this[pos]?.blocksMovement == false
                 }.firstOrNull()
 
         if (emptyPosition != null) addEntity(entity, emptyPosition)

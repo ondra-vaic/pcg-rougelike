@@ -11,9 +11,6 @@ import org.slf4j.LoggerFactory
 
 fun main() {
     turnOffExcessiveLogging()
-//    val application = SwingApplications.startApplication(appConfig)
-//    application.start()
-//    val tileGrid = application.tileGrid
 
     val tileGrid = SwingApplications.startTileGrid(GameConfig.buildAppConfig())
     StartView(tileGrid).dock()

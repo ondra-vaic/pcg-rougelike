@@ -15,22 +15,16 @@ import org.hexworks.zircon.api.uievent.UIEvent
  * A class containing a state of the game (World) and the game logic.
  */
 class Game(val world: World) {
-    enum class PlayerAction {
-        MOVE_NORTH,
-        MOVE_EAST,
-        MOVE_WEST,
-        MOVE_SOUTH
+    enum class PlayerAction(val action: GameAction) {
+        MOVE_NORTH(Move(Direction.NORTH)),
+        MOVE_EAST(Move(Direction.EAST)),
+        MOVE_WEST(Move(Direction.WEST)),
+        MOVE_SOUTH(Move(Direction.SOUTH))
     }
-    val playerActions = mapOf<PlayerAction, GameAction>(
-            PlayerAction.MOVE_NORTH to Move(world.player, Direction.NORTH),
-            PlayerAction.MOVE_EAST to Move(world.player, Direction.EAST),
-            PlayerAction.MOVE_WEST to Move(world.player, Direction.WEST),
-            PlayerAction.MOVE_SOUTH to Move(world.player, Direction.SOUTH)
-    )
 
     // The main game loop
-    fun step(action: PlayerAction?) {
-        if (action != null) playerActions[action]?.perform(world)
+    fun step(playerAction: PlayerAction?) {
+        playerAction?.action?.perform(world)
         for (entity in world.entities) entity.update()
     }
 
