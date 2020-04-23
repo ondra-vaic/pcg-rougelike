@@ -52,7 +52,7 @@ class PlayView(val tileGrid: TileGrid, val game: Game = Game.create()): BaseView
 
         val cameraMover = CameraMover(game.world)
 
-        GameEvent.subscribe("PlayerMoved") {
+        GameEvent.subscribe<EntityMoved.PlayerMoved> {
             cameraMover.update()
             KeepSubscription
         }

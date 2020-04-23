@@ -14,8 +14,9 @@ abstract class GameEvent : Event {
     }
 
     companion object {
-        fun subscribe(key: String, fn: (GameEvent) -> CallbackResult) {
-            Zircon.eventBus.subscribeTo(key=key, fn=fn)
+        inline fun <reified T: GameEvent> subscribe(noinline fn: (T) -> CallbackResult) {
+            Zircon.eventBus.subscribeTo(key=T::class.simpleName!!, fn=fn)
         }
     }
 }
+
