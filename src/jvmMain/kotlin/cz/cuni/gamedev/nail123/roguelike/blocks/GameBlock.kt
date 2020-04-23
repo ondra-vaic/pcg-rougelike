@@ -1,6 +1,5 @@
 package cz.cuni.gamedev.nail123.roguelike.blocks
 
-import cz.cuni.gamedev.nail123.roguelike.builders.GameTiles
 import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
 import kotlinx.collections.immutable.persistentMapOf
 import org.hexworks.zircon.api.data.BlockTileType
@@ -9,8 +8,9 @@ import org.hexworks.zircon.api.data.base.BaseBlock
 
 open class GameBlock(var baseTile: Tile): BaseBlock<Tile>(
         emptyTile = Tile.empty(),
-        // Not caring about sides, we'll use top-down projection
-        tiles = persistentMapOf(BlockTileType.TOP to baseTile)) {
+        // Tiles not only make a cube, but also act as layers
+        // We consider bottom-layer = FLOOR/WALL, content = ENTITIES, top = FOG_OF_WAR
+        tiles = persistentMapOf(BlockTileType.BOTTOM to baseTile)) {
 
     open val blocksMovement = false
 
@@ -27,8 +27,7 @@ open class GameBlock(var baseTile: Tile): BaseBlock<Tile>(
     }
 
     fun updateTileMap() {
-        // TODO: change the entity layer to CONTENT and the base layer to BOTTOM
         val topEntity = entities.lastOrNull()
-        top = topEntity?.tile ?: baseTile
+        content = topEntity?.tile ?: baseTile
     }
 }

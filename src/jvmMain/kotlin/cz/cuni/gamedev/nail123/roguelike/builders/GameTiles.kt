@@ -10,7 +10,7 @@ object GameTiles {
     val EMPTY: Tile = Tile.empty()
 
     // Allowed characters are CP437 https://en.wikipedia.org/wiki/Code_page_437
-    val FLOOR = characterTile('.', GameColors.FLOOR_FOREGROUND)
+    val FLOOR = characterTile('.', GameColors.FLOOR_FOREGROUND, GameColors.FLOOR_BACKGROUND)
     val WALL = characterTile('#', GameColors.WALL_FOREGROUND, GameColors.WALL_BACKGROUND)
     val PLAYER = characterTile('@', GameColors.ACCENT_COLOR)
     val CLOSED_DOOR = characterTile('D', GameColors.DOOR_FOREGROUND)
@@ -18,7 +18,7 @@ object GameTiles {
 
     fun characterTile(char: Char,
                       foreground: TileColor = GameColors.OBJECT_FOREGROUND,
-                      background: TileColor = GameColors.FLOOR_BACKGROUND): Tile {
+                      background: TileColor = TileColor.transparent()): Tile {
 
         return Tile.newBuilder()
                    .withCharacter(char)
