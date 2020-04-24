@@ -3,14 +3,13 @@ package cz.cuni.gamedev.nail123.roguelike
 import cz.cuni.gamedev.nail123.roguelike.actions.GameAction
 import cz.cuni.gamedev.nail123.roguelike.actions.Move
 import cz.cuni.gamedev.nail123.roguelike.world.Direction
-import cz.cuni.gamedev.nail123.roguelike.world.World
-import cz.cuni.gamedev.nail123.roguelike.world.builders.automata.CellularAutomataWorldBuilder
-import org.hexworks.zircon.api.data.Size3D
+import cz.cuni.gamedev.nail123.roguelike.world.Area
+import cz.cuni.gamedev.nail123.roguelike.world.builders.automata.CellularAutomataAreaBuilder
 
 /**
  * A class containing a state of the game (World) and the game logic.
  */
-class Game(val world: World) {
+class Game(val area: Area) {
     /** The possible actions the player may perform. */
     enum class PlayerAction(val action: GameAction) {
         MOVE_NORTH(Move(Direction.NORTH)),
@@ -25,17 +24,15 @@ class Game(val world: World) {
 
     // The main game loop
     fun step(playerAction: PlayerAction?) {
-        playerAction?.action?.perform(world)
-        for (entity in world.entities) entity.update()
+        playerAction?.action?.perform(area)
+        for (entity in area.entities) entity.update()
     }
 
     companion object {
-        fun create(worldSize: Size3D = GameConfig.WORLD_SIZE,
-                   visibleSize: Size3D = GameConfig.VISIBLE_SIZE): Game {
-
-            val world = CellularAutomataWorldBuilder(worldSize)
-                    .generate()
-                    .build(visibleSize)
+        fun create(): Game {
+            val world = CellularAutomataAreaBuilder(GameConfig.WORLD_SIZE)
+                    .create()
+                    .build(GameConfig.VISIBLE_SIZE)
 
             return Game(world)
         }

@@ -3,21 +3,20 @@ package cz.cuni.gamedev.nail123.roguelike.world
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
 import cz.cuni.gamedev.nail123.roguelike.extensions.allPositionsShuffled
-import kotlinx.collections.immutable.ImmutableList
 import org.hexworks.zircon.api.data.Position3D
 import org.hexworks.zircon.api.data.Size3D
 
 /**
  * Interface of common features of WorldBuilder (containing incomplete, in-progress worlds) and World.
  */
-interface IWorld {
-    val worldSize: Size3D
+interface IArea {
+    val areaSize: Size3D
     val width
-        get() = worldSize.xLength
+        get() = areaSize.xLength
     val height
-        get() = worldSize.yLength
+        get() = areaSize.yLength
     val allPositions
-        get() = worldSize.fetchPositions()
+        get() = areaSize.fetchPositions()
     val blocks: Map<Position3D, GameBlock>
     val entities: List<GameEntity>
 

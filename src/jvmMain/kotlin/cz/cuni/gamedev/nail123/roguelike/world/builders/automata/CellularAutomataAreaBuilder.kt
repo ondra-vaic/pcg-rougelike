@@ -5,12 +5,12 @@ import cz.cuni.gamedev.nail123.roguelike.blocks.Floor
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.blocks.Wall
 import cz.cuni.gamedev.nail123.roguelike.extensions.floorNeighbors8
-import cz.cuni.gamedev.nail123.roguelike.world.builders.WorldBuilder
+import cz.cuni.gamedev.nail123.roguelike.world.builders.AreaBuilder
 import org.hexworks.zircon.api.data.Position3D
 import org.hexworks.zircon.api.data.Size3D
 
-class CellularAutomataWorldBuilder(worldSize: Size3D): WorldBuilder(worldSize) {
-    override fun generate(): WorldBuilder = apply {
+class CellularAutomataAreaBuilder(worldSize: Size3D): AreaBuilder(worldSize) {
+    override fun create(): AreaBuilder = apply {
         randomizeTiles()
         smoothen(8)
         addPlayer()

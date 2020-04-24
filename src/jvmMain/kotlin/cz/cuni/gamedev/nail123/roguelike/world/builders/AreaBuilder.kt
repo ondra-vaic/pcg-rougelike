@@ -3,13 +3,13 @@ package cz.cuni.gamedev.nail123.roguelike.world.builders
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
 import cz.cuni.gamedev.nail123.roguelike.entities.Player
-import cz.cuni.gamedev.nail123.roguelike.world.IWorld
-import cz.cuni.gamedev.nail123.roguelike.world.World
+import cz.cuni.gamedev.nail123.roguelike.world.IArea
+import cz.cuni.gamedev.nail123.roguelike.world.Area
 import kotlinx.collections.immutable.toPersistentMap
 import org.hexworks.zircon.api.data.Position3D
 import org.hexworks.zircon.api.data.Size3D
 
-abstract class WorldBuilder(override val worldSize: Size3D): IWorld {
+abstract class AreaBuilder(override val areaSize: Size3D): IArea {
     override var blocks = mutableMapOf<Position3D, GameBlock>()
     override val entities = mutableListOf<GameEntity>()
 
@@ -27,13 +27,13 @@ abstract class WorldBuilder(override val worldSize: Size3D): IWorld {
 
     var player = Player()
 
-    fun build(visibleSize: Size3D): World {
-        val world = World(blocks.toPersistentMap(), visibleSize, worldSize, player)
+    fun build(visibleSize: Size3D): Area {
+        val world = Area(blocks.toPersistentMap(), visibleSize, areaSize, player)
         for (entity in entities) {
-            entity.world = world
+            entity.area = world
         }
         return world
     }
 
-    abstract fun generate(): WorldBuilder
+    abstract fun create(): AreaBuilder
 }

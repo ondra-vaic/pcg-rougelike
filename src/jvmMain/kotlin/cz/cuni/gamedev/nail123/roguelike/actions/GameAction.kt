@@ -1,7 +1,7 @@
 package cz.cuni.gamedev.nail123.roguelike.actions
 
-import cz.cuni.gamedev.nail123.roguelike.world.World
+import cz.cuni.gamedev.nail123.roguelike.world.Area
 
 abstract class GameAction {
-    abstract fun perform(world: World)
+    abstract fun perform(area: Area)
 }
