@@ -4,10 +4,7 @@ import cz.cuni.gamedev.nail123.roguelike.Game
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.GameConfig
 import cz.cuni.gamedev.nail123.roguelike.controls.KeyboardControls
-import cz.cuni.gamedev.nail123.roguelike.events.EntityMoved
-import cz.cuni.gamedev.nail123.roguelike.events.GameEvent
 import cz.cuni.gamedev.nail123.roguelike.gui.CameraMover
-import org.hexworks.cobalt.events.api.KeepSubscription
 import org.hexworks.zircon.api.ColorThemes
 import org.hexworks.zircon.api.ComponentDecorations
 import org.hexworks.zircon.api.Components
@@ -18,7 +15,7 @@ import org.hexworks.zircon.api.grid.TileGrid
 import org.hexworks.zircon.api.uievent.KeyboardEventType
 import org.hexworks.zircon.api.view.base.BaseView
 
-class PlayView(val tileGrid: TileGrid, val game: Game = Game.create()): BaseView(tileGrid, ColorThemes.arc()) {
+class PlayView(val tileGrid: TileGrid, val game: Game = Game()): BaseView(tileGrid, ColorThemes.arc()) {
     override fun onDock() {
         val sidebar = Components.panel()
                 .withSize(GameConfig.SIDEBAR_WIDTH, GameConfig.WINDOW_HEIGHT)
@@ -49,11 +46,10 @@ class PlayView(val tileGrid: TileGrid, val game: Game = Game.create()): BaseView
             keyboardControls.handleInput(event)
         }
 
-        val cameraMover = CameraMover(game.area)
-
-        GameEvent.subscribe<EntityMoved.PlayerMoved> {
+        val cameraMover = CameraMover(game.world)
+        cameraMover.update()
+        game.world.player.positionProperty.onChange {
             cameraMover.update()
-            KeepSubscription
         }
     }
 }

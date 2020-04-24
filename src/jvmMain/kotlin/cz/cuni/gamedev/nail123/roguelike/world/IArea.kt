@@ -10,13 +10,13 @@ import org.hexworks.zircon.api.data.Size3D
  * Interface of common features of WorldBuilder (containing incomplete, in-progress worlds) and World.
  */
 interface IArea {
-    val areaSize: Size3D
+    val size: Size3D
     val width
-        get() = areaSize.xLength
+        get() = size.xLength
     val height
-        get() = areaSize.yLength
+        get() = size.yLength
     val allPositions
-        get() = areaSize.fetchPositions()
+        get() = size.fetchPositions()
     val blocks: Map<Position3D, GameBlock>
     val entities: List<GameEntity>
 

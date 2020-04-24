@@ -9,7 +9,7 @@ import kotlinx.collections.immutable.toPersistentMap
 import org.hexworks.zircon.api.data.Position3D
 import org.hexworks.zircon.api.data.Size3D
 
-abstract class AreaBuilder(override val areaSize: Size3D): IArea {
+abstract class AreaBuilder(override val size: Size3D, val visibleSize: Size3D): IArea {
     override var blocks = mutableMapOf<Position3D, GameBlock>()
     override val entities = mutableListOf<GameEntity>()
 
@@ -27,13 +27,15 @@ abstract class AreaBuilder(override val areaSize: Size3D): IArea {
 
     var player = Player()
 
-    fun build(visibleSize: Size3D): Area {
-        val world = Area(blocks.toPersistentMap(), visibleSize, areaSize, player)
+    fun build(): Area {
+        create()
+
+        val area = Area(blocks.toPersistentMap(), visibleSize, size, player)
         for (entity in entities) {
-            entity.area = world
+            entity.area = area
         }
-        return world
+        return area
     }
 
-    abstract fun create(): AreaBuilder
+    protected abstract fun create(): AreaBuilder
 }

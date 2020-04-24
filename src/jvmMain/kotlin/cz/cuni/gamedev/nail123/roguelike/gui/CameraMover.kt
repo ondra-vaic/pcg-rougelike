@@ -1,15 +1,15 @@
 package cz.cuni.gamedev.nail123.roguelike.gui
 
 import cz.cuni.gamedev.nail123.roguelike.GameConfig
-import cz.cuni.gamedev.nail123.roguelike.world.Area
+import cz.cuni.gamedev.nail123.roguelike.world.World
 import org.hexworks.zircon.api.data.Position3D
 import kotlin.math.max
 
-class CameraMover(val area: Area) {
+class CameraMover(val world: World) {
     fun update() {
-        val player = area.player
+        val player = world.player
 
-        val leeway = GameConfig.WORLD_SIZE - GameConfig.VISIBLE_SIZE
+        val leeway = world.currentArea.size - GameConfig.VISIBLE_SIZE
         val maxScrollX = max(leeway.xLength, 0)
         val maxScrollY = max(leeway.yLength, 0)
 
@@ -18,7 +18,7 @@ class CameraMover(val area: Area) {
                 (player.y - GameConfig.VISIBLE_SIZE.yLength / 2).coerceIn(0, maxScrollY),
                 player.z
         ).let {
-            area.scrollTo(it)
+            world.currentArea.scrollTo(it)
         }
     }
 }

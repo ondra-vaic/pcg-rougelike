@@ -1,9 +1,7 @@
-package cz.cuni.gamedev.nail123.roguelike.builders
+package cz.cuni.gamedev.nail123.roguelike.tiles
 
-import cz.cuni.gamedev.nail123.roguelike.builders.GameColors
 import org.hexworks.zircon.api.color.TileColor
 import org.hexworks.zircon.api.data.Tile
-import org.hexworks.zircon.api.graphics.Symbols
 import org.hexworks.zircon.api.resource.TilesetResource
 
 object GameTiles {
@@ -13,8 +11,11 @@ object GameTiles {
     val FLOOR = characterTile('.', GameColors.FLOOR_FOREGROUND, GameColors.FLOOR_BACKGROUND)
     val WALL = characterTile('#', GameColors.WALL_FOREGROUND, GameColors.WALL_BACKGROUND)
     val PLAYER = characterTile('@', GameColors.ACCENT_COLOR)
-    val CLOSED_DOOR = characterTile('D', GameColors.DOOR_FOREGROUND)
-    val OPEN_DOOR = characterTile('d', GameColors.DOOR_FOREGROUND)
+    val CLOSED_DOOR = characterTile('+', GameColors.DOOR_FOREGROUND)
+    val OPEN_DOOR_VERTICAL = characterTile('|', GameColors.DOOR_FOREGROUND)
+    val OPEN_DOOR_HORIZONTAL = characterTile('-', GameColors.DOOR_FOREGROUND)
+    val STAIRS_DOWN = characterTile('>', GameColors.STAIRS_FOREGROUND, GameColors.FLOOR_BACKGROUND)
+    val STAIRS_UP = characterTile('<', GameColors.STAIRS_FOREGROUND, GameColors.FLOOR_BACKGROUND)
 
     fun characterTile(char: Char,
                       foreground: TileColor = GameColors.OBJECT_FOREGROUND,

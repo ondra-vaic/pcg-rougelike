@@ -11,7 +11,9 @@ import org.hexworks.zircon.api.data.Size3D
 import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.game.base.BaseGameArea
 
-
+/**
+ * Represents a part of the world that is updated at a time and the player can freely move in.
+ */
 class Area(startingBlocks: PersistentMap<Position3D, GameBlock>,
            visibleSize: Size3D,
            actualSize: Size3D,
@@ -21,14 +23,14 @@ class Area(startingBlocks: PersistentMap<Position3D, GameBlock>,
                 initialContents = startingBlocks
             ), IArea {
 
-    override val areaSize
+    lateinit var world: World
+    override val size
         get() = actualSize
     val visibleWidth
         get() = visibleSize.xLength
     val visibleHeight
         get() = visibleSize.yLength
 
-    val visibleSize2D = Size.create(visibleWidth, visibleHeight)
     private val _entities = mutableListOf<GameEntity>()
 
     override val entities: List<GameEntity>

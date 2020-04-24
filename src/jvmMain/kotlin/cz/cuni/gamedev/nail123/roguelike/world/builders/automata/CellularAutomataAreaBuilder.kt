@@ -4,12 +4,15 @@ import cz.cuni.gamedev.nail123.roguelike.GameConfig
 import cz.cuni.gamedev.nail123.roguelike.blocks.Floor
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.blocks.Wall
+import cz.cuni.gamedev.nail123.roguelike.entities.Stairs
 import cz.cuni.gamedev.nail123.roguelike.extensions.floorNeighbors8
 import cz.cuni.gamedev.nail123.roguelike.world.builders.AreaBuilder
 import org.hexworks.zircon.api.data.Position3D
 import org.hexworks.zircon.api.data.Size3D
 
-class CellularAutomataAreaBuilder(worldSize: Size3D): AreaBuilder(worldSize) {
+class CellularAutomataAreaBuilder(size: Size3D, visibleSize: Size3D = GameConfig.VISIBLE_SIZE)
+    : AreaBuilder(size, visibleSize) {
+
     override fun create(): AreaBuilder = apply {
         randomizeTiles()
         smoothen(8)
@@ -22,6 +25,13 @@ class CellularAutomataAreaBuilder(worldSize: Size3D): AreaBuilder(worldSize) {
                 Position3D.create(0, 0, 0),
                 GameConfig.VISIBLE_SIZE
         )
+        // TODO: This is temporary way of placing stairs
+        for (neighbor in player.position.floorNeighbors8().shuffled()) {
+            if (this[neighbor]?.blocksMovement == false) {
+                addEntity(Stairs(), neighbor)
+                break
+            }
+        }
         println("Player position is ${player.position}")
     }
 

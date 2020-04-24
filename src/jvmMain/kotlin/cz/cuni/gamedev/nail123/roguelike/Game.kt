@@ -3,13 +3,16 @@ package cz.cuni.gamedev.nail123.roguelike
 import cz.cuni.gamedev.nail123.roguelike.actions.GameAction
 import cz.cuni.gamedev.nail123.roguelike.actions.Move
 import cz.cuni.gamedev.nail123.roguelike.world.Direction
-import cz.cuni.gamedev.nail123.roguelike.world.Area
+import cz.cuni.gamedev.nail123.roguelike.world.World
 import cz.cuni.gamedev.nail123.roguelike.world.builders.automata.CellularAutomataAreaBuilder
 
 /**
  * A class containing a state of the game (World) and the game logic.
  */
-class Game(val area: Area) {
+class Game(val world: World = World()) {
+    val area
+        get() = world.currentArea
+
     /** The possible actions the player may perform. */
     enum class PlayerAction(val action: GameAction) {
         MOVE_NORTH(Move(Direction.NORTH)),
@@ -26,15 +29,5 @@ class Game(val area: Area) {
     fun step(playerAction: PlayerAction?) {
         playerAction?.action?.perform(area)
         for (entity in area.entities) entity.update()
-    }
-
-    companion object {
-        fun create(): Game {
-            val world = CellularAutomataAreaBuilder(GameConfig.WORLD_SIZE)
-                    .create()
-                    .build(GameConfig.VISIBLE_SIZE)
-
-            return Game(world)
-        }
     }
 }

@@ -1,4 +1,4 @@
-package cz.cuni.gamedev.nail123.roguelike.builders
+package cz.cuni.gamedev.nail123.roguelike.tiles
 
 import org.hexworks.zircon.api.color.TileColor
 
@@ -12,5 +12,6 @@ object GameColors {
     val ACCENT_COLOR = TileColor.fromString("#FFCD22")
     val OBJECT_FOREGROUND = TileColor.fromString("#FCA903")
 
+    val STAIRS_FOREGROUND = TileColor.fromString("#00A10D")
     val DOOR_FOREGROUND = TileColor.fromString("#AD6200")
 }

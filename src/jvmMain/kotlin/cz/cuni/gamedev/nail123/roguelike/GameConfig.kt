@@ -6,7 +6,7 @@ import org.hexworks.zircon.api.application.AppConfig
 import org.hexworks.zircon.api.data.Size3D
 
 object GameConfig {
-    const val DUNGEON_LEVELS = 2
+    const val DUNGEON_LEVELS = 15
     val TILESET = CP437TilesetResources.rogueYun16x16()
     val THEME = ColorThemes.zenburnVanilla()
 
@@ -16,7 +16,7 @@ object GameConfig {
     const val WINDOW_WIDTH = 80
     const val WINDOW_HEIGHT = 50
 
-    val WORLD_SIZE = Size3D.create(WINDOW_WIDTH, WINDOW_HEIGHT, 2)
+    val WORLD_SIZE = Size3D.create(WINDOW_WIDTH, WINDOW_HEIGHT, DUNGEON_LEVELS)
     val VISIBLE_SIZE = Size3D.create(
             WINDOW_WIDTH - SIDEBAR_WIDTH,
             WINDOW_HEIGHT - LOG_AREA_HEIGHT,
