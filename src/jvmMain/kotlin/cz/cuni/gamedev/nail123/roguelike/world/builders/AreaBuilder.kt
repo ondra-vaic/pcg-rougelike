@@ -29,8 +29,6 @@ abstract class AreaBuilder(override val size: Size3D, val visibleSize: Size3D = 
     var player = Player()
 
     fun build(): Area {
-        create()
-
         val area = Area(blocks.toPersistentMap(), visibleSize, size, player)
         for (entity in entities) {
             entity.area = area
@@ -38,7 +36,7 @@ abstract class AreaBuilder(override val size: Size3D, val visibleSize: Size3D = 
         return area
     }
 
-    protected abstract fun create(): AreaBuilder
+    abstract fun create(): AreaBuilder
 
     companion object {
         class EmptyBuilder(size: Size3D): AreaBuilder(size) {

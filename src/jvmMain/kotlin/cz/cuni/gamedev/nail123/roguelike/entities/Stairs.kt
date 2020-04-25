@@ -9,7 +9,7 @@ class Stairs(val leadDown: Boolean = true): GameEntity(
     override fun acceptInteractFrom(entity: GameEntity): InteractionResult {
         when (entity) {
             is Player -> {
-                area.world.nextLevel()
+                if (leadDown) area.world.moveDown() else area.world.moveUp()
             }
             else -> return InteractionResult.NO_INTERACTION
         }

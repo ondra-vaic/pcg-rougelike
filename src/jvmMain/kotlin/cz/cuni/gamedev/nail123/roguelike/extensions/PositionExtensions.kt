@@ -26,6 +26,9 @@ fun Position3D.floorNeighbors4() = listOf(
 
 // I would've made this the plus operator, but IDEA doesn't autocomplete it, since there already is a plus method
 // of adding two positions together
+/**
+ * Returns a new position shifted by the given direction.
+ */
 infix fun Position3D.shift(direction: Direction) = when(direction) {
     Direction.NORTH -> withRelativeY(-1)
     Direction.NORTH_EAST -> withRelativeY(-1).withRelativeX(1)

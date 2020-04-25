@@ -3,6 +3,7 @@ package cz.cuni.gamedev.nail123.roguelike.world
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
 import cz.cuni.gamedev.nail123.roguelike.world.builders.AreaBuilder
+import org.hexworks.cobalt.datatypes.Maybe
 import org.hexworks.zircon.api.data.Position3D
 import org.hexworks.zircon.api.data.Size3D
 import org.hexworks.zircon.api.data.Tile
@@ -29,9 +30,12 @@ class AreaSwitcher(visibleSize: Size3D, actualSize: Size3D): BaseGameArea<Tile, 
     val player
         get() = innerArea.player
 
-    override fun get(position: Position3D) = innerArea.get(position)
+    override operator fun get(position: Position3D) = innerArea[position]
     override fun addEntity(entity: GameEntity, position: Position3D) = innerArea.addEntity(entity, position)
     override fun removeEntity(entity: GameEntity) = innerArea.removeEntity(entity)
+
+    override fun setBlockAt(position: Position3D, block: GameBlock) = innerArea.setBlockAt(position, block)
+    override fun fetchBlockAt(position: Position3D) = innerArea.fetchBlockAt(position)
 
     fun switchTo(area: Area) {
         innerArea = area

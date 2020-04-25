@@ -5,11 +5,12 @@ import cz.cuni.gamedev.nail123.roguelike.actions.Move
 import cz.cuni.gamedev.nail123.roguelike.world.Direction
 import cz.cuni.gamedev.nail123.roguelike.world.World
 import cz.cuni.gamedev.nail123.roguelike.world.builders.automata.CellularAutomataAreaBuilder
+import cz.cuni.gamedev.nail123.roguelike.world.worlds.DungeonWorld
 
 /**
  * A class containing a state of the game (World) and the game logic.
  */
-class Game(val world: World = World()) {
+class Game(val world: World = DungeonWorld()) {
     val area
         get() = world.currentArea
 

@@ -25,14 +25,6 @@ class CellularAutomataAreaBuilder(size: Size3D, visibleSize: Size3D = GameConfig
                 Position3D.create(0, 0, 0),
                 GameConfig.VISIBLE_SIZE
         )
-        // TODO: This is temporary way of placing stairs
-        for (neighbor in player.position.floorNeighbors8().shuffled()) {
-            if (this[neighbor]?.blocksMovement == false) {
-                addEntity(Stairs(), neighbor)
-                break
-            }
-        }
-        println("Player position is ${player.position}")
     }
 
     private fun randomizeTiles() = apply {
