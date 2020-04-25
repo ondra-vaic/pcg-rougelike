@@ -16,13 +16,15 @@ abstract class MovingEntity(tile: Tile = Tile.empty()): GameEntity(tile) {
         val nextBlock = area[position shift direction]
         if (nextBlock?.blocksMovement == false) {
             moveTo(position shift direction)
+            interaction(this, nextBlock)
             return MovementResult.SUCCESS
         }
         return MovementResult.POSITION_BLOCKED
     }
 
     fun moveTo(targetPosition: Position3D) {
-        area.removeEntity(this)
+        if (this.position != Position3D.unknown())
+            area.removeEntity(this)
         area.addEntity(this, targetPosition)
     }
 }

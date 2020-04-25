@@ -5,7 +5,7 @@ import org.hexworks.cobalt.databinding.api.extension.createPropertyFrom
 import org.hexworks.zircon.api.data.Position3D
 import org.hexworks.zircon.api.data.Tile
 
-abstract class GameEntity(val tile: Tile = Tile.empty()) {
+abstract class GameEntity(val tile: Tile = Tile.empty()): Cloneable {
     lateinit var area: Area
 
     // Properties allow binding with other properties and also listen to changes

@@ -139,3 +139,4 @@ class ObservableList<T>(private val list: MutableList<T> = ArrayList()): List<T>
 }
 
 fun <T> observableListOf(vararg elements: T) = ObservableList<T>(elements.toCollection(ArrayList()))
+fun <T> ObservableList<T>.withAddListener(fn: (T) -> Unit): ObservableList<T> = apply { onAdd(fn) }

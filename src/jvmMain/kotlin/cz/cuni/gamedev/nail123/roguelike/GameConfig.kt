@@ -16,12 +16,14 @@ object GameConfig {
     const val WINDOW_WIDTH = 80
     const val WINDOW_HEIGHT = 50
 
-    val WORLD_SIZE = Size3D.create(WINDOW_WIDTH, WINDOW_HEIGHT, DUNGEON_LEVELS)
     val VISIBLE_SIZE = Size3D.create(
             WINDOW_WIDTH - SIDEBAR_WIDTH,
             WINDOW_HEIGHT - LOG_AREA_HEIGHT,
             1
     )
+
+    // If you want to have larger-than-screen areas and scrolling, modify this
+    val AREA_SIZE = VISIBLE_SIZE
 
     fun buildAppConfig() = AppConfig.newBuilder()
             .enableBetaFeatures()

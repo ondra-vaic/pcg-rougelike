@@ -1,5 +1,6 @@
 package cz.cuni.gamedev.nail123.roguelike.world.builders
 
+import cz.cuni.gamedev.nail123.roguelike.GameConfig
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
 import cz.cuni.gamedev.nail123.roguelike.entities.Player
@@ -9,7 +10,7 @@ import kotlinx.collections.immutable.toPersistentMap
 import org.hexworks.zircon.api.data.Position3D
 import org.hexworks.zircon.api.data.Size3D
 
-abstract class AreaBuilder(override val size: Size3D, val visibleSize: Size3D): IArea {
+abstract class AreaBuilder(override val size: Size3D, val visibleSize: Size3D = GameConfig.VISIBLE_SIZE): IArea {
     override var blocks = mutableMapOf<Position3D, GameBlock>()
     override val entities = mutableListOf<GameEntity>()
 
@@ -38,4 +39,13 @@ abstract class AreaBuilder(override val size: Size3D, val visibleSize: Size3D): 
     }
 
     protected abstract fun create(): AreaBuilder
+
+    companion object {
+        class EmptyBuilder(size: Size3D): AreaBuilder(size) {
+            override fun create() = apply {
+                addEntity(player, Position3D.create(0, 0, 0))
+            }
+        }
+        fun empty() = EmptyBuilder(GameConfig.AREA_SIZE).build()
+    }
 }

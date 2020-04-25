@@ -5,12 +5,14 @@ import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.GameConfig
 import cz.cuni.gamedev.nail123.roguelike.controls.KeyboardControls
 import cz.cuni.gamedev.nail123.roguelike.gui.CameraMover
+import cz.cuni.gamedev.nail123.roguelike.world.Area
 import org.hexworks.zircon.api.ColorThemes
 import org.hexworks.zircon.api.ComponentDecorations
 import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.GameComponents
 import org.hexworks.zircon.api.component.ComponentAlignment
 import org.hexworks.zircon.api.data.Tile
+import org.hexworks.zircon.api.game.GameComponent
 import org.hexworks.zircon.api.grid.TileGrid
 import org.hexworks.zircon.api.uievent.KeyboardEventType
 import org.hexworks.zircon.api.view.base.BaseView
@@ -33,7 +35,7 @@ class PlayView(val tileGrid: TileGrid, val game: Game = Game()): BaseView(tileGr
                 .build()
 
         val gameComponent = GameComponents.newGameComponentBuilder<Tile, GameBlock>()
-                .withGameArea(game.area)
+                .withGameArea(game.world.areaSwitcher)
                 .withAlignmentWithin(screen, ComponentAlignment.TOP_RIGHT)
                 .build()
 
