@@ -5,7 +5,10 @@ import cz.cuni.gamedev.nail123.roguelike.world.Direction
 import org.hexworks.zircon.api.data.Position3D
 import org.hexworks.zircon.api.data.Tile
 
-abstract class MovingEntity(tile: Tile = Tile.empty()): GameEntity(tile) {
+abstract class MovingEntity(
+        tile: Tile = Tile.empty(),
+        sortingLayer: SortingLayer = SortingLayer.CHARACTER): GameEntity(tile, sortingLayer) {
+
     enum class MovementResult { SUCCESS, POSITION_BLOCKED }
 
     var lastMovement: Direction? = null

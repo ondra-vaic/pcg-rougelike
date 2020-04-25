@@ -10,7 +10,7 @@ open class GameBlock(var baseTile: Tile): BaseBlock<Tile>(
         emptyTile = Tile.empty(),
         // Tiles not only make a cube, but also act as 3 layers
         // We consider bottom-layer = FLOOR/WALL, content = ENTITIES, top = FOG_OF_WAR
-        tiles = persistentMapOf(BlockTileType.BOTTOM to baseTile)), Cloneable {
+        tiles = persistentMapOf(BlockTileType.BOTTOM to baseTile)) {
 
     open val blocksMovement = false
 
@@ -29,7 +29,7 @@ open class GameBlock(var baseTile: Tile): BaseBlock<Tile>(
     }
 
     fun updateTileMap() {
-        val topEntity = _entities.lastOrNull()
+        val topEntity = _entities.maxBy { it.sortingLayer }
         content = topEntity?.tile ?: baseTile
     }
 }
