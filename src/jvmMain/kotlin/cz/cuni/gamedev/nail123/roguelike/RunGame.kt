@@ -13,6 +13,7 @@ fun main() {
     StartView(tileGrid).dock()
 }
 
+
 fun turnOffExcessiveLogging() {
     arrayOf(
             "org.hexworks.zircon.internal.application.SwingApplication",

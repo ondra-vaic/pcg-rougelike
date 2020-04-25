@@ -52,3 +52,11 @@ tasks {
         }
     }
 }
+
+tasks.register<JavaExec>("renderPng") {
+    group = "custom"
+    dependsOn("compileKotlinJvm")
+
+    classpath = sourceSets["main"].runtimeClasspath
+    main = "cz.cuni.gamedev.nail123.roguelike.RenderAreaKt"
+}
