@@ -23,10 +23,12 @@ open class DungeonWorld: World() {
     fun buildLevel(floor: Int): Area {
         val area = CellularAutomataAreaBuilder(GameConfig.AREA_SIZE).create()
 
-        val floodFill = Pathfinding.floodFill(area.player.position, area)
-        val max = floodFill.values.max()!!
-        val staircasePosition = floodFill.filter { (_, dist) -> dist == max / 2 }.toList().random().first
+        // Add stairs up
+        if (floor > 0) area.addEntity(Stairs(false), area.player.position)
 
+        // Add stairs down
+        val floodFill = Pathfinding.floodFill(area.player.position, area)
+        val staircasePosition = floodFill.keys.random()
         area.addEntity(Stairs(), staircasePosition)
 
         return area.build()
@@ -34,7 +36,7 @@ open class DungeonWorld: World() {
 
     override fun moveDown() {
         ++currentLevel
-        println("Going to level $currentLevel")
+        println("Going down to level $currentLevel")
         if (currentLevel >= areas.size) levels.add(buildLevel(levels.size))
 
         goToArea(levels[currentLevel])
@@ -42,6 +44,7 @@ open class DungeonWorld: World() {
 
     override fun moveUp() {
         --currentLevel
+        println("Going up to level $currentLevel")
         goToArea(levels[currentLevel])
     }
 }
