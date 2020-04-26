@@ -1,6 +1,7 @@
 package cz.cuni.gamedev.nail123.roguelike
 
 import cz.cuni.gamedev.nail123.roguelike.blocks.Wall
+import cz.cuni.gamedev.nail123.roguelike.tiles.GameTiles
 import cz.cuni.gamedev.nail123.roguelike.world.Area
 import cz.cuni.gamedev.nail123.roguelike.world.worlds.DungeonWorld
 import org.hexworks.zircon.internal.tileset.SwingTilesetLoader
@@ -15,14 +16,14 @@ fun main() {
 
 fun Area.toPNG(filepath: String) {
     val image = BufferedImage(
-            width * GameConfig.TILESET.width,
-            height * GameConfig.TILESET.height,
+            width * GameTiles.defaultCharTileset.width,
+            height * GameTiles.defaultCharTileset.height,
             BufferedImage.TRANSLUCENT
     )
     val graphics = image.createGraphics()
 
     val loader = SwingTilesetLoader()
-    val tileset = loader.loadTilesetFrom(GameConfig.TILESET)
+    val tileset = loader.loadTilesetFrom(GameTiles.defaultCharTileset)
 
     allPositions.forEach { position ->
         val block = get(position) ?: Wall()

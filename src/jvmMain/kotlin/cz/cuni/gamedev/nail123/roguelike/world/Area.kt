@@ -59,4 +59,10 @@ class Area(startingBlocks: PersistentMap<Position3D, GameBlock>,
         blocks[entity.position]?.removeEntity(entity)
         _entities.remove(entity)
     }
+
+    override fun setBlockAt(position: Position3D, block: GameBlock) {
+        super.setBlockAt(position, block)
+        block.area = this
+        block.position = position
+    }
 }

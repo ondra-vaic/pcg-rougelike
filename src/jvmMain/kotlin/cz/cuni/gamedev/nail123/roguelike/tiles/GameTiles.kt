@@ -1,10 +1,14 @@
 package cz.cuni.gamedev.nail123.roguelike.tiles
 
+import org.hexworks.zircon.api.CP437TilesetResources
 import org.hexworks.zircon.api.color.TileColor
 import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.resource.TilesetResource
 
 object GameTiles {
+    val defaultCharTileset = CP437TilesetResources.rogueYun16x16()
+    val defaultGraphicalTileset = TilesetResources.kenney16x16()
+
     val EMPTY: Tile = Tile.empty()
 
     // Allowed characters are CP437 https://en.wikipedia.org/wiki/Code_page_437
@@ -28,7 +32,7 @@ object GameTiles {
                    .build()
     }
 
-    fun graphicalTile(tag: String, tileset: TilesetResource): Tile {
+    fun graphicalTile(tag: String, tileset: TilesetResource = defaultGraphicalTileset): Tile {
         return Tile.newBuilder()
                    .withName(tag)
                    .withTags(tag.split(' ').toSet())

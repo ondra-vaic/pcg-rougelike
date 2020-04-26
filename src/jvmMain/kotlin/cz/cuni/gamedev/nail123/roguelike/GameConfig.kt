@@ -1,5 +1,6 @@
 package cz.cuni.gamedev.nail123.roguelike
 
+import cz.cuni.gamedev.nail123.roguelike.tiles.GameTiles
 import org.hexworks.zircon.api.CP437TilesetResources
 import org.hexworks.zircon.api.ColorThemes
 import org.hexworks.zircon.api.application.AppConfig
@@ -7,7 +8,6 @@ import org.hexworks.zircon.api.data.Size3D
 
 object GameConfig {
     const val DUNGEON_LEVELS = 15
-    val TILESET = CP437TilesetResources.rogueYun16x16()
     val THEME = ColorThemes.zenburnVanilla()
 
     const val SIDEBAR_WIDTH = 18
@@ -28,6 +28,6 @@ object GameConfig {
     fun buildAppConfig() = AppConfig.newBuilder()
             .enableBetaFeatures()
             .withSize(WINDOW_WIDTH, WINDOW_HEIGHT)
-            .withDefaultTileset(TILESET)
+            .withDefaultTileset(GameTiles.defaultCharTileset)
             .build()
 }

@@ -2,6 +2,7 @@ package cz.cuni.gamedev.nail123.roguelike.world.builders
 
 import cz.cuni.gamedev.nail123.roguelike.GameConfig
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
+import cz.cuni.gamedev.nail123.roguelike.blocks.Wall
 import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
 import cz.cuni.gamedev.nail123.roguelike.entities.Player
 import cz.cuni.gamedev.nail123.roguelike.world.IArea
@@ -32,6 +33,12 @@ abstract class AreaBuilder(override val size: Size3D, val visibleSize: Size3D = 
         val area = Area(blocks.toPersistentMap(), visibleSize, size, player)
         for (entity in entities) {
             entity.area = area
+        }
+        // This is here to update autotiling
+        for (block in area.blocks.values) {
+            if (block is Wall) {
+                block.updateTileMap()
+            }
         }
         return area
     }
