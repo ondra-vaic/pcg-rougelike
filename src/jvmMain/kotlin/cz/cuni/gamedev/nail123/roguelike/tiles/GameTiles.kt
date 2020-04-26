@@ -13,13 +13,13 @@ object GameTiles {
 
     // Allowed characters are CP437 https://en.wikipedia.org/wiki/Code_page_437
     val FLOOR = characterTile('.', GameColors.FLOOR_FOREGROUND, GameColors.FLOOR_BACKGROUND)
+    // Wall tile is replaced by autotiling in Wall.kt
     val WALL = characterTile('#', GameColors.WALL_FOREGROUND, GameColors.WALL_BACKGROUND)
-    val PLAYER = characterTile('@', GameColors.ACCENT_COLOR)
-    val CLOSED_DOOR = characterTile('+', GameColors.DOOR_FOREGROUND)
-    val OPEN_DOOR_VERTICAL = characterTile('|', GameColors.DOOR_FOREGROUND)
-    val OPEN_DOOR_HORIZONTAL = characterTile('-', GameColors.DOOR_FOREGROUND)
-    val STAIRS_DOWN = characterTile('>', GameColors.STAIRS_FOREGROUND, GameColors.FLOOR_BACKGROUND)
-    val STAIRS_UP = characterTile('<', GameColors.STAIRS_FOREGROUND, GameColors.FLOOR_BACKGROUND)
+    val PLAYER = graphicalTile("Adventurer")
+    val CLOSED_DOOR = graphicalTile("Door closed")
+    val OPEN_DOOR = graphicalTile("Door open")
+    val STAIRS_DOWN = graphicalTile("Stairs down")
+    val STAIRS_UP = graphicalTile("Stairs up")
 
     fun characterTile(char: Char,
                       foreground: TileColor = GameColors.OBJECT_FOREGROUND,

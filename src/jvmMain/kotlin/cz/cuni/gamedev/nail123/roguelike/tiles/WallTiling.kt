@@ -18,7 +18,7 @@ val wallTiling = Autotiling(
         Direction.SOUTH + Direction.EAST to GameTiles.graphicalTile("Wall thick S E"),
         Direction.SOUTH + Direction.WEST to GameTiles.graphicalTile("Wall thick S W"),
         Direction.NORTH.flag to GameTiles.graphicalTile("Wall thick N S"),
-        Direction.WEST.flag to GameTiles.graphicalTile("Wall thick E W"),
-        Direction.EAST.flag to GameTiles.graphicalTile("Wall thick E W"),
+        Direction.WEST.flag to GameTiles.graphicalTile("Wall thick W E"),
+        Direction.EAST.flag to GameTiles.graphicalTile("Wall thick W E"),
         Direction.SOUTH.flag to GameTiles.graphicalTile("Wall thick N S")
 )
