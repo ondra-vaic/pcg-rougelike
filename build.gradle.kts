@@ -31,6 +31,8 @@ kotlin {
                 implementation(kotlin("stdlib"))
                 implementation("org.hexworks.zircon:zircon.core-jvm:2020.1.6-HOTFIX")
                 implementation("org.hexworks.zircon:zircon.jvm.swing:2020.1.6-HOTFIX")
+                // Required for Wave Function Collapse, source by https://github.com/edwinRNDR/wfc
+                implementation("com.google.code.gson:gson:2.8.5")
             }
         }
 

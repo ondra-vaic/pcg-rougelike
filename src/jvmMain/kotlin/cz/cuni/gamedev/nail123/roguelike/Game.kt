@@ -5,11 +5,12 @@ import cz.cuni.gamedev.nail123.roguelike.actions.Move
 import cz.cuni.gamedev.nail123.roguelike.world.Direction
 import cz.cuni.gamedev.nail123.roguelike.world.World
 import cz.cuni.gamedev.nail123.roguelike.world.worlds.DungeonWorld
+import cz.cuni.gamedev.nail123.roguelike.world.worlds.WaveFunctionCollapsedWorld
 
 /**
  * A class containing a state of the game (World) and the game logic.
  */
-class Game(val world: World = DungeonWorld()) {
+class Game(val world: World = WaveFunctionCollapsedWorld()) {
     val area
         get() = world.currentArea
 

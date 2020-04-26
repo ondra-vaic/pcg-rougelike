@@ -11,8 +11,8 @@ import java.io.File
 import javax.imageio.ImageIO
 
 fun main() {
-    val dungeonWorld = DungeonWorld()
-    dungeonWorld.currentArea.toPNG("out/render.png")
+    val game = Game()
+    game.world.currentArea.toPNG("out/render.png")
 }
 
 fun Area.toPNG(filepath: String) {

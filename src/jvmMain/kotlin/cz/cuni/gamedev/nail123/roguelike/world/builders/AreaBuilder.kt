@@ -11,7 +11,10 @@ import kotlinx.collections.immutable.toPersistentMap
 import org.hexworks.zircon.api.data.Position3D
 import org.hexworks.zircon.api.data.Size3D
 
-abstract class AreaBuilder(override val size: Size3D, val visibleSize: Size3D = GameConfig.VISIBLE_SIZE): IArea {
+abstract class AreaBuilder(
+        override val size: Size3D,
+        val visibleSize: Size3D = GameConfig.VISIBLE_SIZE): IArea {
+
     override var blocks = mutableMapOf<Position3D, GameBlock>()
     override val entities = mutableListOf<GameEntity>()
 

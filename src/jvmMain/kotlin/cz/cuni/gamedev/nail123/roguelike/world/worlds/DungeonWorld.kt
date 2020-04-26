@@ -22,7 +22,7 @@ open class DungeonWorld: World() {
         goToArea(levels[0])
     }
 
-    fun buildLevel(floor: Int): Area {
+    open fun buildLevel(floor: Int): Area {
         val area = CellularAutomataAreaBuilder(GameConfig.AREA_SIZE).create()
 
         // Add stairs up
