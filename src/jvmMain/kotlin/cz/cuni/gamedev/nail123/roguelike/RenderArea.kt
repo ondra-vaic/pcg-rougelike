@@ -1,6 +1,7 @@
 package cz.cuni.gamedev.nail123.roguelike
 
 import cz.cuni.gamedev.nail123.roguelike.blocks.Wall
+import cz.cuni.gamedev.nail123.roguelike.extensions.asNullable
 import cz.cuni.gamedev.nail123.roguelike.tiles.GameTiles
 import cz.cuni.gamedev.nail123.roguelike.world.Area
 import cz.cuni.gamedev.nail123.roguelike.world.worlds.DungeonWorld
@@ -24,14 +25,13 @@ fun Area.toPNG(filepath: String) {
 
     val loader = SwingTilesetLoader()
 
-    val graphicalTileset = loader.loadTilesetFrom(GameTiles.defaultGraphicalTileset)
     val charTileset = loader.loadTilesetFrom(GameTiles.defaultCharTileset)
 
     allPositions.forEach { position ->
         val block = get(position) ?: Wall()
 
         arrayOf(block.bottom, block.content, block.top).forEach {
-            val tileset = if (it.asGraphicTile().isPresent) graphicalTileset else charTileset
+            val tileset = it.asGraphicTile().asNullable?.let { loader.loadTilesetFrom(it.tileset) } ?: charTileset
             tileset.drawTile(it, graphics, position.to2DPosition())
         }
     }
