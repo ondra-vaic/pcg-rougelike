@@ -4,6 +4,7 @@ import cz.cuni.gamedev.nail123.roguelike.tiles.GameTiles
 import cz.cuni.gamedev.nail123.roguelike.world.World
 import cz.cuni.gamedev.nail123.roguelike.world.worlds.SampleWorld
 import cz.cuni.gamedev.nail123.world.worlds.SampleJavaWorld
+import cz.cuni.gamedev.nail123.world.worlds.WaveFunctionCollapsedJavaWorld
 import org.hexworks.zircon.api.CP437TilesetResources
 import org.hexworks.zircon.api.ColorThemes
 import org.hexworks.zircon.api.application.AppConfig
@@ -21,9 +22,12 @@ object GameConfig {
     const val WINDOW_WIDTH = 80
     const val WINDOW_HEIGHT = 50
 
+    val VISIBLE_WIDTH = WINDOW_WIDTH - SIDEBAR_WIDTH
+    val VISIBLE_HEIGHT = WINDOW_HEIGHT - LOG_AREA_HEIGHT
+
     val VISIBLE_SIZE = Size3D.create(
-            WINDOW_WIDTH - SIDEBAR_WIDTH,
-            WINDOW_HEIGHT - LOG_AREA_HEIGHT,
+            VISIBLE_WIDTH,
+            VISIBLE_HEIGHT,
             1
     )
 
