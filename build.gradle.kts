@@ -60,3 +60,30 @@ tasks.register<JavaExec>("renderPng") {
     classpath = sourceSets["main"].runtimeClasspath
     main = "cz.cuni.gamedev.nail123.roguelike.RenderAreaKt"
 }
+
+tasks.register<JavaExec>("playGame") {
+    group = "custom"
+    dependsOn("compileKotlinJvm", "zipTilesets")
+
+    classpath = sourceSets["main"].runtimeClasspath
+    main = "cz.cuni.gamedev.nail123.roguelike.RunGameKt"
+}
+
+val tilesetDirectories = File("tilesets").listFiles(File::isDirectory)!!
+for (directory in tilesetDirectories) {
+    val directoryName = directory.name
+    tasks.register<Zip>("zipTileset-$directoryName") {
+        group = "custom"
+        from(directory)
+
+        archiveFileName.set("$directoryName.zip")
+        destinationDirectory.set(file("src/jvmMain/resources/tilesets/$directoryName"))
+    }
+}
+
+tasks.register("zipTilesets") {
+    group = "custom"
+
+    dependsOn(tilesetDirectories.map { "zipTileset-${it.name}" })
+}
+
