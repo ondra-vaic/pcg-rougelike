@@ -12,7 +12,7 @@ import org.hexworks.zircon.api.data.Position3D
 import org.hexworks.zircon.api.data.Size3D
 
 abstract class AreaBuilder(
-        override val size: Size3D,
+        override val size: Size3D = GameConfig.AREA_SIZE,
         val visibleSize: Size3D = GameConfig.VISIBLE_SIZE): IArea {
 
     override var blocks = mutableMapOf<Position3D, GameBlock>()

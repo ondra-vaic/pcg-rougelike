@@ -7,7 +7,7 @@ import org.hexworks.zircon.api.data.Position3D
 import org.hexworks.zircon.api.data.Size3D
 
 /**
- * Interface of common features of WorldBuilder (containing incomplete, in-progress worlds) and World.
+ * Interface of common features of AreaBuilder (containing incomplete, in-progress areas) and Area.
  */
 interface IArea {
     val size: Size3D
