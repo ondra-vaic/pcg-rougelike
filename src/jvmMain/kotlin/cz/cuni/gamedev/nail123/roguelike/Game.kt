@@ -4,7 +4,6 @@ import cz.cuni.gamedev.nail123.roguelike.actions.GameAction
 import cz.cuni.gamedev.nail123.roguelike.actions.Move
 import cz.cuni.gamedev.nail123.roguelike.world.Direction
 import cz.cuni.gamedev.nail123.roguelike.world.World
-import cz.cuni.gamedev.nail123.roguelike.world.builders.automata.CellularAutomataAreaBuilder
 import cz.cuni.gamedev.nail123.roguelike.world.worlds.DungeonWorld
 
 /**
@@ -13,6 +12,8 @@ import cz.cuni.gamedev.nail123.roguelike.world.worlds.DungeonWorld
 class Game(val world: World = DungeonWorld()) {
     val area
         get() = world.currentArea
+
+    var steps = 0
 
     /** The possible actions the player may perform. */
     enum class PlayerAction(val action: GameAction) {
@@ -27,8 +28,10 @@ class Game(val world: World = DungeonWorld()) {
     }
 
     // The main game loop
-    fun step(playerAction: PlayerAction?) {
-        playerAction?.action?.perform(area)
+    fun step(playerAction: PlayerAction) {
+        val actionPerformed = playerAction.action.tryPerform(area)
+        if (!actionPerformed) return
         for (entity in area.entities) entity.update()
+        ++steps
     }
 }
