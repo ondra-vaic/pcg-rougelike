@@ -4,8 +4,12 @@ import cz.cuni.gamedev.nail123.roguelike.Game
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.GameConfig
 import cz.cuni.gamedev.nail123.roguelike.controls.KeyboardControls
+import cz.cuni.gamedev.nail123.roguelike.events.GameEvent
+import cz.cuni.gamedev.nail123.roguelike.events.LoggedEvent
+import cz.cuni.gamedev.nail123.roguelike.events.logMessage
 import cz.cuni.gamedev.nail123.roguelike.gui.CameraMover
 import cz.cuni.gamedev.nail123.roguelike.world.World.Companion.withWorld
+import org.hexworks.cobalt.events.api.KeepSubscription
 import org.hexworks.zircon.api.ColorThemes
 import org.hexworks.zircon.api.ComponentDecorations
 import org.hexworks.zircon.api.Components
@@ -15,6 +19,7 @@ import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.grid.TileGrid
 import org.hexworks.zircon.api.uievent.KeyboardEventType
 import org.hexworks.zircon.api.view.base.BaseView
+import org.hexworks.zircon.internal.Zircon
 
 class PlayView(val tileGrid: TileGrid, val game: Game = Game()): BaseView(tileGrid, ColorThemes.arc()) {
     override fun onDock() {
@@ -42,15 +47,23 @@ class PlayView(val tileGrid: TileGrid, val game: Game = Game()): BaseView(tileGr
         screen.addComponent(logArea)
         screen.addComponent(gameComponent)
 
+        // Handling key presses
         val keyboardControls = KeyboardControls(game)
         screen.handleKeyboardEvents(KeyboardEventType.KEY_PRESSED) { event, phase ->
             keyboardControls.handleInput(event)
         }
 
+        // Scrolling
         val cameraMover = CameraMover(game.world)
         cameraMover.update()
         game.world.player.positionProperty.onChange {
             cameraMover.update()
+        }
+
+        // Logging to log area
+        Zircon.eventBus.subscribeTo<LoggedEvent>(key="LoggedEvent") { event ->
+            logArea.addParagraph(event.logMessage, withNewLine = false)
+            KeepSubscription
         }
     }
 }

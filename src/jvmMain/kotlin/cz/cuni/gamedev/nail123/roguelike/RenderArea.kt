@@ -23,12 +23,15 @@ fun Area.toPNG(filepath: String) {
     val graphics = image.createGraphics()
 
     val loader = SwingTilesetLoader()
-    val tileset = loader.loadTilesetFrom(GameTiles.defaultCharTileset)
+
+    val graphicalTileset = loader.loadTilesetFrom(GameTiles.defaultGraphicalTileset)
+    val charTileset = loader.loadTilesetFrom(GameTiles.defaultCharTileset)
 
     allPositions.forEach { position ->
         val block = get(position) ?: Wall()
 
         arrayOf(block.bottom, block.content, block.top).forEach {
+            val tileset = if (it.asGraphicTile().isPresent) graphicalTileset else charTileset
             tileset.drawTile(it, graphics, position.to2DPosition())
         }
     }

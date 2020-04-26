@@ -2,6 +2,8 @@ package cz.cuni.gamedev.nail123.roguelike.world.worlds
 
 import cz.cuni.gamedev.nail123.roguelike.GameConfig
 import cz.cuni.gamedev.nail123.roguelike.entities.Stairs
+import cz.cuni.gamedev.nail123.roguelike.events.LoggedEvent
+import cz.cuni.gamedev.nail123.roguelike.events.logMessage
 import cz.cuni.gamedev.nail123.roguelike.pathfinding.Pathfinding
 import cz.cuni.gamedev.nail123.roguelike.world.Area
 import cz.cuni.gamedev.nail123.roguelike.world.World
@@ -36,14 +38,14 @@ open class DungeonWorld: World() {
 
     override fun moveDown() {
         ++currentLevel
-        println("Going down to level $currentLevel")
+        this.logMessage("Descended to level ${currentLevel + 1}")
         if (currentLevel >= areas.size) levels.add(buildLevel(levels.size))
-
         goToArea(levels[currentLevel])
     }
 
     override fun moveUp() {
         --currentLevel
+        this.logMessage("Ascended to level ${currentLevel + 1}")
         println("Going up to level $currentLevel")
         goToArea(levels[currentLevel])
     }

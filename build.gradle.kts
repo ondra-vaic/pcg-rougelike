@@ -73,7 +73,7 @@ val tilesetDirectories: Array<File> = File("tilesets").listFiles(File::isDirecto
 for (directory in tilesetDirectories) {
     val directoryName = directory.name
     tasks.register<Zip>("zipTileset-$directoryName") {
-        group = "custom"
+        group = "other"
         from(directory)
 
         archiveFileName.set("$directoryName.zip")
