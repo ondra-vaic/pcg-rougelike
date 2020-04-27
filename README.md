@@ -8,7 +8,7 @@ Java 8+.
 
 ## Running
 
-The most important Gradle tasks are:
+The main Gradle tasks are:
  - `renderPng` - renders the first level into `out/render.png`
  - `playGame` - launches the game on JVM
  - `shadowJar` - will build a runnable JAR into `build/libs/roguelike-<version>-all.jar`
