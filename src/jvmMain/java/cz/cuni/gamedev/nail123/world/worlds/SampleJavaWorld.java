@@ -8,14 +8,18 @@ import cz.cuni.gamedev.nail123.roguelike.world.builders.AreaBuilder;
 import cz.cuni.gamedev.nail123.roguelike.world.builders.EmptyAreaBuilder;
 import org.hexworks.zircon.api.data.Position3D;
 import org.hexworks.zircon.api.data.Size3D;
+import org.jetbrains.annotations.NotNull;
 
 public class SampleJavaWorld extends World {
     int currentLevel = 0;
 
     public SampleJavaWorld() {
-        Area level = buildLevel();
-        getAreas().add(level);
-        goToArea(level);
+    }
+
+    @NotNull
+    @Override
+    public Area buildStartingArea() {
+        return buildLevel();
     }
 
     Area buildLevel() {

@@ -17,10 +17,7 @@ open class DungeonWorld: World() {
     val levels
         get() = areas
 
-    init {
-        levels.add(buildLevel(0))
-        goToArea(levels[0])
-    }
+    override fun buildStartingArea() = buildLevel(0)
 
     open fun buildLevel(floor: Int): Area {
         val area = CellularAutomataAreaBuilder(GameConfig.AREA_SIZE).create()

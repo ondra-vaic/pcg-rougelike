@@ -15,12 +15,7 @@ import org.hexworks.zircon.api.data.Size3D
 class SampleWorld: World() {
     var currentLevel = 0
 
-    init {
-        // We need to create the first area and enter it
-        val level = buildLevel()
-        areas.add(level)
-        goToArea(level)
-    }
+    override fun buildStartingArea() = buildLevel()
 
     /**
      * Builds one of the levels.
