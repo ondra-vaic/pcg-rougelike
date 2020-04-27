@@ -8,6 +8,8 @@ Java 8+.
 
 ## Running
 
+Warning! Due to an unresolved bug, the first gradle run will fail. Workaround: run it a second time.
+
 The main Gradle tasks are:
  - `renderPng` - renders the first level into `out/render.png`
  - `playGame` - launches the game on JVM

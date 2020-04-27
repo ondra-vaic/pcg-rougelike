@@ -57,7 +57,7 @@ tasks {
 
 tasks.register<JavaExec>("renderPng") {
     group = "custom"
-    dependsOn("compileKotlinJvm", "zipTilesets")
+    dependsOn("zipTilesets", "compileKotlinJvm")
 
     classpath = sourceSets["main"].runtimeClasspath
     main = "cz.cuni.gamedev.nail123.roguelike.RenderAreaKt"
@@ -65,7 +65,7 @@ tasks.register<JavaExec>("renderPng") {
 
 tasks.register<JavaExec>("playGame") {
     group = "custom"
-    dependsOn("compileKotlinJvm", "zipTilesets")
+    dependsOn("zipTilesets", "compileKotlinJvm")
 
     classpath = sourceSets["main"].runtimeClasspath
     main = "cz.cuni.gamedev.nail123.roguelike.RunGameKt"
