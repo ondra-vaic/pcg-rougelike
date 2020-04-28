@@ -14,4 +14,6 @@ object GameColors {
 
     val STAIRS_FOREGROUND = TileColor.fromString("#00A10D")
     val DOOR_FOREGROUND = TileColor.fromString("#AD6200")
+
+    val BLACK = TileColor.fromString("#000000")
 }

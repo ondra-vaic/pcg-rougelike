@@ -30,7 +30,7 @@ fun Area.toPNG(filepath: String) {
     allPositions.forEach { position ->
         val block = get(position) ?: Wall()
 
-        arrayOf(block.bottom, block.content, block.top).forEach {
+        arrayOf(block.bottom, block.content).forEach {
             val tileset = it.asGraphicTile().asNullable?.let { loader.loadTilesetFrom(it.tileset) } ?: charTileset
             tileset.drawTile(it, graphics, position.to2DPosition())
         }

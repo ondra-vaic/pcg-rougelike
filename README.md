@@ -18,5 +18,3 @@ The main Gradle tasks are:
 ## Documentation
 
 Check out the [wiki](https://gitlab.com/gamedev-cuni-cz/pcg/roguelike/-/wikis/home).
-
-

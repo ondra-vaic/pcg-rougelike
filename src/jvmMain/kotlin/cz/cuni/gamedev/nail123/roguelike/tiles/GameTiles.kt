@@ -23,6 +23,7 @@ object GameTiles {
     val OPEN_DOOR = graphicalTile("Door open")
     val STAIRS_DOWN = graphicalTile("Stairs down")
     val STAIRS_UP = graphicalTile("Stairs up")
+    val BLACK = characterTile(' ', GameColors.BLACK, GameColors.BLACK)
 
     // Autotiling tries to find a tile by whether similar tiles neighbor in some directions
     // It iterates through a list of Directional flags (which must be fulfilled) to tiles that should be used

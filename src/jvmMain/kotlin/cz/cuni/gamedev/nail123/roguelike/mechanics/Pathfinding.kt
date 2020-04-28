@@ -1,10 +1,9 @@
-package cz.cuni.gamedev.nail123.roguelike.pathfinding
+package cz.cuni.gamedev.nail123.roguelike.mechanics
 
 import cz.cuni.gamedev.nail123.roguelike.extensions.chebyshevDistance
 import cz.cuni.gamedev.nail123.roguelike.extensions.floorNeighbors4
 import cz.cuni.gamedev.nail123.roguelike.extensions.floorNeighbors8
 import cz.cuni.gamedev.nail123.roguelike.extensions.manhattanDistance
-import cz.cuni.gamedev.nail123.roguelike.world.Area
 import cz.cuni.gamedev.nail123.roguelike.world.IArea
 import org.hexworks.zircon.api.data.Position3D
 import java.util.ArrayDeque

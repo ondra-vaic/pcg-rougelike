@@ -1,5 +1,7 @@
 package cz.cuni.gamedev.nail123.roguelike.entities
 
+import cz.cuni.gamedev.nail123.roguelike.entities.attributes.Interactable
+import cz.cuni.gamedev.nail123.roguelike.entities.attributes.InteractionResult
 import cz.cuni.gamedev.nail123.roguelike.tiles.GameTiles
 
 class Stairs(val leadDown: Boolean = true): GameEntity(

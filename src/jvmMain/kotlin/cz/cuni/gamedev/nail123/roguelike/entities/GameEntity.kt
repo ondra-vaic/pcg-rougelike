@@ -19,6 +19,9 @@ abstract class GameEntity(val tile: Tile = Tile.empty(), val sortingLayer: Sorti
     val z: Int
         get() = position.z
 
+    // Gets called after the area is built
+    open fun init() {}
+
     open fun update() {}
 
     override fun toString(): String = this.javaClass.simpleName

@@ -1,5 +1,6 @@
 package cz.cuni.gamedev.nail123.roguelike.entities
 
+import cz.cuni.gamedev.nail123.roguelike.entities.attributes.interaction
 import cz.cuni.gamedev.nail123.roguelike.extensions.shift
 import cz.cuni.gamedev.nail123.roguelike.world.Direction
 import org.hexworks.zircon.api.data.Position3D

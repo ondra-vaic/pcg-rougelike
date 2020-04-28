@@ -1,6 +1,7 @@
 package cz.cuni.gamedev.nail123.roguelike.world.worlds
 
 import cz.cuni.gamedev.nail123.roguelike.entities.Stairs
+import cz.cuni.gamedev.nail123.roguelike.entities.unplacable.FogOfWar
 import cz.cuni.gamedev.nail123.roguelike.events.logMessage
 import cz.cuni.gamedev.nail123.roguelike.world.Area
 import cz.cuni.gamedev.nail123.roguelike.world.World
@@ -36,6 +37,8 @@ class SampleWorld: World() {
                 Position3D.create(areaBuilder.width / 2, areaBuilder.height / 2, 0),
                 Size3D.create(areaBuilder.width / 2 - 2, areaBuilder.height / 2 - 2, 1)
         )
+
+        areaBuilder.addEntity(FogOfWar(), Position3D.unknown())
 
         // Build it into a full Area
         return areaBuilder.build()

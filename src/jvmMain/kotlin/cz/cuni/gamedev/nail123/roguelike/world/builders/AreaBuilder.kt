@@ -34,16 +34,17 @@ abstract class AreaBuilder(
 
     fun build(): Area {
         val area = Area(blocks.toPersistentMap(), visibleSize, size, player)
+
         for (entity in entities) {
-            entity.area = area
+            area.removeEntity(entity)
+            area.addEntity(entity, entity.position)
         }
-        // This is here to update autotiling
-        for (block in area.blocks.values) {
-            if (block is Wall) {
-                block.updateTileMap()
-            }
+
+        return area.apply {
+            entities.forEach { it.init() }
+            // This is here to update autotiling
+            blocks.values.forEach { it.updateTileMap() }
         }
-        return area
     }
 
     abstract fun create(): AreaBuilder

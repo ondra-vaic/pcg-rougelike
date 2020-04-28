@@ -1,6 +1,7 @@
-package cz.cuni.gamedev.nail123.roguelike.entities
+package cz.cuni.gamedev.nail123.roguelike.entities.attributes
 
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
+import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
 
 enum class InteractionResult {
     INTERACTED, NO_INTERACTION

@@ -15,6 +15,7 @@ open class GameBlock(open var baseTile: Tile): BaseBlock<Tile>(
         tiles = persistentMapOf(BlockTileType.BOTTOM to baseTile)) {
 
     open val blocksMovement = false
+    open val blocksVision = false
     lateinit var area: Area
     lateinit var position: Position3D
 

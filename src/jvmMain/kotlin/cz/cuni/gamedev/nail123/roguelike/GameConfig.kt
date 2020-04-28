@@ -3,6 +3,7 @@ package cz.cuni.gamedev.nail123.roguelike
 import cz.cuni.gamedev.nail123.roguelike.tiles.GameTiles
 import cz.cuni.gamedev.nail123.roguelike.world.World
 import cz.cuni.gamedev.nail123.roguelike.world.worlds.SampleWorld
+import cz.cuni.gamedev.nail123.roguelike.world.worlds.WaveFunctionCollapsedWorld
 import cz.cuni.gamedev.nail123.world.worlds.SampleJavaWorld
 import cz.cuni.gamedev.nail123.world.worlds.WaveFunctionCollapsedJavaWorld
 import org.hexworks.zircon.api.CP437TilesetResources
