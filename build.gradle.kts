@@ -45,6 +45,12 @@ kotlin {
 }
 
 tasks {
+    build {
+        dependsOn("zipTilesets")
+    }
+    clean {
+        dependsOn("cleanTilesets")
+    }
     wrapper {
         distributionType = Wrapper.DistributionType.ALL
     }
@@ -53,6 +59,7 @@ tasks {
             attributes["Main-Class"] = "cz.cuni.gamedev.nail123.roguelike.MainKt"
         }
     }
+    getByName("compileKotlinJvm") { mustRunAfter("zipTilesets") }
 }
 
 tasks.register<JavaExec>("renderPng") {
@@ -87,5 +94,9 @@ tasks.register("zipTilesets") {
     group = "custom"
 
     dependsOn(tilesetDirectories.map { "zipTileset-${it.name}" })
+}
+tasks.register<Delete>("cleanTilesets") {
+    group = "custom"
+    delete("src/jvmMain/resources/tilesets")
 }
 
