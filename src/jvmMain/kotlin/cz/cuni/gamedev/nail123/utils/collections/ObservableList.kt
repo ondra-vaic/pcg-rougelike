@@ -85,6 +85,23 @@ class ObservableList<T>(private val list: MutableList<T> = ArrayList()): List<T>
     fun onChange(fn: () -> Unit) = onChangeInner { (_) -> fn() }
 
     /*
+     * ACCESS DELEGATION
+     *
+     * These function are required by the List<T> interface and provide access to elements.
+     */
+
+    override fun contains(element: T) = list.contains(element)
+    override fun containsAll(elements: Collection<T>) = list.containsAll(elements)
+    override operator fun get(index: Int) = list[index]
+    override fun indexOf(element: T) = list.indexOf(element)
+    override fun isEmpty() = list.isEmpty()
+    override fun iterator() = list.iterator()
+    override fun lastIndexOf(element: T) = list.lastIndexOf(element)
+    override fun listIterator() = list.listIterator()
+    override fun listIterator(index: Int) = list.listIterator(index)
+    override fun subList(fromIndex: Int, toIndex: Int) = ObservableList(list.subList(fromIndex, toIndex))
+
+    /*
      * MUTABILITY
      *
      * Functions that provide mutability, similarly to ArrayList<T>
@@ -114,23 +131,6 @@ class ObservableList<T>(private val list: MutableList<T> = ArrayList()): List<T>
     fun removeAt(index: Int) = list.removeAt(index).also { removed(index, it) }
 
     /*
-     * ACCESS DELEGATION
-     *
-     * These function are required by the List<T> interface and provide access to elements.
-     */
-
-    override fun contains(element: T) = list.contains(element)
-    override fun containsAll(elements: Collection<T>) = list.containsAll(elements)
-    override operator fun get(index: Int) = list[index]
-    override fun indexOf(element: T) = list.indexOf(element)
-    override fun isEmpty() = list.isEmpty()
-    override fun iterator() = list.iterator()
-    override fun lastIndexOf(element: T) = list.lastIndexOf(element)
-    override fun listIterator() = list.listIterator()
-    override fun listIterator(index: Int) = list.listIterator(index)
-    override fun subList(fromIndex: Int, toIndex: Int) = ObservableList(list.subList(fromIndex, toIndex))
-
-    /*
      * OVERRIDE DEFAULT OBJECT METHODS
      */
     override fun equals(other: Any?) = other is ObservableList<*> && list == other.list
@@ -138,5 +138,5 @@ class ObservableList<T>(private val list: MutableList<T> = ArrayList()): List<T>
     override fun toString() = "ObservableList($list)"
 }
 
-fun <T> observableListOf(vararg elements: T) = ObservableList<T>(elements.toCollection(ArrayList()))
+fun <T> observableListOf(vararg elements: T) = ObservableList(elements.toCollection(ArrayList()))
 fun <T> ObservableList<T>.withAddListener(fn: (T) -> Unit): ObservableList<T> = apply { onAdd(fn) }
