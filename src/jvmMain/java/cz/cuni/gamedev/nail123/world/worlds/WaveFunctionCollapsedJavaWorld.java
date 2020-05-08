@@ -38,7 +38,8 @@ public class WaveFunctionCollapsedJavaWorld extends DungeonWorld {
         Map<Position3D, Integer> floodFill = Pathfinding.INSTANCE.floodFill(
                 area.getPlayer().getPosition(),
                 area,
-                Pathfinding.INSTANCE.getEightDirectional()
+                Pathfinding.INSTANCE.getEightDirectional(),
+                Pathfinding.INSTANCE.getDoorOpening()
         );
 
         Position3D[] exitPositions = {};

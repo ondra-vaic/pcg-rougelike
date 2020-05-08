@@ -1,5 +1,8 @@
 package cz.cuni.gamedev.nail123.roguelike.mechanics
 
+import cz.cuni.gamedev.nail123.roguelike.blocks.Floor
+import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
+import cz.cuni.gamedev.nail123.roguelike.entities.placeable.Door
 import cz.cuni.gamedev.nail123.roguelike.extensions.chebyshevDistance
 import cz.cuni.gamedev.nail123.roguelike.extensions.floorNeighbors4
 import cz.cuni.gamedev.nail123.roguelike.extensions.floorNeighbors8
@@ -19,6 +22,12 @@ object Pathfinding {
     val manhattan = { pos1: Position3D, pos2: Position3D -> (pos1 - pos2).manhattanDistance }
     val chebyshev = { pos1: Position3D, pos2: Position3D -> (pos1 - pos2).chebyshevDistance }
 
+    // Blocking options
+    val defaultBlocking = { block: GameBlock -> block.blocksMovement }
+    val doorOpening = { block: GameBlock ->
+        (block !is Floor && block.blocksMovement) || block.entities.filter { it !is Door && it.blocksMovement }.any()
+    }
+
     /**
      * Based of https://rosettacode.org/wiki/A*_search_algorithm#Kotlin
      *
@@ -33,6 +42,7 @@ object Pathfinding {
               finish: Position3D,
               area: IArea,
               movement: (Position3D) -> List<Position3D> = eightDirectional,
+              blocking: (GameBlock) -> Boolean = defaultBlocking,
               heuristic: (Position3D, Position3D) -> Int = chebyshev,
               moveCost: (Position3D, Position3D) -> Int = { _, _ -> 1 }): Result? {
 
@@ -67,7 +77,7 @@ object Pathfinding {
             closedVertices.add(currentPos)
 
             movement(currentPos)
-                .filter { area[it]?.blocksMovement == false && !closedVertices.contains(it) }
+                .filter { area[it]?.let { block -> blocking(block) } == false && !closedVertices.contains(it) }
                 .forEach { newPos ->
 
                 val score = costFromStart[currentPos]!! + moveCost(currentPos, newPos)
@@ -87,7 +97,8 @@ object Pathfinding {
      */
     fun floodFill(start: Position3D,
                   area: IArea,
-                  movement: (Position3D) -> List<Position3D> = eightDirectional): Map<Position3D, Int> {
+                  movement: (Position3D) -> List<Position3D> = eightDirectional,
+                  blocking: (GameBlock) -> Boolean = doorOpening): Map<Position3D, Int> {
 
         data class PointWithDistance(val position: Position3D, val distance: Int)
 
@@ -100,7 +111,7 @@ object Pathfinding {
         while (openVertices.isNotEmpty()) {
             val currentPos = openVertices.pollFirst()
             movement(currentPos.position)
-                    .filter { area[it]?.blocksMovement == false && !allDistances.containsKey(it) }
+                    .filter { area[it]?.let { block -> blocking(block) } == false && !allDistances.containsKey(it) }
                     .forEach {
                         openVertices.addLast(PointWithDistance(it, currentPos.distance + 1))
                         allDistances[it] = currentPos.distance + 1
