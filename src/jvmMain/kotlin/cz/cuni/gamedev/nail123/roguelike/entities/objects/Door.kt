@@ -1,4 +1,4 @@
-package cz.cuni.gamedev.nail123.roguelike.entities.placeable
+package cz.cuni.gamedev.nail123.roguelike.entities.objects
 
 import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
 import cz.cuni.gamedev.nail123.roguelike.entities.Player
@@ -22,6 +22,6 @@ class Door: GameEntity(GameTiles.CLOSED_DOOR), Interactable {
     }
 
     override fun acceptInteractFrom(other: GameEntity, type: InteractionType) = interactionContext(other, type) {
-        interactFrom<Player>(InteractionType.BUMPED) { isOpen = !isOpen }
+        with<Player>(InteractionType.BUMPED) { isOpen = !isOpen }
     }
 }

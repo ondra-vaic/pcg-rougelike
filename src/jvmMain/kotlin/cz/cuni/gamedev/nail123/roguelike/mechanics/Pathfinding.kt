@@ -2,7 +2,7 @@ package cz.cuni.gamedev.nail123.roguelike.mechanics
 
 import cz.cuni.gamedev.nail123.roguelike.blocks.Floor
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
-import cz.cuni.gamedev.nail123.roguelike.entities.placeable.Door
+import cz.cuni.gamedev.nail123.roguelike.entities.objects.Door
 import cz.cuni.gamedev.nail123.roguelike.extensions.chebyshevDistance
 import cz.cuni.gamedev.nail123.roguelike.extensions.floorNeighbors4
 import cz.cuni.gamedev.nail123.roguelike.extensions.floorNeighbors8

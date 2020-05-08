@@ -4,7 +4,7 @@ import com.github.jroskopf.wfc.OverlappingModel
 import cz.cuni.gamedev.nail123.roguelike.GameConfig
 import cz.cuni.gamedev.nail123.roguelike.blocks.Floor
 import cz.cuni.gamedev.nail123.roguelike.blocks.Wall
-import cz.cuni.gamedev.nail123.roguelike.entities.placeable.Door
+import cz.cuni.gamedev.nail123.roguelike.entities.objects.Door
 import cz.cuni.gamedev.nail123.roguelike.world.builders.AreaBuilder
 import org.hexworks.zircon.api.data.Size3D
 import org.hexworks.zircon.api.data.Position3D

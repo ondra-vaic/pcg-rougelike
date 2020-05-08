@@ -19,6 +19,7 @@ object GameTiles {
     val WALL = characterTile('#', GameColors.WALL_FOREGROUND, GameColors.WALL_BACKGROUND)
 
     val PLAYER = graphicalTile("Adventurer")
+    val RAT = graphicalTile("Rat")
     val CLOSED_DOOR = graphicalTile("Door closed")
     val OPEN_DOOR = graphicalTile("Door open")
     val STAIRS_DOWN = graphicalTile("Stairs down")

@@ -1,4 +1,4 @@
-package cz.cuni.gamedev.nail123.roguelike.entities.placeable
+package cz.cuni.gamedev.nail123.roguelike.entities.objects
 
 import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
 import cz.cuni.gamedev.nail123.roguelike.entities.Player
@@ -17,7 +17,7 @@ class Stairs(val leadDown: Boolean = true): GameEntity(
     override val blocksVision = false
 
     override fun acceptInteractFrom(other: GameEntity, type: InteractionType) = interactionContext(other, type) {
-        interactFrom<Player>(InteractionType.STEPPED_ON) {
+        with<Player>(InteractionType.STEPPED_ON) {
             if (leadDown) area.world.moveDown() else area.world.moveUp()
         }
     }

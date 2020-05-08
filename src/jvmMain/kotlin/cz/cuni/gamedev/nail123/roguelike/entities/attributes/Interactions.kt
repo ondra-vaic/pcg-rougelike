@@ -17,17 +17,17 @@ interface Interacting {
 interface Interactable {
     fun acceptInteractFrom(other: GameEntity, type: InteractionType): Boolean
 }
-class InteractionScope(val entity: GameEntity, val type: InteractionType) {
+class InteractionScope(val other: GameEntity, val type: InteractionType) {
     var interacted = false
-    inline fun <reified T> interactFrom(type: InteractionType, interactionHandler: (T) -> Unit) {
-        if (entity is T && type == this.type) {
-            interactionHandler(entity)
+    inline fun <reified T> with(type: InteractionType, interactionHandler: (T) -> Unit) {
+        if (other is T && type == this.type) {
+            interactionHandler(other)
             interacted = true
         }
     }
 }
-fun interactionContext(entity: GameEntity, type: InteractionType, scopeFunc: InteractionScope.() -> Unit): Boolean {
-    val scope = InteractionScope(entity, type)
+fun interactionContext(other: GameEntity, type: InteractionType, scopeFunc: InteractionScope.() -> Unit): Boolean {
+    val scope = InteractionScope(other, type)
     scope.scopeFunc()
     return scope.interacted
 }

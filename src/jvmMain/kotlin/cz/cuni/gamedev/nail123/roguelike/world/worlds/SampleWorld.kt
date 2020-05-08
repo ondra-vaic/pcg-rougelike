@@ -1,6 +1,7 @@
 package cz.cuni.gamedev.nail123.roguelike.world.worlds
 
-import cz.cuni.gamedev.nail123.roguelike.entities.placeable.Stairs
+import cz.cuni.gamedev.nail123.roguelike.entities.enemies.Rat
+import cz.cuni.gamedev.nail123.roguelike.entities.objects.Stairs
 import cz.cuni.gamedev.nail123.roguelike.entities.unplacable.FogOfWar
 import cz.cuni.gamedev.nail123.roguelike.events.logMessage
 import cz.cuni.gamedev.nail123.roguelike.world.Area
@@ -38,7 +39,12 @@ class SampleWorld: World() {
                 Size3D.create(areaBuilder.width / 2 - 2, areaBuilder.height / 2 - 2, 1)
         )
 
-        areaBuilder.addEntity(FogOfWar(), Position3D.unknown())
+        // Add some rats to each level
+        repeat(currentLevel + 1) {
+            areaBuilder.addAtEmptyPosition(Rat(), Position3D.defaultPosition(), areaBuilder.size)
+        }
+        // We add fog of war such that exploration is needed
+//        areaBuilder.addEntity(FogOfWar(), Position3D.unknown())
 
         // Build it into a full Area
         return areaBuilder.build()
