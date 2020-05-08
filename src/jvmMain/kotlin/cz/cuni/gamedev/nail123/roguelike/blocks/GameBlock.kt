@@ -2,6 +2,7 @@ package cz.cuni.gamedev.nail123.roguelike.blocks
 
 import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
 import cz.cuni.gamedev.nail123.roguelike.world.Area
+import cz.cuni.gamedev.nail123.utils.collections.observableListOf
 import kotlinx.collections.immutable.persistentMapOf
 import org.hexworks.zircon.api.data.BlockTileType
 import org.hexworks.zircon.api.data.Position3D
@@ -14,27 +15,30 @@ open class GameBlock(open var baseTile: Tile): BaseBlock<Tile>(
         // We consider bottom-layer = FLOOR/WALL, content = ENTITIES, top = FOG_OF_WAR
         tiles = persistentMapOf(BlockTileType.BOTTOM to baseTile)) {
 
-    open val blocksMovement = false
-    open val blocksVision = false
+    open val blocksMovement: Boolean
+        get() = entities.any { it.blocksMovement }
+    open val blocksVision: Boolean
+        get() = entities.any { it.blocksVision }
+
     lateinit var area: Area
-    lateinit var position: Position3D
+    var position: Position3D = Position3D.unknown()
+        set(value) {
+            if (field != value) entities.forEach { it.position = value }
+            field = value
+        }
 
-    private val _entities = mutableListOf<GameEntity>()
-    val entities: List<GameEntity>
-        get() = _entities
+    val entities = observableListOf<GameEntity>()
 
-    fun addEntity(entity: GameEntity) {
-        _entities.add(entity)
-        updateTileMap()
-    }
-
-    fun removeEntity(entity: GameEntity) {
-        _entities.remove(entity)
-        updateTileMap()
+    init {
+        entities.onAdd {
+            it.block = this
+            it.position = this.position
+        }
+        entities.onChange { updateTileMap() }
     }
 
     fun updateTileMap() {
-        val topEntity = _entities.maxBy { it.sortingLayer }
+        val topEntity = entities.maxBy { it.sortingLayer }
         content = topEntity?.tile ?: baseTile
         bottom = baseTile
     }

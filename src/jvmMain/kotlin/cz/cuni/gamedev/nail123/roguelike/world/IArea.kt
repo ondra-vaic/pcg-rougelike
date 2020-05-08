@@ -18,12 +18,18 @@ interface IArea {
     val allPositions
         get() = size.fetchPositions()
     val blocks: Map<Position3D, GameBlock>
+
     val entities: List<GameEntity>
+        get() = blocks.values.flatMap { it.entities }
 
     operator fun get(position: Position3D): GameBlock?
 
-    fun addEntity(entity: GameEntity, position: Position3D)
-    fun removeEntity(entity: GameEntity)
+    fun addEntity(entity: GameEntity, position: Position3D) {
+        (blocks[position] ?: error("Adding entity to non-existing position")).entities.add(entity)
+    }
+    fun removeEntity(entity: GameEntity) {
+        blocks[entity.position]?.entities?.remove(entity)
+    }
 
     fun addAtEmptyPosition(entity: GameEntity, offset: Position3D, size: Size3D): Boolean {
         val emptyPosition = size.allPositionsShuffled()

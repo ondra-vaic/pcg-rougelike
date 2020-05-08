@@ -4,6 +4,7 @@ import com.github.jroskopf.wfc.OverlappingModel
 import cz.cuni.gamedev.nail123.roguelike.GameConfig
 import cz.cuni.gamedev.nail123.roguelike.blocks.Floor
 import cz.cuni.gamedev.nail123.roguelike.blocks.Wall
+import cz.cuni.gamedev.nail123.roguelike.entities.placeable.Door
 import cz.cuni.gamedev.nail123.roguelike.world.builders.AreaBuilder
 import org.hexworks.zircon.api.data.Size3D
 import org.hexworks.zircon.api.data.Position3D
@@ -16,7 +17,19 @@ class WFCAreaBuilder(size: Size3D, visibleSize: Size3D = GameConfig.VISIBLE_SIZE
     val source = File("src/jvmMain/resources/levels/wfc_sample.txt").readLines()
 
     val white = Color.WHITE.rgb
+    val door = Color.ORANGE.rgb
     val black = Color.BLACK.rgb
+
+    fun charToColor(char: Char) = when(char) {
+        '#' -> black
+        'D' -> door
+        else -> white
+    }
+    fun colorToBlock(color: Int) = when(color) {
+        door -> Floor().apply { entities.add(Door()) }
+        black -> Wall()
+        else -> Floor()
+    }
 
     override fun create() = apply {
         val inputBitmap = getInputBitmap()
@@ -29,7 +42,7 @@ class WFCAreaBuilder(size: Size3D, visibleSize: Size3D = GameConfig.VISIBLE_SIZE
         for (x in 0 until width) {
             for (y in 0 until height) {
                 val color = outputBitmap.getRGB(x, y)
-                blocks[Position3D.create(x, y, 0)] = if (color == black) Wall() else Floor()
+                blocks[Position3D.create(x, y, 0)] = colorToBlock(color)
             }
         }
     }
@@ -39,7 +52,7 @@ class WFCAreaBuilder(size: Size3D, visibleSize: Size3D = GameConfig.VISIBLE_SIZE
 
         for ((y, line) in source.withIndex()) {
             for ((x, char) in line.withIndex()) {
-                bitmap.setRGB(x, y, if (char == '#') black else white)
+                bitmap.setRGB(x, y, charToColor(char))
             }
         }
 

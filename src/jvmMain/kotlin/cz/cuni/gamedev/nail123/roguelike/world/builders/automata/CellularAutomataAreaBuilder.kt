@@ -4,7 +4,6 @@ import cz.cuni.gamedev.nail123.roguelike.GameConfig
 import cz.cuni.gamedev.nail123.roguelike.blocks.Floor
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.blocks.Wall
-import cz.cuni.gamedev.nail123.roguelike.entities.Stairs
 import cz.cuni.gamedev.nail123.roguelike.extensions.floorNeighbors8
 import cz.cuni.gamedev.nail123.roguelike.world.builders.AreaBuilder
 import org.hexworks.zircon.api.data.Position3D
@@ -44,7 +43,7 @@ class CellularAutomataAreaBuilder(size: Size3D, visibleSize: Size3D = GameConfig
 
                 newBlocks[pos] = if (floors > walls) Floor() else Wall()
             }
-            blocks = newBlocks
+            blocks.putAll(newBlocks)
         }
     }
 }

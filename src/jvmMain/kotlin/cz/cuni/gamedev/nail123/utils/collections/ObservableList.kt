@@ -12,7 +12,7 @@ import kotlin.collections.ArrayList
  *  - doesn't implicitly use persistent list (the events don't have an immutable value as old/new, but sometimes you
  *    don't need that)
  */
-class ObservableList<T>(private val list: MutableList<T> = ArrayList()): List<T>, RandomAccess {
+class ObservableList<T>(private val list: MutableList<T> = ArrayList()): MutableList<T>, RandomAccess {
     data class ElementAddedAt<T>(override val emitter: ObservableList<T>, val index: Int, val element: T) : Event
     data class ElementRemovedAt<T>(override val emitter: ObservableList<T>, val fromIndex: Int, val element: T) : Event
     data class Changed<T>(override val emitter: ObservableList<T>) : Event
@@ -107,28 +107,38 @@ class ObservableList<T>(private val list: MutableList<T> = ArrayList()): List<T>
      * Functions that provide mutability, similarly to ArrayList<T>
      */
 
-    fun add(element: T) = list.add(element).also {
+    override operator fun set(index: Int, element: T): T {
+        val oldElement = list[index]
+        list[index] = element
+        removed(index, oldElement)
+        added(index, element)
+        return oldElement
+    }
+    override fun add(element: T) = list.add(element).also {
         added(list.size - 1, element)
     }
-    fun add(index: Int, element: T) = list.add(index, element).also {
+    override fun add(index: Int, element: T) = list.add(index, element).also {
         added(index, element)
     }
-    fun addAll(elements: Collection<T>) = list.addAll(elements).also {
+    override fun addAll(elements: Collection<T>) = list.addAll(elements).also {
         elements.forEachIndexed { i, element -> added(elements.size - i - 1, element) }
     }
-    fun addAll(index: Int, elements: Collection<T>) = list.addAll(elements).also {
+    override fun addAll(index: Int, elements: Collection<T>) = list.addAll(elements).also {
         elements.forEachIndexed { i, element -> added(index + i, element) }
     }
-    fun clear() = list.indices.reversed().forEach { removeAt(it) }
-    fun remove(element: T): Boolean {
+    override fun clear() = list.indices.reversed().forEach { removeAt(it) }
+    override fun remove(element: T): Boolean {
         val index = indexOf(element)
         return if (index != -1) {
             removeAt(index)
             true
         } else false
     }
-    fun removeAll(elements: Collection<T>) = elements.map { remove(it) }.any()
-    fun removeAt(index: Int) = list.removeAt(index).also { removed(index, it) }
+    override fun removeAll(elements: Collection<T>) = elements.map { remove(it) }.any()
+    override fun removeAt(index: Int) = list.removeAt(index).also { removed(index, it) }
+    override fun retainAll(elements: Collection<T>): Boolean {
+        throw NoSuchMethodException("retainAll isn't implemented on ObservableList")
+    }
 
     /*
      * OVERRIDE DEFAULT OBJECT METHODS
@@ -138,5 +148,5 @@ class ObservableList<T>(private val list: MutableList<T> = ArrayList()): List<T>
     override fun toString() = "ObservableList($list)"
 }
 
-fun <T> observableListOf(vararg elements: T) = ObservableList(elements.toCollection(ArrayList()))
+fun <T> observableListOf(vararg elements: T) = ObservableList<T>(elements.toCollection(ArrayList()))
 fun <T> ObservableList<T>.withAddListener(fn: (T) -> Unit): ObservableList<T> = apply { onAdd(fn) }

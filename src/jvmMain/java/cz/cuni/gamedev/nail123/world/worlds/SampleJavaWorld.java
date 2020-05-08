@@ -1,6 +1,6 @@
 package cz.cuni.gamedev.nail123.world.worlds;
 
-import cz.cuni.gamedev.nail123.roguelike.entities.Stairs;
+import cz.cuni.gamedev.nail123.roguelike.entities.placeable.Stairs;
 import cz.cuni.gamedev.nail123.roguelike.events.LoggedEvent;
 import cz.cuni.gamedev.nail123.roguelike.world.Area;
 import cz.cuni.gamedev.nail123.roguelike.world.World;

@@ -1,6 +1,6 @@
 package cz.cuni.gamedev.nail123.roguelike.world.worlds
 
-import cz.cuni.gamedev.nail123.roguelike.entities.Stairs
+import cz.cuni.gamedev.nail123.roguelike.entities.placeable.Stairs
 import cz.cuni.gamedev.nail123.roguelike.entities.unplacable.FogOfWar
 import cz.cuni.gamedev.nail123.roguelike.events.logMessage
 import cz.cuni.gamedev.nail123.roguelike.world.Area
