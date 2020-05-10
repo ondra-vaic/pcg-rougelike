@@ -5,8 +5,8 @@ import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
 interface HasCombatStats {
     val maxHitpoints: Int
     var hitpoints: Int
-    val attack: Int
-    val defense: Int
+    var attack: Int
+    var defense: Int
 
     fun takeDamage(amount: Int) {
         hitpoints -= amount
