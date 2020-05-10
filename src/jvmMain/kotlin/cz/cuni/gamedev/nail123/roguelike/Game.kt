@@ -2,6 +2,7 @@ package cz.cuni.gamedev.nail123.roguelike
 
 import cz.cuni.gamedev.nail123.roguelike.actions.GameAction
 import cz.cuni.gamedev.nail123.roguelike.actions.Move
+import cz.cuni.gamedev.nail123.roguelike.actions.PickUp
 import cz.cuni.gamedev.nail123.roguelike.events.GameStep
 import cz.cuni.gamedev.nail123.roguelike.world.Direction
 import cz.cuni.gamedev.nail123.roguelike.world.World
@@ -25,7 +26,8 @@ class Game(val world: World = GameConfig.defaultWorld()) {
         MOVE_NORTHEAST(Move(Direction.NORTH_EAST)),
         MOVE_SOUTHEAST(Move(Direction.SOUTH_EAST)),
         MOVE_SOUTHWEST(Move(Direction.SOUTH_WEST)),
-        MOVE_NORTHWEST(Move(Direction.NORTH_WEST))
+        MOVE_NORTHWEST(Move(Direction.NORTH_WEST)),
+        PICK_UP(PickUp())
     }
 
     // The main game loop

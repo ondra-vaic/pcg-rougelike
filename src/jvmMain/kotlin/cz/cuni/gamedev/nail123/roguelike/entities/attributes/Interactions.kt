@@ -19,7 +19,7 @@ interface Interactable {
 }
 class InteractionScope(val other: GameEntity, val type: InteractionType) {
     var interacted = false
-    inline fun <reified T> with(type: InteractionType, interactionHandler: (T) -> Unit) {
+    inline fun <reified T> withEntity(type: InteractionType, interactionHandler: (T) -> Unit) {
         if (other is T && type == this.type) {
             interactionHandler(other)
             interacted = true

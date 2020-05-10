@@ -15,7 +15,7 @@ import org.hexworks.zircon.api.game.base.BaseGameArea
 class Area(startingBlocks: PersistentMap<Position3D, GameBlock>,
            visibleSize: Size3D,
            actualSize: Size3D,
-           val player: Player) : BaseGameArea<Tile, GameBlock>(
+           var player: Player) : BaseGameArea<Tile, GameBlock>(
                 visibleSize,
                 actualSize,
                 initialContents = startingBlocks

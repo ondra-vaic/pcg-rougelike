@@ -22,7 +22,10 @@ class KeyboardConfig(val mapping: Map<KeyCode, Game.PlayerAction>) {
             KeyCode.UP to Game.PlayerAction.MOVE_NORTH,
             KeyCode.LEFT to Game.PlayerAction.MOVE_WEST,
             KeyCode.DOWN to Game.PlayerAction.MOVE_SOUTH,
-            KeyCode.RIGHT to Game.PlayerAction.MOVE_EAST
+            KeyCode.RIGHT to Game.PlayerAction.MOVE_EAST,
+
+            // Other actions
+            KeyCode.KEY_P to Game.PlayerAction.PICK_UP
         ))
     }
 }

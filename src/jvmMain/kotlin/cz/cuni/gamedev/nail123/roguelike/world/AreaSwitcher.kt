@@ -36,7 +36,16 @@ class AreaSwitcher(visibleSize: Size3D, actualSize: Size3D): BaseGameArea<Tile, 
     override fun fetchBlockAt(position: Position3D) = innerArea.fetchBlockAt(position)
 
     fun switchTo(area: Area) {
+        val player = innerArea.player
+
         innerArea = area
         state = state.copy(blocks = area.state.blocks)
+
+        // We are keeping the player object in between areas
+        if (player.position != Position3D.unknown()) {
+            removeEntity(innerArea.player)
+            addEntity(player, player.position)
+            innerArea.player = player
+        }
     }
 }

@@ -22,6 +22,6 @@ class Door: GameEntity(GameTiles.CLOSED_DOOR), Interactable {
     }
 
     override fun acceptInteractFrom(other: GameEntity, type: InteractionType) = interactionContext(other, type) {
-        with<Player>(InteractionType.BUMPED) { isOpen = !isOpen }
+        withEntity<Player>(InteractionType.BUMPED) { isOpen = !isOpen }
     }
 }

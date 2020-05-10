@@ -11,10 +11,10 @@ abstract class Enemy(tile: Tile): MovingEntity(tile), HasCombatStats, Interactab
     override val blocksMovement = true
 
     override fun acceptInteractFrom(other: GameEntity, type: InteractionType) = interactionContext(other, type) {
-        with<Player>(InteractionType.BUMPED) { player -> Combat.attack(player, this@Enemy) }
+        withEntity<Player>(InteractionType.BUMPED) { player -> Combat.attack(player, this@Enemy) }
     }
 
     override fun interactWith(other: GameEntity, type: InteractionType) = interactionContext(other, type) {
-        with<Player>(InteractionType.BUMPED) { player -> Combat.attack(this@Enemy, player) }
+        withEntity<Player>(InteractionType.BUMPED) { player -> Combat.attack(this@Enemy, player) }
     }
 }

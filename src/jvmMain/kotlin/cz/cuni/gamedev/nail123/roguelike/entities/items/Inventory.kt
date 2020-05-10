@@ -1,6 +1,8 @@
 package cz.cuni.gamedev.nail123.roguelike.entities.items
 
-class Inventory {
+import cz.cuni.gamedev.nail123.roguelike.entities.attributes.HasCombatStats
+
+class Inventory(val parentEntity: HasCombatStats) {
     data class EquipResult(val success: Boolean, val message: String) {
         companion object {
             val Success = EquipResult(true, "Success")
@@ -8,9 +10,10 @@ class Inventory {
     }
 
     private val _equipped = ArrayList<Item>()
+    private val _unequipped = ArrayList<Item>()
+
     val equipped: List<Item>
         get() = _equipped
-    private val _unequipped = ArrayList<Item>()
     val unequipped: List<Item>
         get() = _unequipped
 
@@ -18,8 +21,10 @@ class Inventory {
         if (item in _equipped) return EquipResult(false, "Item already equipped")
         val test = item.isEquipable(this)
         if (test.success) {
+            item.block.entities.remove(item)
             _unequipped.remove(item)
             _equipped.add(item)
+            item.onEquip(parentEntity)
         }
         return test
     }

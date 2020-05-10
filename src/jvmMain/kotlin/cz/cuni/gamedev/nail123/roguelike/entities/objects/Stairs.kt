@@ -17,7 +17,7 @@ class Stairs(val leadDown: Boolean = true): GameEntity(
     override val blocksVision = false
 
     override fun acceptInteractFrom(other: GameEntity, type: InteractionType) = interactionContext(other, type) {
-        with<Player>(InteractionType.STEPPED_ON) {
+        withEntity<Player>(InteractionType.STEPPED_ON) {
             if (leadDown) area.world.moveDown() else area.world.moveUp()
         }
     }
