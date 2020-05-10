@@ -4,11 +4,9 @@ import cz.cuni.gamedev.nail123.roguelike.Game
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.GameConfig
 import cz.cuni.gamedev.nail123.roguelike.controls.KeyboardControls
-import cz.cuni.gamedev.nail123.roguelike.events.GameEvent
-import cz.cuni.gamedev.nail123.roguelike.events.GameOver
-import cz.cuni.gamedev.nail123.roguelike.events.LoggedEvent
-import cz.cuni.gamedev.nail123.roguelike.events.logMessage
+import cz.cuni.gamedev.nail123.roguelike.events.*
 import cz.cuni.gamedev.nail123.roguelike.gui.CameraMover
+import cz.cuni.gamedev.nail123.roguelike.gui.fragments.StatsFragment
 import cz.cuni.gamedev.nail123.roguelike.world.World.Companion.withWorld
 import org.hexworks.cobalt.events.api.DisposeSubscription
 import org.hexworks.cobalt.events.api.KeepSubscription
@@ -17,6 +15,7 @@ import org.hexworks.zircon.api.ComponentDecorations
 import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.GameComponents
 import org.hexworks.zircon.api.component.ComponentAlignment
+import org.hexworks.zircon.api.component.Panel
 import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.grid.TileGrid
 import org.hexworks.zircon.api.uievent.KeyboardEventType
@@ -32,6 +31,7 @@ class PlayView(val tileGrid: TileGrid, val game: Game = Game()): BaseView(tileGr
                         ComponentDecorations.box()
                 )
                 .build()
+        addSidebarFragments(sidebar)
 
         val logArea = Components.logArea()
                 .withSize(GameConfig.WINDOW_WIDTH - GameConfig.SIDEBAR_WIDTH, GameConfig.LOG_AREA_HEIGHT)
@@ -74,5 +74,16 @@ class PlayView(val tileGrid: TileGrid, val game: Game = Game()): BaseView(tileGr
             replaceWith(LoseView(tileGrid))
             DisposeSubscription
         }
+    }
+
+    fun addSidebarFragments(sidebar: Panel) {
+        val statsFragment = StatsFragment(game.world)
+        sidebar.addFragment(statsFragment)
+
+        Zircon.eventBus.subscribeTo<GameStep>(key="GameStep") {
+            statsFragment.update()
+            KeepSubscription
+        }
+        statsFragment.update()
     }
 }

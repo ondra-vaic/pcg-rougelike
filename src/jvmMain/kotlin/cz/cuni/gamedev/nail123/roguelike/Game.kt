@@ -2,8 +2,10 @@ package cz.cuni.gamedev.nail123.roguelike
 
 import cz.cuni.gamedev.nail123.roguelike.actions.GameAction
 import cz.cuni.gamedev.nail123.roguelike.actions.Move
+import cz.cuni.gamedev.nail123.roguelike.events.GameStep
 import cz.cuni.gamedev.nail123.roguelike.world.Direction
 import cz.cuni.gamedev.nail123.roguelike.world.World
+import org.hexworks.zircon.internal.Zircon
 
 /**
  * A class containing a state of the game (World) and the game logic.
@@ -32,5 +34,7 @@ class Game(val world: World = GameConfig.defaultWorld()) {
         if (!actionPerformed) return
         for (entity in area.entities) entity.update()
         ++steps
+
+        GameStep(this).emit()
     }
 }
