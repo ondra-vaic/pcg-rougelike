@@ -6,6 +6,7 @@ import cz.cuni.gamedev.nail123.roguelike.GameConfig
 import cz.cuni.gamedev.nail123.roguelike.controls.KeyboardControls
 import cz.cuni.gamedev.nail123.roguelike.events.*
 import cz.cuni.gamedev.nail123.roguelike.gui.CameraMover
+import cz.cuni.gamedev.nail123.roguelike.gui.fragments.InventoryFragment
 import cz.cuni.gamedev.nail123.roguelike.gui.fragments.StatsFragment
 import cz.cuni.gamedev.nail123.roguelike.world.World.Companion.withWorld
 import org.hexworks.cobalt.events.api.DisposeSubscription
@@ -15,6 +16,7 @@ import org.hexworks.zircon.api.ComponentDecorations
 import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.GameComponents
 import org.hexworks.zircon.api.component.ComponentAlignment
+import org.hexworks.zircon.api.component.Fragment
 import org.hexworks.zircon.api.component.Panel
 import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.grid.TileGrid
@@ -30,7 +32,11 @@ class PlayView(val tileGrid: TileGrid, val game: Game = Game()): BaseView(tileGr
                         ComponentDecorations.box()
                 )
                 .build()
-        addSidebarFragments(sidebar)
+
+        val sidebarFragments = createSidebarFragments()
+        for (fragment in sidebarFragments) {
+            sidebar.addFragment(fragment)
+        }
 
         val logArea = Components.logArea()
                 .withSize(GameConfig.WINDOW_WIDTH - GameConfig.SIDEBAR_WIDTH, GameConfig.LOG_AREA_HEIGHT)
@@ -75,14 +81,25 @@ class PlayView(val tileGrid: TileGrid, val game: Game = Game()): BaseView(tileGr
         }
     }
 
-    fun addSidebarFragments(sidebar: Panel) {
+    fun createSidebarFragments(): List<Fragment> {
+        val list = ArrayList<Fragment>()
         val statsFragment = StatsFragment(game.world)
-        sidebar.addFragment(statsFragment)
 
         Zircon.eventBus.subscribeTo<GameStep>(key="GameStep") {
             statsFragment.update()
             KeepSubscription
         }
         statsFragment.update()
+        list.add(statsFragment)
+
+        val inventoryFragment = InventoryFragment(game.world)
+        Zircon.eventBus.subscribeTo<GameStep>(key="GameStep") {
+            inventoryFragment.update()
+            KeepSubscription
+        }
+        inventoryFragment.update()
+        list.add(inventoryFragment)
+
+        return list
     }
 }
