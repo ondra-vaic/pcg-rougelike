@@ -1,4 +1,4 @@
-package cz.cuni.gamedev.nail123.roguelike.controls
+package cz.cuni.gamedev.nail123.roguelike.gui.controls
 
 import org.hexworks.zircon.api.uievent.UIEvent
 import org.hexworks.zircon.api.uievent.UIEventResponse

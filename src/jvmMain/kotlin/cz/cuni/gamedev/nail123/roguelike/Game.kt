@@ -1,12 +1,9 @@
 package cz.cuni.gamedev.nail123.roguelike
 
-import cz.cuni.gamedev.nail123.roguelike.actions.GameAction
-import cz.cuni.gamedev.nail123.roguelike.actions.Move
-import cz.cuni.gamedev.nail123.roguelike.actions.PickUp
+import cz.cuni.gamedev.nail123.roguelike.actions.*
 import cz.cuni.gamedev.nail123.roguelike.events.GameStep
 import cz.cuni.gamedev.nail123.roguelike.world.Direction
 import cz.cuni.gamedev.nail123.roguelike.world.World
-import org.hexworks.zircon.internal.Zircon
 
 /**
  * A class containing a state of the game (World) and the game logic.
@@ -14,11 +11,13 @@ import org.hexworks.zircon.internal.Zircon
 class Game(val world: World = GameConfig.defaultWorld()) {
     val area
         get() = world.currentArea
+    val player
+        get() = area.player
 
     var steps = 0
 
     /** The possible actions the player may perform. */
-    enum class PlayerAction(val action: GameAction) {
+    enum class BasicActions(val action: GameAction) {
         MOVE_NORTH(Move(Direction.NORTH)),
         MOVE_EAST(Move(Direction.EAST)),
         MOVE_WEST(Move(Direction.WEST)),
@@ -30,13 +29,29 @@ class Game(val world: World = GameConfig.defaultWorld()) {
         PICK_UP(PickUp())
     }
 
+    fun getValidActions(): List<GameAction> {
+        val list = ArrayList(BasicActions.values().map { it.action })
+        for (i in player.inventory.items.indices) {
+            list.add(Drop(i))
+            list.add(ToggleEquip(i))
+        }
+
+        return list
+    }
+
     // The main game loop
-    fun step(playerAction: PlayerAction) {
-        val actionPerformed = playerAction.action.tryPerform(area)
+    fun step(action: GameAction) {
+        if (!isValid(action)) {
+            println("Action passed not one of Game's PlayerActions - possible cheating")
+            return
+        }
+        val actionPerformed = action.tryPerform(area)
         if (!actionPerformed) return
         for (entity in area.entities) entity.update()
         ++steps
 
         GameStep(this).emit()
     }
+
+    fun isValid(action: GameAction) = getValidActions().any { it == action }
 }

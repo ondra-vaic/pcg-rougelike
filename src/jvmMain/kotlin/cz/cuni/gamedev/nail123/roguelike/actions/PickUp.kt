@@ -13,14 +13,12 @@ class PickUp: GameAction() {
             return false
         }
 
-        // We directly try to equip - we don't need to deal with inventory management then
-        val result = area.player.inventory.tryEquip(item)
-        if (!result.success) {
-            logMessage(result.message)
-            return false
+        // We directly try to equip - we don't need to deal with inventory management immediately
+        return if (item.isEquipable(area.player).success) {
+            area.player.tryEquip(item).success
+        } else {
+            area.player.tryPickUp(item)
+            true
         }
-
-        logMessage("Equipped $item")
-        return true
     }
 }

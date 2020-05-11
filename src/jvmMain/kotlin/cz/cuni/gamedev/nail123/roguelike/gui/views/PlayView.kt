@@ -3,7 +3,7 @@ package cz.cuni.gamedev.nail123.roguelike.gui.views
 import cz.cuni.gamedev.nail123.roguelike.Game
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.GameConfig
-import cz.cuni.gamedev.nail123.roguelike.controls.KeyboardControls
+import cz.cuni.gamedev.nail123.roguelike.gui.controls.KeyboardControls
 import cz.cuni.gamedev.nail123.roguelike.events.*
 import cz.cuni.gamedev.nail123.roguelike.gui.CameraMover
 import cz.cuni.gamedev.nail123.roguelike.gui.fragments.InventoryFragment
@@ -17,7 +17,6 @@ import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.GameComponents
 import org.hexworks.zircon.api.component.ComponentAlignment
 import org.hexworks.zircon.api.component.Fragment
-import org.hexworks.zircon.api.component.Panel
 import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.grid.TileGrid
 import org.hexworks.zircon.api.uievent.KeyboardEventType
@@ -25,6 +24,10 @@ import org.hexworks.zircon.api.view.base.BaseView
 import org.hexworks.zircon.internal.Zircon
 
 class PlayView(val tileGrid: TileGrid, val game: Game = Game()): BaseView(tileGrid, ColorThemes.arc()) {
+    val keyboardControls = KeyboardControls(game, this)
+    val statsFragment = createStatsFragment()
+    val inventoryFragment = createInventoryFragment()
+
     override fun onDock() {
         val sidebar = Components.panel()
                 .withSize(GameConfig.SIDEBAR_WIDTH, GameConfig.WINDOW_HEIGHT)
@@ -33,10 +36,8 @@ class PlayView(val tileGrid: TileGrid, val game: Game = Game()): BaseView(tileGr
                 )
                 .build()
 
-        val sidebarFragments = createSidebarFragments()
-        for (fragment in sidebarFragments) {
-            sidebar.addFragment(fragment)
-        }
+        sidebar.addFragment(statsFragment)
+        sidebar.addFragment(inventoryFragment)
 
         val logArea = Components.logArea()
                 .withSize(GameConfig.WINDOW_WIDTH - GameConfig.SIDEBAR_WIDTH, GameConfig.LOG_AREA_HEIGHT)
@@ -56,7 +57,6 @@ class PlayView(val tileGrid: TileGrid, val game: Game = Game()): BaseView(tileGr
         screen.addComponent(gameComponent)
 
         // Handling key presses
-        val keyboardControls = KeyboardControls(game)
         screen.handleKeyboardEvents(KeyboardEventType.KEY_PRESSED) { event, phase ->
             keyboardControls.handleInput(event)
         }
@@ -81,8 +81,7 @@ class PlayView(val tileGrid: TileGrid, val game: Game = Game()): BaseView(tileGr
         }
     }
 
-    fun createSidebarFragments(): List<Fragment> {
-        val list = ArrayList<Fragment>()
+    fun createStatsFragment(): StatsFragment {
         val statsFragment = StatsFragment(game.world)
 
         Zircon.eventBus.subscribeTo<GameStep>(key="GameStep") {
@@ -90,16 +89,19 @@ class PlayView(val tileGrid: TileGrid, val game: Game = Game()): BaseView(tileGr
             KeepSubscription
         }
         statsFragment.update()
-        list.add(statsFragment)
-
+        return statsFragment
+    }
+    fun createInventoryFragment(): InventoryFragment {
         val inventoryFragment = InventoryFragment(game.world)
         Zircon.eventBus.subscribeTo<GameStep>(key="GameStep") {
             inventoryFragment.update()
             KeepSubscription
         }
+        Zircon.eventBus.subscribeTo<InventoryUpdated>(key="InventoryUpdated") {
+            inventoryFragment.update()
+            KeepSubscription
+        }
         inventoryFragment.update()
-        list.add(inventoryFragment)
-
-        return list
+        return inventoryFragment
     }
 }

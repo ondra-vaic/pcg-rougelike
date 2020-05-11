@@ -29,6 +29,7 @@ kotlin {
         jvm().compilations["main"].defaultSourceSet {
             dependencies {
                 implementation(kotlin("stdlib"))
+                implementation("io.github.gabrielshanahan:moroccode:1.0.0")
                 implementation("org.hexworks.zircon:zircon.core-jvm:2020.1.6-HOTFIX")
                 implementation("org.hexworks.zircon:zircon.jvm.swing:2020.1.6-HOTFIX")
                 // Required for Wave Function Collapse, source by https://github.com/edwinRNDR/wfc
