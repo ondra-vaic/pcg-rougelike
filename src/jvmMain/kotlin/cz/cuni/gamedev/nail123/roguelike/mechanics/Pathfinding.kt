@@ -36,7 +36,6 @@ object Pathfinding {
      * The Grid contains the details of the barriers and methods which supply the neighboring vertices and the
      * cost of movement between 2 cells.  Examples use a standard Grid which allows movement in 8 directions
      * (i.e. includes diagonals) but alternative implementation of Grid can be supplied.
-     *
      */
     fun aStar(start: Position3D,
               finish: Position3D,
@@ -69,7 +68,7 @@ object Pathfinding {
                     current = cameFrom.getValue(current)
                     path.add(0, current)
                 }
-                return Result(path.toList(), estimatedTotalCost[finish]!!)
+                return Result(path.drop(1).toList(), estimatedTotalCost[finish]!!)
             }
 
             // We have not reached the finish, mark the current vertex as closed and expand
@@ -77,7 +76,11 @@ object Pathfinding {
             closedVertices.add(currentPos)
 
             movement(currentPos)
-                .filter { area[it]?.let { block -> blocking(block) } == false && !closedVertices.contains(it) }
+                .filter {
+                    // Filter blocked path except finish
+                    area[it]?.let { block -> !blocking(block) || it == finish } == true
+                            && !closedVertices.contains(it)
+                }
                 .forEach { newPos ->
 
                 val score = costFromStart[currentPos]!! + moveCost(currentPos, newPos)
