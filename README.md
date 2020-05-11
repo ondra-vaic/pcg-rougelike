@@ -1,4 +1,13 @@
-A rogue-like template built on top of [Zircon](https://github.com/Hexworks/zircon).
+# Rogue-like template
+
+Kotlin rogue-like template built on top of [Zircon](https://github.com/Hexworks/zircon).
+
+The goal of this project is to provide a simple starting point for prototyping a rogue-like game in about
+1 or 2 days.
+
+As such, it doesn't use an [ECS](https://en.wikipedia.org/wiki/Entity_component_system) /
+[SEA](https://github.com/Hexworks/amethyst) system, which you
+[probably want to use](https://www.youtube.com/watch?v=U03XXzcThGU) for bigger projects.
 
 It shall eventually be multiplatform, but currently only JVM build is functional.
 
@@ -8,7 +17,9 @@ Java 8+.
 
 ## Running
 
-The main Gradle tasks are:
+The whole project features the Gradle build-system with several simple-to-use tasks in the `custom` group.
+
+These include:
  - `renderPng` - renders the first level into `out/render.png`
  - `playGame` - launches the game on JVM
  - `shadowJar` - will build a runnable JAR into `build/libs/roguelike-<version>-all.jar`
@@ -16,3 +27,14 @@ The main Gradle tasks are:
 ## Documentation
 
 Check out the [wiki](https://gitlab.com/gamedev-cuni-cz/pcg/roguelike/-/wikis/home).
+
+## Wave Function Collapse
+
+[Wave Function Collapse](https://github.com/mxgmn/WaveFunctionCollapse) (Kotlin port by
+[j-roskopf](https://github.com/j-roskopf/WFC)) is a part of this repository.
+It can be used as a simple level generator with creations such as this:
+![](./img/wfc_dungeon.png)
+
+## License and credit
+
+This project is licensed under the terms of the [MIT license](./LICENCE).
