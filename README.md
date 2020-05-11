@@ -35,6 +35,9 @@ Check out the [wiki](https://gitlab.com/gamedev-cuni-cz/pcg/roguelike/-/wikis/ho
 It can be used as a simple level generator with creations such as this:
 ![](./img/wfc_dungeon.png)
 
-## License and credit
+## License
 
 This project is licensed under the terms of the [MIT license](./LICENCE).
+
+[Zircon](https://github.com/Hexworks/zircon) and [Gson](https://github.com/google/gson)
+are licensed under the Apache 2.0 license. No changes to them have been made.
