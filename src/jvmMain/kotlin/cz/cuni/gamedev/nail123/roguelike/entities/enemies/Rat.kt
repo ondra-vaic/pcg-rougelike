@@ -12,7 +12,7 @@ class Rat: Enemy(GameTiles.RAT), HasSmell {
     override val smellingRadius = 7
 
     override val maxHitpoints = 10
-    override var hitpoints = 10
+    override var hitpoints = 6
     override var attack = 3
     override var defense = 0
 
