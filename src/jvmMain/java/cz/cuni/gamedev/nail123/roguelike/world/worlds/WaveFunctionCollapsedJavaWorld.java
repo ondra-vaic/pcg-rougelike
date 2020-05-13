@@ -1,4 +1,4 @@
-package cz.cuni.gamedev.nail123.world.worlds;
+package cz.cuni.gamedev.nail123.roguelike.world.worlds;
 
 import cz.cuni.gamedev.nail123.roguelike.GameConfig;
 import cz.cuni.gamedev.nail123.roguelike.entities.objects.Stairs;

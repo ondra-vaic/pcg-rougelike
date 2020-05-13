@@ -5,7 +5,7 @@ Kotlin rogue-like template built on top of [Zircon](https://github.com/Hexworks/
 The goal of this project is to provide a simple starting point for prototyping a rogue-like game in about
 1 or 2 days.
 
-As such, it doesn't use an [ECS](https://en.wikipedia.org/wiki/Entity_component_system) /
+As such, it doesn't (yet?) use an [ECS](https://en.wikipedia.org/wiki/Entity_component_system) /
 [SEA](https://github.com/Hexworks/amethyst) system, which you
 [probably want to use](https://www.youtube.com/watch?v=U03XXzcThGU) for bigger projects.
 
@@ -37,7 +37,7 @@ It can be used as a simple level generator with creations such as this:
 
 ## License
 
-This project is licensed under the terms of the [MIT license](./LICENCE).
+This project is licensed under the terms of the [MIT license](./LICENSE).
 
 [Zircon](https://github.com/Hexworks/zircon) and [Gson](https://github.com/google/gson)
-are licensed under the Apache 2.0 license. No changes to them have been made.
+are licensed under the [Apache 2.0 license](./LICENSE.apache).
