@@ -3,10 +3,6 @@ package cz.cuni.gamedev.nail123.roguelike
 import cz.cuni.gamedev.nail123.roguelike.tiles.GameTiles
 import cz.cuni.gamedev.nail123.roguelike.world.World
 import cz.cuni.gamedev.nail123.roguelike.world.worlds.SampleWorld
-import cz.cuni.gamedev.nail123.roguelike.world.worlds.WaveFunctionCollapsedWorld
-import cz.cuni.gamedev.nail123.world.worlds.SampleJavaWorld
-import cz.cuni.gamedev.nail123.world.worlds.WaveFunctionCollapsedJavaWorld
-import org.hexworks.zircon.api.CP437TilesetResources
 import org.hexworks.zircon.api.ColorThemes
 import org.hexworks.zircon.api.application.AppConfig
 import org.hexworks.zircon.api.data.Size3D
@@ -34,6 +30,7 @@ object GameConfig {
 
     // If you want to have larger-than-screen areas and scrolling, modify this
     val AREA_SIZE = VISIBLE_SIZE
+    // e.g. val AREA_SIZE = Size3D.create(100, 100, 1)
 
     fun buildAppConfig() = AppConfig.newBuilder()
             .enableBetaFeatures()

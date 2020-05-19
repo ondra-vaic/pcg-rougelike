@@ -14,26 +14,15 @@ import org.hexworks.zircon.api.game.base.BaseGameArea
  *  - drawing - you can transition from one area to another within the same component
  *  - world - you can (if you want) only update entities in the current area
  */
-class AreaSwitcher(visibleSize: Size3D, actualSize: Size3D): BaseGameArea<Tile, GameBlock>(
+class AreaSwitcher(visibleSize: Size3D, actualSize: Size3D): AreaDecorator(
         visibleSize, actualSize
     ), IArea {
 
-    var innerArea = EmptyAreaBuilder().build()
-        protected set
+    override var innerArea = EmptyAreaBuilder().build()
+        private set
 
-    override val size: Size3D
-        get() = innerArea.size
     val player
         get() = innerArea.player
-    override val blocks: Map<Position3D, GameBlock>
-        get() = innerArea.blocks
-
-    override operator fun get(position: Position3D) = innerArea[position]
-    override fun addEntity(entity: GameEntity, position: Position3D) = innerArea.addEntity(entity, position)
-    override fun removeEntity(entity: GameEntity) = innerArea.removeEntity(entity)
-
-    override fun setBlockAt(position: Position3D, block: GameBlock) = innerArea.setBlockAt(position, block)
-    override fun fetchBlockAt(position: Position3D) = innerArea.fetchBlockAt(position)
 
     fun switchTo(area: Area) {
         val player = innerArea.player
@@ -44,7 +33,7 @@ class AreaSwitcher(visibleSize: Size3D, actualSize: Size3D): BaseGameArea<Tile, 
         // We are keeping the player object in between areas
         if (player.position != Position3D.unknown()) {
             removeEntity(innerArea.player)
-            addEntity(player, player.position)
+            addEntity(player, innerArea.player.position)
             innerArea.player = player
         }
     }
