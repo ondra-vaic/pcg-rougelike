@@ -25,7 +25,7 @@ class WaveFunctionCollapsedWorld: DungeonWorld() {
 
         // Add stairs down
         val floodFill = Pathfinding.floodFill(area.player.position, area)
-        val maxDistance = floodFill.values.max()!!
+        val maxDistance = floodFill.values.maxOrNull()!!
         val staircasePosition = floodFill.filter { it.value > maxDistance / 2 }.keys.random()
         area.addEntity(Stairs(), staircasePosition)
 

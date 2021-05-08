@@ -38,7 +38,7 @@ open class GameBlock(open var baseTile: Tile): BaseBlock<Tile>(
     }
 
     fun updateTileMap() {
-        val topEntity = entities.maxBy { it.sortingLayer }
+        val topEntity = entities.maxByOrNull { it.sortingLayer }
         content = topEntity?.tile ?: baseTile
         bottom = baseTile
     }

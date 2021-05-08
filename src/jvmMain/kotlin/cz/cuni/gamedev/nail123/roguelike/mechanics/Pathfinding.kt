@@ -58,7 +58,7 @@ object Pathfinding {
         val cameFrom = mutableMapOf<Position3D, Position3D>()
 
         while (openVertices.size > 0) {
-            val currentPos = openVertices.minBy { estimatedTotalCost.getValue(it) }!!
+            val currentPos = openVertices.minByOrNull { estimatedTotalCost.getValue(it) }!!
 
             if (currentPos == finish) {
                 // We have reached the finish, return the optimal path

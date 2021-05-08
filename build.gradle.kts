@@ -1,5 +1,5 @@
 plugins {
-    kotlin("multiplatform") version "1.3.71"
+    kotlin("multiplatform") version "1.5.0"
     id("com.github.johnrengelman.shadow") version "5.2.0"
 }
 
@@ -8,39 +8,54 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 kotlin {
     jvm {
+        compilations.all {
+            kotlinOptions.jvmTarget = "1.8"
+        }
+        testRuns["test"].executionTask.configure {
+            useJUnit()
+        }
         withJava()
     }
-    js {
-        browser()
-    }
-
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(kotlin("stdlib-common"))
+    js(LEGACY) {
+        binaries.executable()
+        browser {
+            commonWebpackConfig {
+                cssSupport.enabled = true
             }
         }
-
-        jvm().compilations["main"].defaultSourceSet {
+    }
+    sourceSets {
+        val commonMain by getting
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test-common"))
+                implementation(kotlin("test-annotations-common"))
+            }
+        }
+        val jvmMain by getting {
             dependencies {
                 implementation(kotlin("stdlib"))
                 implementation("io.github.gabrielshanahan:moroccode:1.0.0")
                 implementation("org.hexworks.zircon:zircon.core-jvm:2020.1.6-HOTFIX")
                 implementation("org.hexworks.zircon:zircon.jvm.swing:2020.1.6-HOTFIX")
                 // Required for Wave Function Collapse, source by https://github.com/edwinRNDR/wfc
-                implementation("com.google.code.gson:gson:2.8.5")
+                implementation("com.google.code.gson:gson:2.8.6")
             }
         }
-
-        js().compilations["main"].defaultSourceSet {
+        val jvmTest by getting {
             dependencies {
-                implementation(kotlin("stdlib-js"))
-             }
+                implementation(kotlin("test-junit"))
+            }
+        }
+        val jsMain by getting
+        val jsTest by getting {
+            dependencies {
+                implementation(kotlin("test-js"))
+            }
         }
     }
 }
@@ -54,6 +69,9 @@ tasks {
     }
     wrapper {
         distributionType = Wrapper.DistributionType.ALL
+    }
+    getByName<ProcessResources>("jvmProcessResources") {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
     }
     getByName<Jar>("shadowJar") {
         manifest {
@@ -84,6 +102,7 @@ for (directory in tilesetDirectories) {
     val directoryName = directory.name
     tasks.register<Zip>("zipTileset-$directoryName") {
         group = "other"
+        duplicatesStrategy = DuplicatesStrategy.WARN
         from(directory)
 
         archiveFileName.set("$directoryName.zip")
@@ -100,4 +119,3 @@ tasks.register<Delete>("cleanTilesets") {
     group = "custom"
     delete("src/jvmMain/resources/tilesets")
 }
-
