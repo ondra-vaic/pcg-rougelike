@@ -39,5 +39,4 @@ It can be used as a simple level generator with creations such as this:
 
 This project is licensed under the terms of the [MIT license](./LICENSE).
 
-[Zircon](https://github.com/Hexworks/zircon) and [Gson](https://github.com/google/gson)
-are licensed under the [Apache 2.0 license](./LICENSE.apache).
+[Zircon](https://github.com/Hexworks/zircon) is licensed under the [Apache 2.0 license](./LICENSE.apache).
