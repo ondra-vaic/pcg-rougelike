@@ -12,7 +12,9 @@ class InventoryFragment(val world: World): Fragment {
             .build()
 
     val selectedIndexProperty = createPropertyFrom(-1)
-    var selectedIndex by selectedIndexProperty.asDelegate()
+    var selectedIndex
+        get() = selectedIndexProperty.value
+        set(value) { selectedIndexProperty.value = value }
 
     override val root = Components.vbox()
             .withSize(GameConfig.SIDEBAR_WIDTH - 2, 10)

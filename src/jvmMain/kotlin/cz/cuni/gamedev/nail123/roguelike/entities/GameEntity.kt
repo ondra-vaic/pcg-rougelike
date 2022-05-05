@@ -12,11 +12,15 @@ abstract class GameEntity(startingTile: Tile = Tile.empty(), val sortingLayer: S
     lateinit var block: GameBlock
 
     val tileProperty = createPropertyFrom(startingTile)
-    open var tile: Tile by tileProperty.asDelegate()
+    open var tile
+        get() = tileProperty.value
+        set(value) { tileProperty.value = value }
 
     // Properties allow binding with other properties and also listen to changes
     val positionProperty = createPropertyFrom(Position3D.unknown())
-    var position by positionProperty.asDelegate()
+    var position
+        get() = positionProperty.value
+        set(value) { positionProperty.value = value }
 
     val x: Int
         get() = position.x
