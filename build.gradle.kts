@@ -1,5 +1,5 @@
 plugins {
-    kotlin("multiplatform") version "1.5.0"
+    kotlin("multiplatform") version "1.6.21"
     id("com.github.johnrengelman.shadow") version "5.2.0"
 }
 
@@ -13,7 +13,7 @@ repositories {
 kotlin {
     jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "1.8"
+            kotlinOptions.jvmTarget = "17"
         }
         testRuns["test"].executionTask.configure {
             useJUnit()

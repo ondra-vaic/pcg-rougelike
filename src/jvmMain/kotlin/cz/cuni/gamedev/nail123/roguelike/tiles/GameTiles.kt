@@ -32,7 +32,7 @@ object GameTiles {
     // Autotiling tries to find a tile by whether similar tiles neighbor in some directions
     // It iterates through a list of Directional flags (which must be fulfilled) to tiles that should be used
     // It uses the first one found
-    private val all8 = Direction.eightDirections.sumBy { it.flag }
+    private val all8 = Direction.eightDirections.sumOf { it.flag }
     val wallTiling = Autotiling(
             // Default
             graphicalTile("Wall thick W E"),

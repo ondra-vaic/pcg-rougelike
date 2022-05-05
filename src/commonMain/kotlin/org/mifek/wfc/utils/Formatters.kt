@@ -1,15 +1,13 @@
 package org.mifek.wfc.utils
 
+
 /**
  * Formats waves and prints to standard output
  */
 fun formatWaves(waves: Array<BooleanArray>): String {
     return " " + waves.indices.joinToString(" ") { idx ->
-        val s = waves[idx].sumBy {
-            when (it) {
-                true -> 1
-                else -> 0
-            }
+        val s = waves[idx].sumOf {
+            if (it) 1 else 0 as Int
         }
         val r = when (s) {
             0 -> "[XX]"
