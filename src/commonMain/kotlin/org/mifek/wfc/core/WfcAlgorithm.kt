@@ -330,7 +330,7 @@ open class WfcAlgorithm(
      * Main loop of WFC algorithm
      */
     open fun run(seed: Int = Random.nextInt(), limit: Int = 0, backtrackLimit: Int = 0): Boolean {
-        val random = Random(seed)
+        val random = Random(3)
         heuristic.initialize(this, random)
 
         clear()

@@ -20,6 +20,15 @@ class EmptyAreaBuilder(size: Size3D = GameConfig.AREA_SIZE,
             }
         }
 
+        for(x in -2..2){
+            for(y in -2..2){
+                blocks[Position3D.create(10 + x, 10 + y, 0)] = Wall()
+            }
+        }
+
+        blocks[Position3D.create(10 + 2, 10 + 2, 0)] = Floor()
+        blocks[Position3D.create(10 + 1, 10 + 1, 0)] = Floor()
+
         return this
     }
 }
