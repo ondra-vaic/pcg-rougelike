@@ -25,6 +25,7 @@ object GameTiles {
     val STAIRS_UP = graphicalTile("Stairs up")
     val BLACK = characterTile(' ', GameColors.BLACK, GameColors.BLACK)
 
+    val HEALTH_POTION = graphicalTile("Potion")
     val RAT = graphicalTile("Rat")
     val ORC = graphicalTile("Orc")
     val SWORD = graphicalTile("Sword")

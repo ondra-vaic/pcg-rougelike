@@ -59,7 +59,12 @@ class Inventory(val player: Player) {
         InventoryUpdated(this).emit()
     }
 
-    fun remove(item: Item) = removeAt(_items.indexOf(item))
+    fun remove(item: Item) {
+        val index = _items.indexOf(item)
+        if(index != -1){
+            removeAt(index)
+        }
+    }
 
     fun removeAt(slot: Int): Item {
         val item = _items[slot]

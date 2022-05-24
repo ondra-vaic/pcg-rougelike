@@ -35,29 +35,29 @@ class Orc(override val level: Int): Enemy(level, GameTiles.ORC), HasVision {
 
         private val orcParametersRanges = mapOf(
             1 to OrcParametersRanges(
-                IntRange(3, 8),
+                IntRange(15, 20),
                 IntRange(3, 5),
-                IntRange(2, 5),
+                IntRange(0, 1),
                 IntRange(5, 8)),
             2 to OrcParametersRanges(
-                IntRange(6, 11),
+                IntRange(18, 28),
                 IntRange(3, 7),
-                IntRange(4, 8),
+                IntRange(0, 2),
                 IntRange(5, 11)),
             3 to OrcParametersRanges(
-                IntRange(9, 18),
+                IntRange(24, 38),
                 IntRange(5, 10),
-                IntRange(4, 10),
+                IntRange(1, 3),
                 IntRange(5, 14)),
             4 to OrcParametersRanges(
-                IntRange(14, 25),
+                IntRange(36, 48),
                 IntRange(8, 14),
-                IntRange(5, 12),
+                IntRange(2, 4),
                 IntRange(8, 14)),
             5 to OrcParametersRanges(
-                IntRange(20, 45),
+                IntRange(43, 57),
                 IntRange(10, 16),
-                IntRange(6, 12),
+                IntRange(3, 5),
                 IntRange(8, 17))
         )
 

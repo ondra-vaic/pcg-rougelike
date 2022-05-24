@@ -17,7 +17,8 @@ object LootSystem {
     }
 
     private fun levelStrengthCurve(num: Float, level: Int): Float{
-        return (num * (ln(level.toDouble()) + 1)).toFloat()
+        val numFloat = (num * (ln(level.toDouble()) + 1)).toFloat()
+        return (numFloat * 100).toInt() / 100f
     }
 
     val sword = { level: Int ->
@@ -95,7 +96,7 @@ object LootSystem {
         SingleDrop {
             Ring(
                 levelStrengthCurve(
-                    rng.nextInt(1) + 1,
+                    rng.nextInt(1),
                     level
                 ),
                 levelStrengthCurve(
@@ -113,7 +114,7 @@ object LootSystem {
         SingleDrop {
             Ring(
                 levelStrengthCurve(
-                    rng.nextInt(3) + 1,
+                    rng.nextInt(1) + 1,
                     level
                 ),
                 levelStrengthCurve(
@@ -131,7 +132,7 @@ object LootSystem {
         SingleDrop {
             Ring(
                 levelStrengthCurve(
-                    rng.nextInt(9),
+                    rng.nextInt(4),
                     level
                 ),
                 levelStrengthCurve(
@@ -139,7 +140,7 @@ object LootSystem {
                     level
                 ),
                 levelStrengthCurve(
-                    rng.nextFloat() * 0.25f + 0.01f,
+                    rng.nextFloat() * 0.15f + 0.01f,
                     level
                 ),
             )
@@ -149,7 +150,7 @@ object LootSystem {
     val shield = { level: Int -> SingleDrop {
             Shield(
                 levelStrengthCurve(
-                    rng.nextInt(5) + 2,
+                    rng.nextInt(1) + 1,
                     level
                 )
             )
@@ -159,7 +160,7 @@ object LootSystem {
         SingleDrop {
             Shield(
                 levelStrengthCurve(
-                    rng.nextInt(10) + 1,
+                    rng.nextInt(3) + 1,
                     level
                 )
             )
@@ -169,7 +170,7 @@ object LootSystem {
         SingleDrop {
             Shield(
                 levelStrengthCurve(
-                    rng.nextInt(25),
+                    rng.nextInt(5),
                     level
                 )
             )
@@ -179,31 +180,31 @@ object LootSystem {
     val enemyDrops = mapOf(
         Rat::class to mapOf(
             1 to TreasureClass(1, listOf(
-                4 to NoDrop,
-                2 to ring(1),
-                1 to rareRing(1),
-                4 to veryRareRing(1))
+                8 to NoDrop,
+                5 to ring(1),
+                3 to rareRing(1),
+                1 to veryRareRing(1))
             ),
             2 to TreasureClass(1, listOf(
-                5 to NoDrop,
+                8 to NoDrop,
                 5 to ring(2),
                 3 to rareRing(2),
                 1 to veryRareRing(2))
             ),
             3 to TreasureClass(1, listOf(
-                4 to NoDrop,
+                10 to NoDrop,
                 5 to ring(3),
                 3 to rareRing(3),
                 1 to veryRareRing(3))
             ),
             4 to TreasureClass(1, listOf(
-                3 to NoDrop,
+                15 to NoDrop,
                 4 to ring(4),
                 2 to rareRing(4),
                 1 to veryRareRing(4))
             ),
             5 to TreasureClass(1, listOf(
-                2 to NoDrop,
+                16 to NoDrop,
                 2 to ring(5),
                 3 to rareRing(5),
                 2 to veryRareRing(5))
@@ -212,20 +213,20 @@ object LootSystem {
 
         Orc::class to mapOf(
             1 to TreasureClass(1, listOf(
-                8 to NoDrop,
+                10 to NoDrop,
                 5 to sword(1),
                 2 to rareSword(1),
                 1 to veryRareSword(1))
             ),
             2 to TreasureClass(1, listOf(
-                13 to NoDrop,
+                20 to NoDrop,
                 4 to body(2),
                 2 to rareBody(2),
                 4 to sword(2),
                 2 to veryRareSword(2))
             ),
             3 to TreasureClass(1, listOf(
-                16 to NoDrop,
+                24 to NoDrop,
                 4 to shield(3),
                 2 to rareShield(3),
                 4 to sword(3),
@@ -233,7 +234,7 @@ object LootSystem {
                 1 to veryRareSword(3))
             ),
             4 to TreasureClass(1, listOf(
-                20 to NoDrop,
+                30 to NoDrop,
                 4 to shield(4),
                 2 to rareShield(4),
                 1 to veryRareShield(4),
@@ -245,7 +246,7 @@ object LootSystem {
                 1 to veryRareSword(4))
             ),
             5 to TreasureClass(1, listOf(
-                26 to NoDrop,
+                35 to NoDrop,
                 5 to shield(5),
                 3 to rareShield(5),
                 2 to veryRareShield(5),

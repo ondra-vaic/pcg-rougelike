@@ -10,8 +10,8 @@ import org.hexworks.zircon.api.data.Size3D
 object GameConfig {
     fun defaultWorld(): World = WaveFunctionCollapsedWorld()
 
-    const val DUNGEON_FLOORS = 25
-    const val DUNGEON_LEVELS = 5
+    const val DUNGEON_LEVELS = 25
+    const val GAME_LEVELS = 5
     val THEME = ColorThemes.zenburnVanilla()
 
     const val SIDEBAR_WIDTH = 35

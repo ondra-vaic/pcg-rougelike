@@ -5,6 +5,9 @@ import cz.cuni.gamedev.nail123.roguelike.blocks.Floor
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.blocks.Wall
 import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
+import cz.cuni.gamedev.nail123.roguelike.entities.enemies.Orc
+import cz.cuni.gamedev.nail123.roguelike.entities.enemies.Rat
+import cz.cuni.gamedev.nail123.roguelike.entities.items.HealthPotion
 import cz.cuni.gamedev.nail123.roguelike.entities.objects.Door
 import cz.cuni.gamedev.nail123.roguelike.entities.objects.Stairs
 import cz.cuni.gamedev.nail123.roguelike.mechanics.Pathfinding.eightDirectional
@@ -21,11 +24,6 @@ class WaveFunctionCollapsedWorld: DungeonWorld() {
         val area = WFCAreaBuilder(GameConfig.AREA_SIZE).create()
 
 //        area.addEntity(FogOfWar(), Position3D.unknown())
-
-        area.player.ResetHealth()
-
-        // Add stairs up
-        if (floor > 0) area.addEntity(Stairs(false), area.player.position)
 
         // removes areas of walls which are too small
         removeAreas<Wall>(area, 10) { Floor() }
@@ -48,48 +46,92 @@ class WaveFunctionCollapsedWorld: DungeonWorld() {
         // remove doors which are not in a corridor
         removeLonelyDoors(area)
 
-        area.addAtEmptyPosition(
-            area.player,
-            Position3D.create(0, 0, 0),
-            GameConfig.VISIBLE_SIZE
-        )
+        val startPosition = area.getFirstEmptyPosition()
 
-        // This fixed weird bug with walls rendering I don't know why
-        for ((k, v) in area.blocks){
-            if(v is Wall){
-                area.blocks[k] = Wall()
+        if (floor < GameConfig.DUNGEON_LEVELS){
+            val mapFill = floodFill(startPosition, area)
+
+            val corridors = findCorridors(area)
+            val roomPositions = mapFill.keys.toMutableSet()
+            for(corridor in corridors){
+                roomPositions -= corridor
             }
-        }
-        if (floor < GameConfig.DUNGEON_FLOORS){
-            val floorPosition = area.getFirstEmptyPosition()
-            val mapFill = floodFill(floorPosition, area)
+
             val maxDistance = mapFill.values.maxOrNull()!!
-            val staircasePosition = mapFill.filter { it.value > maxDistance / 2 }.keys.first()
+            val staircasePosition = mapFill.filter { it.value > maxDistance / 2 && roomPositions.contains(it.key) }.keys.first()
             area.addEntity(Stairs(), staircasePosition)
         }
-        placeEnemies(player.position, area, floor)
+
+        if(area.player.position == Position3D.unknown())
+        {
+            area.addEntity(area.player, startPosition)
+        }
+
+//        area.addEntity(area.player, startPosition)
+
+        placeEnemies(startPosition, area, floor)
+        placeHealthPotions(area, floor)
 
         return area.build()
+    }
+
+    private fun placeHealthPotions(area: WFCAreaBuilder, floor: Int) {
+        val rng = Random.Default
+
+        val corridors = findCorridors(area).toMutableSet()
+
+        val level = floor / GameConfig.GAME_LEVELS + 1
+        val levelProgress = (floor % GameConfig.GAME_LEVELS) / GameConfig.GAME_LEVELS.toFloat()
+        var potionsToAdd = (rng.nextInt(2, 4) + levelProgress * rng.nextInt(1, 4)).toInt()
+
+        while(potionsToAdd > 0 || corridors.isEmpty()){
+            val corridor = corridors.random(rng)
+            val position = corridor.random(rng)
+            area.addEntity(HealthPotion(level), position)
+            corridors -= corridor
+            potionsToAdd -= 1
+        }
     }
 
     private fun placeEnemies(playerPosition: Position3D, area: WFCAreaBuilder, floor: Int){
 
         val rng = Random.Default
 
-        val minDistanceToPlayer = 14
+        val minDistanceToPlayer = 5
         val mapFill = floodFill(playerPosition, area)
         val corridors = findCorridors(area)
-        var possiblePositions = mapFill.filter { it.value > minDistanceToPlayer }.keys
+        val possiblePositions = mapFill.filter { it.value > minDistanceToPlayer }.keys.toMutableSet()
         for (corridor in corridors){
-            possiblePositions = possiblePositions - corridor
+            possiblePositions -= corridor
         }
 
-        val level = floor / GameConfig.DUNGEON_LEVELS + 1
-        val levelProgress = (floor % GameConfig.DUNGEON_LEVELS) / GameConfig.DUNGEON_LEVELS.toFloat()
-        val numEnemies = (rng.nextInt(5, 10) + levelProgress * rng.nextInt(6, 15)).toInt()
+        val level = floor / GameConfig.GAME_LEVELS + 1
+        val levelProgress = (floor % GameConfig.GAME_LEVELS) / GameConfig.GAME_LEVELS.toFloat()
+        var enemiesToAdd = (rng.nextInt(3, 8) + levelProgress * rng.nextInt(4, 7)).toInt()
 
-        repeat(numEnemies){
+        while(enemiesToAdd > 0){
+            val numEnemies = rng.nextInt(1, level + 2)
+            val groupPosition = possiblePositions.random(rng)
+            val groupMapFill = floodFill(groupPosition, area)
+            val possibleEnemiesGroupPositions = groupMapFill.filter { it.value in 1..5 }.keys.toMutableSet()
 
+            repeat(numEnemies){
+                var enemyLevel = level
+                if(rng.nextInt(0, 4) == 0){
+                    enemyLevel -= 2
+                }else if(rng.nextInt(0, 3) == 0){
+                    enemyLevel -= 1
+                }
+                enemyLevel = enemyLevel.coerceAtLeast(1)
+
+                val enemy = if (rng.nextBoolean()) Rat(enemyLevel) else Orc(enemyLevel)
+                val enemyPosition = possibleEnemiesGroupPositions.random(rng)
+                possibleEnemiesGroupPositions.remove(enemyPosition)
+                area.addEntity(enemy, enemyPosition)
+            }
+
+            possiblePositions -= possibleEnemiesGroupPositions
+            enemiesToAdd -= numEnemies
         }
     }
 

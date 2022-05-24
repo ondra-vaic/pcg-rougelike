@@ -7,7 +7,7 @@ import cz.cuni.gamedev.nail123.roguelike.tiles.GameTiles
 
 class Ring(val attack: Int, val maxHealth: Int, val lifeSteal: Float): Item(GameTiles.RING) {
     override fun isEquipable(character: HasInventory): Inventory.EquipResult {
-        return if (character.inventory.equipped.filterIsInstance<Ring>().size > 3) {
+        return if (character.inventory.equipped.filterIsInstance<Ring>().size >= 3) {
             Inventory.EquipResult(false, "Cannot equip more than three rings")
         } else Inventory.EquipResult.Success
     }
@@ -29,6 +29,6 @@ class Ring(val attack: Int, val maxHealth: Int, val lifeSteal: Float): Item(Game
     }
 
     override fun toString(): String {
-        return "Ring(def $lifeSteal, att $attack, max HP $maxHealth)"
+        return "Ring(ls $lifeSteal, att $attack, max HP $maxHealth)"
     }
 }
