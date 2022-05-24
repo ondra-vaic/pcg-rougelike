@@ -114,6 +114,7 @@ class WaveFunctionCollapsedWorld: DungeonWorld() {
             val groupPosition = possiblePositions.random(rng)
             val groupMapFill = floodFill(groupPosition, area)
             val possibleEnemiesGroupPositions = groupMapFill.filter { it.value in 1..5 }.keys.toMutableSet()
+            val isRat = rng.nextBoolean()
 
             repeat(numEnemies){
                 var enemyLevel = level
@@ -124,7 +125,7 @@ class WaveFunctionCollapsedWorld: DungeonWorld() {
                 }
                 enemyLevel = enemyLevel.coerceAtLeast(1)
 
-                val enemy = if (rng.nextBoolean()) Rat(enemyLevel) else Orc(enemyLevel)
+                val enemy = if (isRat) Rat(enemyLevel) else Orc(enemyLevel)
                 val enemyPosition = possibleEnemiesGroupPositions.random(rng)
                 possibleEnemiesGroupPositions.remove(enemyPosition)
                 area.addEntity(enemy, enemyPosition)
