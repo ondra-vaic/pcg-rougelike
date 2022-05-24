@@ -33,32 +33,32 @@ class Orc(override val level: Int): Enemy(level, GameTiles.ORC), HasVision {
 
     companion object {
 
-        val orcParametersRanges = mapOf(
+        private val orcParametersRanges = mapOf(
             1 to OrcParametersRanges(
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0)),
+                IntRange(3, 8),
+                IntRange(3, 5),
+                IntRange(2, 5),
+                IntRange(5, 8)),
             2 to OrcParametersRanges(
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0)),
+                IntRange(6, 11),
+                IntRange(3, 7),
+                IntRange(4, 8),
+                IntRange(5, 11)),
             3 to OrcParametersRanges(
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0)),
+                IntRange(9, 18),
+                IntRange(5, 10),
+                IntRange(4, 10),
+                IntRange(5, 14)),
             4 to OrcParametersRanges(
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0)),
+                IntRange(14, 25),
+                IntRange(8, 14),
+                IntRange(5, 12),
+                IntRange(8, 14)),
             5 to OrcParametersRanges(
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0))
+                IntRange(20, 45),
+                IntRange(10, 16),
+                IntRange(6, 12),
+                IntRange(8, 17))
         )
 
         fun calculateStats(level: Int) : OrcParameters{

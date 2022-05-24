@@ -33,30 +33,30 @@ class Rat(override val level: Int): Enemy(level, GameTiles.RAT), HasSmell {
 
         private val ratParametersRanges = mapOf(
             1 to RatParametersRanges(
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0)),
+                IntRange(3, 5),
+                IntRange(4, 6),
+                IntRange(2, 4),
+                IntRange(5, 8)),
             2 to RatParametersRanges(
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0)),
+                IntRange(5, 7),
+                IntRange(6, 10),
+                IntRange(3, 5),
+                IntRange(5, 11)),
             3 to RatParametersRanges(
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0)),
+                IntRange(7, 11),
+                IntRange(10, 16),
+                IntRange(3, 7),
+                IntRange(5, 14)),
             4 to RatParametersRanges(
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0)),
+                IntRange(11, 14),
+                IntRange(14, 20),
+                IntRange(4, 8),
+                IntRange(8, 14)),
             5 to RatParametersRanges(
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0),
-                IntRange(0, 0))
+                IntRange(14, 18),
+                IntRange(18, 25),
+                IntRange(4, 9),
+                IntRange(8, 17))
         )
 
         fun calculateStats(level: Int) : RatParameters{
