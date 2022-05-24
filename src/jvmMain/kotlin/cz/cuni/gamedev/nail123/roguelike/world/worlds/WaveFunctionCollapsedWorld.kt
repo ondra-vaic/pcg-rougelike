@@ -5,7 +5,6 @@ import cz.cuni.gamedev.nail123.roguelike.blocks.Floor
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.blocks.Wall
 import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
-import cz.cuni.gamedev.nail123.roguelike.entities.items.Ring
 import cz.cuni.gamedev.nail123.roguelike.entities.objects.Door
 import cz.cuni.gamedev.nail123.roguelike.entities.objects.Stairs
 import cz.cuni.gamedev.nail123.roguelike.mechanics.Pathfinding.eightDirectional
@@ -23,9 +22,10 @@ class WaveFunctionCollapsedWorld: DungeonWorld() {
 
 //        area.addEntity(FogOfWar(), Position3D.unknown())
 
+        area.player.ResetHealth()
+
         // Add stairs up
         if (floor > 0) area.addEntity(Stairs(false), area.player.position)
-
 
         // removes areas of walls which are too small
         removeAreas<Wall>(area, 10) { Floor() }
@@ -43,16 +43,16 @@ class WaveFunctionCollapsedWorld: DungeonWorld() {
         removeAreas<Wall>(area, 10) { Floor() }
 
         // remove walls which are surrounded by 6 and more floors
-        removeSurroundedWall(area);
+        removeSurroundedWall(area)
 
         // remove doors which are not in a corridor
-        removeLonelyDoors(area);
+        removeLonelyDoors(area)
 
-//        area.addAtEmptyPosition(
-//            area.player,
-//            Position3D.create(0, 0, 0),
-//            GameConfig.VISIBLE_SIZE
-//        )
+        area.addAtEmptyPosition(
+            area.player,
+            Position3D.create(0, 0, 0),
+            GameConfig.VISIBLE_SIZE
+        )
 
         // This fixed weird bug with walls rendering I don't know why
         for ((k, v) in area.blocks){
@@ -60,30 +60,38 @@ class WaveFunctionCollapsedWorld: DungeonWorld() {
                 area.blocks[k] = Wall()
             }
         }
-
-        val floorPosition = area.getFirstEmptyPosition()
-        val mapFill = floodFill(floorPosition, area)
-        val maxDistance = mapFill.values.maxOrNull()!!
-        val staircasePosition = mapFill.filter { it.value > maxDistance / 2 }.keys.first()
-        area.addEntity(Stairs(), staircasePosition)
-
-        println(floorPosition)
-        area.addEntity(area.player, Position3D.create(0, 41, 0))
-
-//        area.addEntity(Sword(10), Position3D.create(9, 33, 0))
-//        area.addEntity(Rat(10, 2, 1, 6), Position3D.create(11, 40, 0))
-//        area.addEntity(Orc(10, 2, 1, 6), Position3D.create(11, 30, 0))
-
-        area.addEntity(Ring(10, 3, 5), Position3D.create(0, 41, 0))
-//        area.addEntity(Body(10), Position3D.create(12, 32, 0))
-//        area.addEntity(Shield(10), Position3D.create(13, 33, 0))
+        if (floor < GameConfig.DUNGEON_FLOORS){
+            val floorPosition = area.getFirstEmptyPosition()
+            val mapFill = floodFill(floorPosition, area)
+            val maxDistance = mapFill.values.maxOrNull()!!
+            val staircasePosition = mapFill.filter { it.value > maxDistance / 2 }.keys.first()
+            area.addEntity(Stairs(), staircasePosition)
+        }
+        placeEnemies(player.position, area, floor)
 
         return area.build()
     }
 
-//    private fun getRandom(positions : Set<Position3D>){
-//        return positions.
-//    }
+    private fun placeEnemies(playerPosition: Position3D, area: WFCAreaBuilder, floor: Int){
+
+        val rng = Random.Default
+
+        val minDistanceToPlayer = 14
+        val mapFill = floodFill(playerPosition, area)
+        val corridors = findCorridors(area)
+        var possiblePositions = mapFill.filter { it.value > minDistanceToPlayer }.keys
+        for (corridor in corridors){
+            possiblePositions = possiblePositions - corridor
+        }
+
+        val level = floor / GameConfig.DUNGEON_LEVELS + 1
+        val levelProgress = (floor % GameConfig.DUNGEON_LEVELS) / GameConfig.DUNGEON_LEVELS.toFloat()
+        val numEnemies = (rng.nextInt(5, 10) + levelProgress * rng.nextInt(6, 15)).toInt()
+
+        repeat(numEnemies){
+
+        }
+    }
 
     private fun removeCycles(area: WFCAreaBuilder){
         val corridors = findCorridors(area)

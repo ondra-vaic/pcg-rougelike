@@ -75,8 +75,4 @@ class Rat(override val level: Int): Enemy(level, GameTiles.RAT), HasSmell {
             goBlindlyTowards(area.player.position)
         }
     }
-
-//    override fun die() {
-//        super.die()
-//    }
 }

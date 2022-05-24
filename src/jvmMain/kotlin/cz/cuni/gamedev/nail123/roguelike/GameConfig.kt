@@ -2,7 +2,6 @@ package cz.cuni.gamedev.nail123.roguelike
 
 import cz.cuni.gamedev.nail123.roguelike.tiles.GameTiles
 import cz.cuni.gamedev.nail123.roguelike.world.World
-import cz.cuni.gamedev.nail123.roguelike.world.worlds.SampleWorld
 import cz.cuni.gamedev.nail123.roguelike.world.worlds.WaveFunctionCollapsedWorld
 import org.hexworks.zircon.api.ColorThemes
 import org.hexworks.zircon.api.application.AppConfig
@@ -11,7 +10,8 @@ import org.hexworks.zircon.api.data.Size3D
 object GameConfig {
     fun defaultWorld(): World = WaveFunctionCollapsedWorld()
 
-    const val DUNGEON_LEVELS = 15
+    const val DUNGEON_FLOORS = 25
+    const val DUNGEON_LEVELS = 5
     val THEME = ColorThemes.zenburnVanilla()
 
     const val SIDEBAR_WIDTH = 35

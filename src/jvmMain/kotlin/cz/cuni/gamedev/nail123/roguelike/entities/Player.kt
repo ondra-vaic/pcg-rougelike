@@ -13,8 +13,8 @@ class Player: MovingEntity(GameTiles.PLAYER), HasVision, HasCombatStats, HasInve
     override val blocksMovement = true
     override val blocksVision = false
 
-    override var maxHitpoints = 100
-    override var hitpoints = 10
+    override var maxHitpoints = 15
+    override var hitpoints = maxHitpoints
     override var attack = 5
     override var defense = 1
 
@@ -26,5 +26,9 @@ class Player: MovingEntity(GameTiles.PLAYER), HasVision, HasCombatStats, HasInve
         super.die()
         this.logMessage("You have died!")
         GameOver(this).emit()
+    }
+
+    fun ResetHealth(){
+        hitpoints = maxHitpoints
     }
 }
