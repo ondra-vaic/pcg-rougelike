@@ -26,7 +26,7 @@ object GameTiles {
     val BLACK = characterTile(' ', GameColors.BLACK, GameColors.BLACK)
 
     val RAT = graphicalTile("Rat")
-
+    val ORC = graphicalTile("Orc")
     val SWORD = graphicalTile("Sword")
 
     // Autotiling tries to find a tile by whether similar tiles neighbor in some directions

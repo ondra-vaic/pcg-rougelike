@@ -5,6 +5,9 @@ import cz.cuni.gamedev.nail123.roguelike.blocks.Floor
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.blocks.Wall
 import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
+import cz.cuni.gamedev.nail123.roguelike.entities.enemies.Orc
+import cz.cuni.gamedev.nail123.roguelike.entities.enemies.Rat
+import cz.cuni.gamedev.nail123.roguelike.entities.items.Sword
 import cz.cuni.gamedev.nail123.roguelike.entities.objects.Door
 import cz.cuni.gamedev.nail123.roguelike.entities.objects.Stairs
 import cz.cuni.gamedev.nail123.roguelike.mechanics.Pathfinding.eightDirectional
@@ -49,11 +52,11 @@ class WaveFunctionCollapsedWorld: DungeonWorld() {
         // remove doors which are not in a corridor
         removeLonelyDoors(area);
 
-        area.addAtEmptyPosition(
-            area.player,
-            Position3D.create(0, 0, 0),
-            GameConfig.VISIBLE_SIZE
-        )
+//        area.addAtEmptyPosition(
+//            area.player,
+//            Position3D.create(0, 0, 0),
+//            GameConfig.VISIBLE_SIZE
+//        )
 
         // This fixed weird bug with walls rendering I don't know why
         for ((k, v) in area.blocks){
@@ -62,13 +65,23 @@ class WaveFunctionCollapsedWorld: DungeonWorld() {
             }
         }
 
-        val mapFill = floodFill(area.player.position, area)
+        val floorPosition = area.getFirstEmptyPosition()
+        val mapFill = floodFill(floorPosition, area)
         val maxDistance = mapFill.values.maxOrNull()!!
-        val staircasePosition = mapFill.filter { it.value > maxDistance / 2 }.keys.random()
+        val staircasePosition = mapFill.filter { it.value > maxDistance / 2 }.keys.first()
         area.addEntity(Stairs(), staircasePosition)
+
+        area.addEntity(area.player, Position3D.create(8, 33, 0))
+        area.addEntity(Sword(10), Position3D.create(9, 33, 0))
+        area.addEntity(Rat(10, 2, 1, 6), Position3D.create(11, 40, 0))
+        area.addEntity(Orc(10, 2, 1, 6), Position3D.create(11, 30, 0))
 
         return area.build()
     }
+
+//    private fun getRandom(positions : Set<Position3D>){
+//        return positions.
+//    }
 
     private fun removeCycles(area: WFCAreaBuilder){
         val corridors = findCorridors(area)

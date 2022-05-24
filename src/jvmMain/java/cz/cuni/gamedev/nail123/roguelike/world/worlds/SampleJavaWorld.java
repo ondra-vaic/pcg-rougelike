@@ -40,9 +40,9 @@ public class SampleJavaWorld extends World {
                 Size3D.create(areaBuilder.getWidth() / 2 - 2, areaBuilder.getHeight() / 2 - 2, 1)
         );
 
-        for (int i = 0; i <= currentLevel; ++i) {
-            areaBuilder.addAtEmptyPosition(new Rat(), Position3D.defaultPosition(), areaBuilder.getSize());
-        }
+//        for (int i = 0; i <= currentLevel; ++i) {
+//            areaBuilder.addAtEmptyPosition(new Rat(), Position3D.defaultPosition(), areaBuilder.getSize());
+//        }
 
         // Build it into a full Area
         return areaBuilder.build();

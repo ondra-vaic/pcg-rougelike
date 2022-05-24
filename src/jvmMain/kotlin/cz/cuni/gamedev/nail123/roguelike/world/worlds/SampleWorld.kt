@@ -40,9 +40,9 @@ class SampleWorld: World() {
         )
 
         // Add some rats to each level
-        repeat(currentLevel + 1) {
-            areaBuilder.addAtEmptyPosition(Rat(), Position3D.defaultPosition(), areaBuilder.size)
-        }
+//        repeat(currentLevel + 1) {
+//            areaBuilder.addAtEmptyPosition(Rat(), Position3D.defaultPosition(), areaBuilder.size)
+//        }
         // We add fog of war such that exploration is needed
 //        areaBuilder.addEntity(FogOfWar(), Position3D.unknown())
 

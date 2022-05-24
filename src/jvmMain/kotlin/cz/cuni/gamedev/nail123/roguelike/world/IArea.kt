@@ -31,6 +31,15 @@ interface IArea {
         blocks[entity.position]?.entities?.remove(entity)
     }
 
+    fun getFirstEmptyPosition() : Position3D{
+        val emptyPosition = size.allPositionsShuffled()
+            .filter { pos ->
+                this[pos]?.blocksMovement == false
+            }.first()
+
+        return emptyPosition
+    }
+
     fun addAtEmptyPosition(entity: GameEntity, offset: Position3D, size: Size3D): Boolean {
         val emptyPosition = size.allPositionsShuffled()
                 .map { pos -> pos + offset }
