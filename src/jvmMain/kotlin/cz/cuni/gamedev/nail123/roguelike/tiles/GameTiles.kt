@@ -28,6 +28,9 @@ object GameTiles {
     val RAT = graphicalTile("Rat")
     val ORC = graphicalTile("Orc")
     val SWORD = graphicalTile("Sword")
+    val BODY = graphicalTile("Armor")
+    val RING = graphicalTile("Ring")
+    val SHIELD = graphicalTile("Shield")
 
     // Autotiling tries to find a tile by whether similar tiles neighbor in some directions
     // It iterates through a list of Directional flags (which must be fulfilled) to tiles that should be used

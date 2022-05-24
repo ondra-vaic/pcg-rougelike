@@ -8,7 +8,8 @@ import cz.cuni.gamedev.nail123.roguelike.mechanics.Combat
 import cz.cuni.gamedev.nail123.roguelike.mechanics.LootSystem
 import org.hexworks.zircon.api.data.Tile
 
-abstract class Enemy(tile: Tile): MovingEntity(tile), HasCombatStats, Interactable, Interacting {
+abstract class Enemy(level: Int, tile: Tile): MovingEntity(tile), HasCombatStats, Interactable, Interacting {
+    abstract val level: Int
     override val blocksMovement = true
 
     override fun acceptInteractFrom(other: GameEntity, type: InteractionType) = interactionContext(other, type) {

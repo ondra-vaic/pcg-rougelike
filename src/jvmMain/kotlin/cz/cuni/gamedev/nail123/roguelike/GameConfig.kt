@@ -14,11 +14,11 @@ object GameConfig {
     const val DUNGEON_LEVELS = 15
     val THEME = ColorThemes.zenburnVanilla()
 
-    const val SIDEBAR_WIDTH = 18
+    const val SIDEBAR_WIDTH = 35
     const val LOG_AREA_HEIGHT = 8
 
-    const val WINDOW_WIDTH = 80
-    const val WINDOW_HEIGHT = 50
+    const val WINDOW_WIDTH = 97
+    const val WINDOW_HEIGHT = 60
 
     val VISIBLE_WIDTH = WINDOW_WIDTH - SIDEBAR_WIDTH
     val VISIBLE_HEIGHT = WINDOW_HEIGHT - LOG_AREA_HEIGHT

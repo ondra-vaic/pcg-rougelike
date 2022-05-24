@@ -1,6 +1,7 @@
 package cz.cuni.gamedev.nail123.roguelike.mechanics
 
 import cz.cuni.gamedev.nail123.roguelike.entities.enemies.Enemy
+import cz.cuni.gamedev.nail123.roguelike.entities.enemies.Orc
 import cz.cuni.gamedev.nail123.roguelike.entities.enemies.Rat
 import cz.cuni.gamedev.nail123.roguelike.entities.items.Item
 import cz.cuni.gamedev.nail123.roguelike.entities.items.Sword
@@ -12,15 +13,55 @@ object LootSystem {
     val rng = Random.Default
 
     // Sword with power 2-4
-    val basicSword = SingleDrop { Sword(rng.nextInt(3) + 2) }
+    val sword = SingleDrop { Sword(rng.nextInt(3) + 2) }
     // Sword with power 5-6
     val rareSword = SingleDrop { Sword(rng.nextInt(2) + 5) }
 
     val enemyDrops = mapOf(
-        Rat::class to TreasureClass(1, listOf(
-            2 to NoDrop,
-            1 to basicSword
-        )),
+        Rat::class to mapOf(
+            1 to TreasureClass(1, listOf(
+                2 to NoDrop,
+                1 to sword)
+            ),
+            2 to TreasureClass(1, listOf(
+                2 to NoDrop,
+                1 to sword)
+            ),
+            3 to TreasureClass(1, listOf(
+                2 to NoDrop,
+                1 to sword)
+            ),
+            4 to TreasureClass(1, listOf(
+                2 to NoDrop,
+                1 to sword)
+            ),
+            5 to TreasureClass(1, listOf(
+                2 to NoDrop,
+                1 to sword)
+            )
+        ),
+        Orc::class to mapOf(
+            1 to TreasureClass(1, listOf(
+                2 to NoDrop,
+                1 to sword)
+            ),
+            2 to TreasureClass(1, listOf(
+                2 to NoDrop,
+                1 to sword)
+            ),
+            3 to TreasureClass(1, listOf(
+                2 to NoDrop,
+                1 to sword)
+            ),
+            4 to TreasureClass(1, listOf(
+                2 to NoDrop,
+                1 to sword)
+            ),
+            5 to TreasureClass(1, listOf(
+                2 to NoDrop,
+                1 to sword)
+            )
+        ),
     )
 
     interface ItemDrop {
@@ -36,7 +77,7 @@ object LootSystem {
     }
 
     fun onDeath(enemy: Enemy) {
-        val drops = enemyDrops[enemy::class]?.getDrops() ?: return
+        val drops = enemyDrops[enemy::class]?.get(enemy.level)?.getDrops() ?: return
         for (item in drops) {
             enemy.area[enemy.position]?.entities?.add(item)
         }

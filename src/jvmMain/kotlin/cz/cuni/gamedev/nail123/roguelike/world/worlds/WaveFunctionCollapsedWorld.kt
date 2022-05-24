@@ -7,16 +7,17 @@ import cz.cuni.gamedev.nail123.roguelike.blocks.Wall
 import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
 import cz.cuni.gamedev.nail123.roguelike.entities.enemies.Orc
 import cz.cuni.gamedev.nail123.roguelike.entities.enemies.Rat
+import cz.cuni.gamedev.nail123.roguelike.entities.items.Body
+import cz.cuni.gamedev.nail123.roguelike.entities.items.Shield
+import cz.cuni.gamedev.nail123.roguelike.entities.items.Ring
 import cz.cuni.gamedev.nail123.roguelike.entities.items.Sword
 import cz.cuni.gamedev.nail123.roguelike.entities.objects.Door
 import cz.cuni.gamedev.nail123.roguelike.entities.objects.Stairs
 import cz.cuni.gamedev.nail123.roguelike.mechanics.Pathfinding.eightDirectional
 import cz.cuni.gamedev.nail123.roguelike.mechanics.Pathfinding.floodFill
-import cz.cuni.gamedev.nail123.roguelike.tiles.GameTiles
 import cz.cuni.gamedev.nail123.roguelike.world.Area
 import cz.cuni.gamedev.nail123.roguelike.world.builders.wavefunctioncollapse.WFCAreaBuilder
 import org.hexworks.zircon.api.data.Position3D
-import org.hexworks.zircon.api.data.Tile
 import kotlin.math.abs
 import kotlin.math.sign
 import kotlin.random.Random
@@ -71,10 +72,16 @@ class WaveFunctionCollapsedWorld: DungeonWorld() {
         val staircasePosition = mapFill.filter { it.value > maxDistance / 2 }.keys.first()
         area.addEntity(Stairs(), staircasePosition)
 
-        area.addEntity(area.player, Position3D.create(8, 33, 0))
-        area.addEntity(Sword(10), Position3D.create(9, 33, 0))
-        area.addEntity(Rat(10, 2, 1, 6), Position3D.create(11, 40, 0))
-        area.addEntity(Orc(10, 2, 1, 6), Position3D.create(11, 30, 0))
+        println(floorPosition)
+        area.addEntity(area.player, Position3D.create(0, 41, 0))
+
+//        area.addEntity(Sword(10), Position3D.create(9, 33, 0))
+//        area.addEntity(Rat(10, 2, 1, 6), Position3D.create(11, 40, 0))
+//        area.addEntity(Orc(10, 2, 1, 6), Position3D.create(11, 30, 0))
+
+        area.addEntity(Ring(10, 3, 5), Position3D.create(0, 41, 0))
+//        area.addEntity(Body(10), Position3D.create(12, 32, 0))
+//        area.addEntity(Shield(10), Position3D.create(13, 33, 0))
 
         return area.build()
     }
