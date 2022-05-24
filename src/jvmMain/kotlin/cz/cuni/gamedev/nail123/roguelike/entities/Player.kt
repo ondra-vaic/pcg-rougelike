@@ -18,6 +18,8 @@ class Player: MovingEntity(GameTiles.PLAYER), HasVision, HasCombatStats, HasInve
     override var attack = 5
     override var defense = 1
 
+    var lifeSteal = 0.1f
+
     override val inventory = Inventory(this)
 
     override fun die() {

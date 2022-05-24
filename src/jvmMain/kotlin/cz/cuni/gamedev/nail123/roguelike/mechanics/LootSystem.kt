@@ -3,63 +3,222 @@ package cz.cuni.gamedev.nail123.roguelike.mechanics
 import cz.cuni.gamedev.nail123.roguelike.entities.enemies.Enemy
 import cz.cuni.gamedev.nail123.roguelike.entities.enemies.Orc
 import cz.cuni.gamedev.nail123.roguelike.entities.enemies.Rat
-import cz.cuni.gamedev.nail123.roguelike.entities.items.Item
-import cz.cuni.gamedev.nail123.roguelike.entities.items.Sword
+import cz.cuni.gamedev.nail123.roguelike.entities.items.*
 import kotlin.random.Random
+import kotlin.math.ln
 
 object LootSystem {
 
     // Store rng for convenience
     val rng = Random.Default
 
-    // Sword with power 2-4
-    val sword = SingleDrop { Sword(rng.nextInt(3) + 2) }
-    // Sword with power 5-6
-    val rareSword = SingleDrop { Sword(rng.nextInt(2) + 5) }
+    private fun levelStrengthCurve(num: Int, level: Int): Int{
+        return (num * (ln(level.toDouble()) + 1)).toInt()
+    }
+
+    private fun levelStrengthCurve(num: Float, level: Int): Float{
+        return (num * (ln(level.toDouble()) + 1)).toFloat()
+    }
+
+    val sword = { level: Int ->
+        SingleDrop {
+            Sword(
+                levelStrengthCurve(
+                    rng.nextInt(3) + 2,
+                    level
+                )
+            )
+        }
+    }
+    val rareSword = { level: Int ->
+        SingleDrop {
+            Sword(
+                levelStrengthCurve(
+                    rng.nextInt(2) + 5,
+                    level
+                )
+            )
+        }
+    }
+    val veryRareSword = { level: Int ->
+        SingleDrop {
+            Sword(
+                levelStrengthCurve(
+                    rng.nextInt(10) + 1,
+                    level
+                )
+            )
+        }
+    }
+
+    val body = { level: Int ->
+        SingleDrop {
+            Body(
+                levelStrengthCurve(
+                    rng.nextInt(3) + 2,
+                    level
+                ),
+                levelStrengthCurve(
+                    rng.nextInt(4) + 2,
+                    level
+                )
+            )
+        }
+    }
+    val rareBody = { level: Int ->
+        SingleDrop {
+            Body(
+                levelStrengthCurve(
+                    rng.nextInt(5) + 3, level
+                ),
+                levelStrengthCurve(
+                    rng.nextInt(6) + 3, level
+                )
+            )
+        }
+    }
+    val veryRareBody = { level: Int ->
+        SingleDrop {
+            Body(
+                levelStrengthCurve(
+                    rng.nextInt(10) + 1,
+                    level
+                ),
+                levelStrengthCurve(rng.nextInt(13) + 3,
+                    level
+                )
+            )
+        }
+    }
+
+    val ring = { level: Int ->
+        SingleDrop {
+            Ring(
+                levelStrengthCurve(
+                    rng.nextInt(1) + 1,
+                    level
+                ),
+                levelStrengthCurve(
+                    rng.nextInt(1) + 1,
+                    level
+                ),
+                levelStrengthCurve(
+                    rng.nextFloat() * 0.05f + 0.02f,
+                    level
+                ),
+            )
+        }
+    }
+    val rareRing = { level: Int ->
+        SingleDrop {
+            Ring(
+                levelStrengthCurve(
+                    rng.nextInt(3) + 1,
+                    level
+                ),
+                levelStrengthCurve(
+                    rng.nextInt(3) + 2,
+                    level
+                ),
+                levelStrengthCurve(
+                    rng.nextFloat() * 0.1f + 0.04f,
+                    level
+                ),
+            )
+        }
+    }
+    val veryRareRing = { level: Int ->
+        SingleDrop {
+            Ring(
+                levelStrengthCurve(
+                    rng.nextInt(9),
+                    level
+                ),
+                levelStrengthCurve(
+                    rng.nextInt(10),
+                    level
+                ),
+                levelStrengthCurve(
+                    rng.nextFloat() * 0.25f + 0.01f,
+                    level
+                ),
+            )
+        }
+    }
+
+    val shield = { level: Int -> SingleDrop {
+            Shield(
+                levelStrengthCurve(
+                    rng.nextInt(5) + 2,
+                    level
+                )
+            )
+        }
+    }
+    val rareShield = { level: Int ->
+        SingleDrop {
+            Shield(
+                levelStrengthCurve(
+                    rng.nextInt(10) + 1,
+                    level
+                )
+            )
+        }
+    }
+    val veryRareShield = { level: Int ->
+        SingleDrop {
+            Shield(
+                levelStrengthCurve(
+                    rng.nextInt(25),
+                    level
+                )
+            )
+        }
+    }
 
     val enemyDrops = mapOf(
         Rat::class to mapOf(
             1 to TreasureClass(1, listOf(
                 2 to NoDrop,
-                1 to sword)
+                1 to veryRareShield(1))
             ),
             2 to TreasureClass(1, listOf(
                 2 to NoDrop,
-                1 to sword)
+                1 to sword(2))
             ),
             3 to TreasureClass(1, listOf(
                 2 to NoDrop,
-                1 to sword)
+                1 to sword(3))
             ),
             4 to TreasureClass(1, listOf(
                 2 to NoDrop,
-                1 to sword)
+                1 to sword(4))
             ),
             5 to TreasureClass(1, listOf(
                 2 to NoDrop,
-                1 to sword)
+                1 to sword(5))
             )
         ),
         Orc::class to mapOf(
             1 to TreasureClass(1, listOf(
                 2 to NoDrop,
-                1 to sword)
+                1 to sword(1))
             ),
             2 to TreasureClass(1, listOf(
                 2 to NoDrop,
-                1 to sword)
+                1 to sword(2))
             ),
             3 to TreasureClass(1, listOf(
                 2 to NoDrop,
-                1 to sword)
+                1 to sword(3))
             ),
             4 to TreasureClass(1, listOf(
                 2 to NoDrop,
-                1 to sword)
+                1 to sword(4))
             ),
             5 to TreasureClass(1, listOf(
                 2 to NoDrop,
-                1 to sword)
+                1 to sword(5))
             )
         ),
     )
@@ -72,7 +231,7 @@ object LootSystem {
         override fun getDrops() = listOf<Item>()
     }
 
-    class SingleDrop(val instantiator: () -> Item): ItemDrop {
+    open class SingleDrop(open val instantiator: () -> Item): ItemDrop {
         override fun getDrops() = listOf(instantiator())
     }
 

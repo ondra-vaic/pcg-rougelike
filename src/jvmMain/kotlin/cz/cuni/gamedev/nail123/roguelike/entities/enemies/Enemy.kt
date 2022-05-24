@@ -23,7 +23,7 @@ abstract class Enemy(level: Int, tile: Tile): MovingEntity(tile), HasCombatStats
     override fun die() {
         super.die()
         LootSystem.onDeath(this)
-        area.player.hitpoints += maxHitpoints
+        area.player.hitpoints += (maxHitpoints * area.player.lifeSteal).toInt()
         area.player.hitpoints.coerceAtMost(area.player.maxHitpoints)
     }
 }

@@ -5,12 +5,7 @@ import cz.cuni.gamedev.nail123.roguelike.blocks.Floor
 import cz.cuni.gamedev.nail123.roguelike.blocks.GameBlock
 import cz.cuni.gamedev.nail123.roguelike.blocks.Wall
 import cz.cuni.gamedev.nail123.roguelike.entities.GameEntity
-import cz.cuni.gamedev.nail123.roguelike.entities.enemies.Orc
-import cz.cuni.gamedev.nail123.roguelike.entities.enemies.Rat
-import cz.cuni.gamedev.nail123.roguelike.entities.items.Body
-import cz.cuni.gamedev.nail123.roguelike.entities.items.Shield
 import cz.cuni.gamedev.nail123.roguelike.entities.items.Ring
-import cz.cuni.gamedev.nail123.roguelike.entities.items.Sword
 import cz.cuni.gamedev.nail123.roguelike.entities.objects.Door
 import cz.cuni.gamedev.nail123.roguelike.entities.objects.Stairs
 import cz.cuni.gamedev.nail123.roguelike.mechanics.Pathfinding.eightDirectional
